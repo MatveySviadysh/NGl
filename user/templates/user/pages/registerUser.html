@@ -1,6 +1,11 @@
+{% include 'user/components/header.html' %}
+
+
 <h2>Регистрация</h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Зарегистрироваться</button>
 </form>
+
+{% include 'user/components/fotter.html' %}

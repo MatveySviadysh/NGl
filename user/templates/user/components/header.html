@@ -1,0 +1,16 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/scss/header.scss' %}">
+
+<div class="navbar">
+    <div class="navbar-left">
+        <a href="/">NGL</a>
+    </div>
+    <div class="navbar-right">
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout-user' %}" class="navbar-link">Выйти</a>
+        {% else %}
+            <a href="{% url 'login-user' %}" class="navbar-link">Вход для специалистов</a>
+            <a href="{% url 'login-user' %}" class="navbar-link">Вход для учеников</a>
+        {% endif %}
+    </div>
+</div>
