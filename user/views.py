@@ -11,7 +11,7 @@ def register(request):
             return redirect('profile')
     else:
         form = UserRegisterForm()
-    return render(request, '/user/pages/registerUser.html', {'form': form})
+    return render(request, 'user/pages/registerUser.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
@@ -31,4 +31,4 @@ def user_logout(request):
     return redirect('login')
     
 def main_page(request):
-    return render(request, 'user/main_page.html')
+    return render(request, 'user/pages/MainPage.html')
