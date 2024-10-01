@@ -1,16 +1,10 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'user/scss/MainPage.scss' %}">
-    <title>Главная страница</title>
-</head>
+
+<link rel="stylesheet" href="{% static 'user/scss/MainPage.scss' %}">
+
+{% include 'user/components/Header.html' %}
 <body>
     <div class="main-page">
-      {% include 'user/components/header.html' %}
-
         <h1 class="header-title">Идеальным быть легко</h1>
 
         <div class="search-bar">
@@ -29,11 +23,9 @@
 
         <div class="teacher-cards">
             <div class="teacher-card">
-                <!-- Замените путь к изображению на актуальный -->
                 <img src="assets/Avatar.png" alt="Учитель">
                 <p>Название Учителя</p>
             </div>
-            <!-- Добавьте дополнительные карточки учителей по необходимости -->
         </div>
 
         <h2>Заголовок раздела</h2>
@@ -41,7 +33,6 @@
         <h3>Подзаголовок раздела</h3>
 
         <div class="categories-section">
-            <!-- Здесь будет контент для CategoriesSection -->
             <p>Содержимое категорий</p>
         </div>
 
@@ -61,8 +52,6 @@
                 <p>Рейтинг: ⭐⭐⭐⭐</p>
             </div>
         </div>
-
-        {% include 'user/components/fotter.html' %}
     </div>
 </body>
-</html>
+{% include 'user/components/Fotter.html' %}

@@ -8,7 +8,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('profile')
+            return redirect('profile-user')
     else:
         form = UserRegisterForm()
     return render(request, 'user/pages/registerUser.html', {'form': form})
@@ -18,7 +18,7 @@ def user_login(request):
         form = UserLoginForm(request, data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('profile')
+            return redirect('profile-user')
     else:
         form = UserLoginForm()
     return render(request, 'user/pages/loginUser.html', {'form': form})
@@ -28,7 +28,7 @@ def profile(request):
 
 def user_logout(request):
     logout(request)
-    return redirect('login')
+    return redirect('main-page')
     
 def main_page(request):
     return render(request, 'user/pages/MainPage.html')

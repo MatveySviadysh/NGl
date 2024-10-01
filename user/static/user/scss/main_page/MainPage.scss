@@ -1,0 +1,63 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  background-color: #f9f9f9;
+  margin-bottom: -200px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 200px);
+
+}
+
+.header-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 64px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 87px;
+}
+
+.main-page {
+  padding-left: 215px;
+  padding-right: 242px;
+}
+
+.search-bar {
+  margin-bottom: 17px;
+}
+
+.teacher-cards {
+  margin-top: 127px;
+  margin-bottom: 165px;
+}
+
+.heading {
+  margin-bottom: 53px
+}
+
+.sub-heading {
+  margin-bottom: 69px;
+}
+
+.categories-section {
+  margin-bottom: 165px;
+}
+
+.how-it-works {
+  margin-bottom: 165px;
+}

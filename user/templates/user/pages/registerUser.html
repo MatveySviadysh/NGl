@@ -1,4 +1,4 @@
-{% include 'user/components/header.html' %}
+{% include 'user/components/Header.html' %}
 
 
 <h2>Регистрация</h2>
@@ -6,6 +6,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Зарегистрироваться</button>
+    <a href="{% url 'login-user' %}">вход</a>
 </form>
 
-{% include 'user/components/fotter.html' %}
+{% include 'user/components/Fotter.html' %}

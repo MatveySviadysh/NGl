@@ -3,7 +3,7 @@
 
 <div class="navbar">
     <div class="navbar-left">
-        <a href="/">NGL</a>
+        <a href="{% url 'main-page' %}">NGL</a>
     </div>
     <div class="navbar-right">
         {% if user.is_authenticated %}
