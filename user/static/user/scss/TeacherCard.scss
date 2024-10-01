@@ -1,0 +1,35 @@
+.teacher-cards-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.card-wrapper {
+  text-align: center;
+  margin: 10px;
+}
+
+.teacher-card {
+  width: 250px;
+  /* ширина прямоугольника */
+  height: 243px;
+  /* высота прямоугольника */
+  border-radius: 10px;
+  /* закругление углов */
+  border: 1px solid #ccc;
+  /* граница (опционально) */
+  overflow: hidden;
+  /* скрытие переполнение */
+
+  img {
+    width: 100%;
+    /* изображение заполняет ширину контейнера */
+    height: auto;
+    /* высота авто для сохранения пропорций */
+  }
+}
+
+.subject {
+  margin-top: 10px;
+}

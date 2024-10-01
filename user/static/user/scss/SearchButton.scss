@@ -1,0 +1,16 @@
+.search-button {
+  background-color: #ff4b4b;
+  color: white;
+  width: 188px; // Set button width to 188 pixels
+  height: 72px;
+  border: none;
+  padding: 10px 200px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e04343;
+  }
+}

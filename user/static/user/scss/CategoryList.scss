@@ -1,0 +1,15 @@
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0;
+
+  .category-tag {
+    margin: 5px;
+    padding: 10px 20px; // Отступы 10px сверху и снизу, 20px слева и справа
+    border-radius: 20px; // Закруглённые углы
+    background-color: #f0f0f0; // Цвет фона (можно изменить)
+    border: 0px solid #ccc; // Граница (можно изменить)
+    display: inline-block; // Для того чтобы обёртка подстраивалась по размеру
+    font-size: 16px; // Размер шрифта (можно изменить)
+  }
+}

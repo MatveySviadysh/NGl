@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'user/scss/MainPage.scss' %}">
+    <title>Главная страница</title>
+</head>
+<body>
+    <div class="main-page">
+      {% include 'user/components/header.html' %}
+
+        <h1 class="header-title">Идеальным быть легко</h1>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Поиск...">
+            <button type="submit">Найти</button>
+        </div>
+
+        <div class="category-list">
+            <ul>
+                <li>Английский язык</li>
+                <li>Физкультура</li>
+                <li>История</li>
+                <li>Математика</li>
+            </ul>
+        </div>
+
+        <div class="teacher-cards">
+            <div class="teacher-card">
+                <!-- Замените путь к изображению на актуальный -->
+                <img src="assets/Avatar.png" alt="Учитель">
+                <p>Название Учителя</p>
+            </div>
+            <!-- Добавьте дополнительные карточки учителей по необходимости -->
+        </div>
+
+        <h2>Заголовок раздела</h2>
+
+        <h3>Подзаголовок раздела</h3>
+
+        <div class="categories-section">
+            <!-- Здесь будет контент для CategoriesSection -->
+            <p>Содержимое категорий</p>
+        </div>
+
+        <div class="how-it-works">
+            <h2>Как это работает</h2>
+            <p>Некоторое описание процесса...</p>
+        </div>
+
+        <div class="review-section">
+            <h2>Отзывы</h2>
+            <div class="review">
+                <p>Отличный преподаватель! <strong>Автор: Елена</strong></p>
+                <p>Рейтинг: ⭐⭐⭐⭐⭐</p>
+            </div>
+            <div class="review">
+                <p>Очень помог с подготовкой к экзаменам. <strong>Автор: Алексей</strong></p>
+                <p>Рейтинг: ⭐⭐⭐⭐</p>
+            </div>
+        </div>
+
+        {% include 'user/components/fotter.html' %}
+    </div>
+</body>
+</html>

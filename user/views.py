@@ -29,3 +29,6 @@ def profile(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+    
+def main_page(request):
+    return render(request, 'user/main_page.html')

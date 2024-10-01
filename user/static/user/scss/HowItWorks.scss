@@ -1,0 +1,25 @@
+.how-it-works {
+  position: relative; // Позволяет расположить прямоугольник правильно
+
+  .rectangle {
+    width: 315px;
+    height: 263px;
+    border-radius: 10px; // Закругление углов
+    background-color: #f0f0f0; // Цвет фона, можете изменить по необходимости
+    margin: 0 auto 20px; // Центрировать и добавить отступ снизу
+  }
+
+  .steps {
+    display: flex;
+    justify-content: space-around;
+
+    .step {
+      width: 20%;
+      text-align: center;
+
+      h3 {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

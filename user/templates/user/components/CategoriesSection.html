@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'user/scss/CategoriesSection.scss' %}"> 
+    <title>Categories Section</title>
+    <style>
+        .categories-section {
+            padding: 20px;
+            border: 1px solid #ddd; /* Пример стиля для секции */
+        }
+
+        .category {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .category-title {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .category-items {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .category-items li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="categories-section">
+    <div class="category">
+        <div class="category-title">Репетиторы</div>
+        <ul class="category-items">
+            <li>Английский язык</li>
+            <li>История</li>
+            <li>Математика</li>
+            <li>Русский язык</li>
+            <li>Все услуги</li>
+        </ul>
+    </div>
+    <div class="category">
+        <div class="category-title">Бухгалтеры и юристы</div>
+        <ul class="category-items">
+            <li>Бухгалтеры</li>
+            <li>Юристы</li>
+            <li>Бизнес-тренеры</li>
+            <li>Делопроизводители</li>
+            <li>Все услуги</li>
+        </ul>
+    </div>
+    <div class="category">
+        <div class="category-title">Мастера по ремонту</div>
+        <ul class="category-items">
+            <li>Сантехники</li>
+            <li>Электрики</li>
+            <li>Плиточники</li>
+            <li>Штукатуры</li>
+            <li>Все услуги</li>
+        </ul>
+    </div>
+    <div class="category">
+        <div class="category-title">Фрилансеры</div>
+        <ul class="category-items">
+            <li>Дизайнеры</li>
+            <li>Маркетинг</li>
+            <li>Программисты</li>
+            <li>Верстальщики</li>
+            <li>Все услуги</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

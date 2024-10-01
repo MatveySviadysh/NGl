@@ -1,0 +1,62 @@
+.review-section {
+  h2 {
+    margin-bottom: 20px;
+    /* Отступ под заголовком */
+  }
+
+  .review {
+    display: flex;
+    align-items: flex-start;
+    /* Центрируем элементы по верхнему краю */
+    margin: 15px 0;
+    /* Отступы между отзывами */
+
+    .review-rectangle {
+      width: 40px;
+      height: 60px;
+      border: 1px solid #ccc;
+      /* Граница прямоугольника */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 15px;
+      /* Отступ справа от прямоугольника */
+      padding: 5px;
+      /* Внутренний отступ */
+      text-align: center;
+      /* Центрируем текст */
+      background-color: #f9f9f9;
+      /* Светлый фон для прямоугольника */
+      border-radius: 5px;
+      /* Слегка закругленные углы */
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      /* Вертикальное выравнивание для текста и звёзд */
+      margin-right: 10px;
+      /* Отступы между контентом и звёздами */
+    }
+
+    .rating {
+      display: flex;
+      margin-top: 5px;
+      /* Отступ между текстом отзыва и звёздами */
+    }
+
+    .review-star {
+      color: gold;
+      margin-right: 2px;
+      /* Отступ между звёздами */
+    }
+
+    .author {
+      font-weight: bold;
+      margin-top: 5px;
+      /* Отступ сверху для имени автора */
+      margin-left: 10px;
+      /* Отступ слева от имени автора */
+    }
+  }
+}

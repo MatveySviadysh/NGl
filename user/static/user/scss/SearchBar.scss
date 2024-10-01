@@ -1,0 +1,31 @@
+.search-bar {
+  display: flex;
+  align-items: right; // Center items vertically
+  width: 100%; // Adjust search bar width as needed
+  height: 72px; // Set the height of the search bar
+
+  input {
+    width: 814px; // Set input width to 814 pixels
+    height: 72px; // Set input height to 72 pixels // Add padding
+    padding: 10px 0 10px 26px;
+
+    border: none; // Remove default border
+    border-radius: 10px 10px 10px 10px; // Round left corners
+    background-color: #DEDEDE; // Set background color
+    font-size: 32px; // Set text size to 32px
+    font-family: 'Inter', sans-serif; // Set font to Inter
+  }
+
+  button {
+    width: 188px; // Set button width to 188 pixels
+    height: 92px; // Set button height to 72 pixels
+    padding: 10px; // Add padding
+    border: none; // Remove default border
+    border-radius: 10px 10px 10px 10px; // Round right corners
+    cursor: pointer; // Change cursor to pointer
+    background-color: #ff0000; // Keep button background color
+    font-size: 32px; // Set text size to 32px
+    font-family: 'Inter', sans-serif; // Set font to Inter
+    margin-left: 20px;
+  }
+}

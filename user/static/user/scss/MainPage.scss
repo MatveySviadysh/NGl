@@ -1,0 +1,63 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  background-color: #f9f9f9;
+  margin-bottom: -200px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 200px);
+
+}
+
+.header-title {
+  font-family: 'Inter', sans-serif; // Make sure Inter font is imported
+  font-size: 64px;
+  font-weight: 600; // Semi-bold
+  margin: 0; // Remove any default margin
+  padding: 0; // Remove any default padding
+  text-align: left; // Align left
+  width: 100%; // Make sure it stretches full width
+  margin-bottom: 87px;
+}
+
+.main-page {
+  padding-left: 215px; // Optional: some left padding for aesthetics
+  padding-right: 242px; // Optional: some right padding for aesthetics
+}
+
+.search-bar {
+  margin-bottom: 17px; // Отступ под поисковой строкой
+}
+
+.teacher-cards {
+  margin-top: 127px;
+  margin-bottom: 165px; // Отступ под карточками учителей
+}
+
+.heading {
+  margin-bottom: 53px; // Отступ под заголовком
+}
+
+.sub-heading {
+  margin-bottom: 69px; // Отступ под подзаголовком
+}
+
+.categories-section {
+  margin-bottom: 165px; // Отступ для секции категорий
+}
+
+.how-it-works {
+  margin-bottom: 165px;
+}
