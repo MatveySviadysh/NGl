@@ -1,3 +1,4 @@
+/* Стили для общего контейнера */
 .navbar {
   width: 100%;
   display: flex;
@@ -9,14 +10,34 @@
   box-sizing: border-box;
 }
 
+/* Стили для левого блока */
 .navbar-left {
   margin-left: 209px;
 }
 
+/* Стили для правого блока */
 .navbar-right {
   margin-right: 231px;
 }
 
+/* Стили для логотипа */
+.navbar-logo {
+  font-size: 30px; /* Увеличиваем размер логотипа */
+  font-weight: bold;
+  text-transform: uppercase; /* Верхний регистр для логотипа */
+  color: #e60000; /* Делаем логотип красного цвета */
+  text-decoration: none; /* Убираем подчеркивание */
+  pointer-events: none; /* Отключаем все события (для того, чтобы не было реакции на наведение) */
+}
+
+/* Убираем эффекты при наведении */
+.navbar-logo:hover {
+  color: #ff0000; /* Цвет логотипа остается красным */
+  transform: none; /* Убираем любые трансформации */
+  background: none; /* Без фона */
+}
+
+/* Стили для ссылок в navbar */
 .navbar-link {
   margin-left: 55px;
   font-size: 15px;
@@ -24,26 +45,19 @@
   text-decoration: none;
   font-weight: normal;
   position: relative;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.navbar-link::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 2px;
-  background: #333;
-  transition: width 0.3s ease;
-  position: absolute;
-  left: 0;
-  bottom: -5px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+  display: inline-block;
 }
 
 .navbar-link:hover {
-  color: #007BFF;
+  text-decoration: none;
+  color: #ff0000;
+  background-color: #f0f0f0;
   transform: translateY(-2px);
 }
 
 .navbar-link:hover::after {
-  width: 100%;
+  width: 0;
 }
