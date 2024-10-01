@@ -1,8 +1,40 @@
+{% load static %}
 {% include 'user/components/Header.html' %}
+<link rel="stylesheet" href="{% static 'user/scss/ProfileUser.scss' %}">
+
+<div class="profile-container">
+    <div class="sidebar">
+        <ul>
+            <li><a href="#">Анкета</a></li>
+            <li><a href="#">Сменить пароль</a></li>
+            <li><a href="#">Уведомления</a></li>
+            <li><a href={% url 'main-page' %}>На главную</a></li>
+        </ul>
+    </div>
+    <div class="profile-content">
+        <h1>Профиль</h1>
+        <form action="{% url 'profile-user' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Имя:</label>
+                <input type="text" id="name" name="name" value="{{ user.username }}" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Телефон:</label>
+                <input type="tel" id="phone" name="phone" value="{{ user.profile.phone_number }}" required>
+            </div>
+            <button type="submit" class="save-btn">СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+        </form>
+    </div>
+    <div class="profile-picture">
+        <img src="{% static 'user/images/default_avatar.jpg' %}" alt="Avatar">
+    </div>
+</div>
 
 
-<h2>Профиль пользователя</h2>
-<p>Добро пожаловать, {{ user.username }}!</p>
-<a href="{% url 'logout-user' %}">Выйти</a>
 
 {% include 'user/components/Fotter.html' %}
