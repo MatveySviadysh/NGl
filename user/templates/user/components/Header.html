@@ -3,8 +3,7 @@
 
 <div class="navbar">
     <div class="navbar-left">
-        <!-- Обновляем HTML логотипа -->
-        <a href="{% url 'main-page' %}" class="navbar-logo">NGL</a>
+        <a href="{% url 'main-page' %}">NGL</a>
     </div>
     <div class="navbar-right">
         {% if user.is_authenticated %}
@@ -13,7 +12,7 @@
                 <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 40px; height: 40px; object-fit: cover;">
             </a>
         {% else %}
-            <a href="{% url 'login-user' %}" class="navbar-link">Вход для специалистов</a>
+            <a href="{% url 'login_tutor' %}" class="navbar-link">Вход для специалистов</a>
             <a href="{% url 'login-user' %}" class="navbar-link">Вход для учеников</a>
         {% endif %}
     </div>

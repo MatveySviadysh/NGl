@@ -1,4 +1,3 @@
-/* Стили для общего контейнера */
 .navbar {
   width: 100%;
   display: flex;
@@ -10,34 +9,29 @@
   box-sizing: border-box;
 }
 
-/* Стили для левого блока */
 .navbar-left {
   margin-left: 209px;
 }
 
-/* Стили для правого блока */
 .navbar-right {
   margin-right: 231px;
 }
 
-/* Стили для логотипа */
 .navbar-logo {
-  font-size: 30px; /* Увеличиваем размер логотипа */
+  font-size: 30px;
   font-weight: bold;
-  text-transform: uppercase; /* Верхний регистр для логотипа */
-  color: #e60000; /* Делаем логотип красного цвета */
-  text-decoration: none; /* Убираем подчеркивание */
-  pointer-events: none; /* Отключаем все события (для того, чтобы не было реакции на наведение) */
+  text-transform: uppercase;
+  color: #e60000;
+  text-decoration: none;
+  pointer-events: none;
 }
 
-/* Убираем эффекты при наведении */
 .navbar-logo:hover {
-  color: #ff0000; /* Цвет логотипа остается красным */
-  transform: none; /* Убираем любые трансформации */
-  background: none; /* Без фона */
+  color: #ff0000;
+  transform: none;
+  background: none;
 }
 
-/* Стили для ссылок в navbar */
 .navbar-link {
   margin-left: 55px;
   font-size: 15px;
