@@ -1,0 +1,13 @@
+{% load static %}
+
+{% include 'user/components/Header.html' %}
+
+<form method="post">
+    {% csrf_token %}    
+    {{ form.as_p }}
+    <button type="submit">Зарегистрироваться</button>
+</form>
+
+{% include 'user/components/Fotter.html' %}
+
+<a href="{% url 'login_tutor' %}">вход</a>

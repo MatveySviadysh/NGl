@@ -1,0 +1,13 @@
+{% block content %}
+<div class="tutor-profile">
+    <h1>Профиль Репетитора</h1>
+    <div class="tutor-info">
+        <p><strong>Имя: </strong>{{ tutor }}</p>  {# Предположим, что у вас есть поле name в модели Tutor #}
+    </div>
+
+    <form action="{% url 'logout-tutor' %}" method="post" class="logout-form">
+        {% csrf_token %}
+        <button type="submit" class="logout-button">Выйти</button>
+    </form>
+</div>
+{% endblock %}
