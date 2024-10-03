@@ -3,6 +3,7 @@ from .forms import *
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 
 def register(request):
     if request.method == 'POST':
@@ -31,9 +32,14 @@ def profile(request):
 def user_logout(request):
     logout(request)
     return redirect('main-page')
-    
+
+def tutor_list(request, specialization):
+    tutors = Tutor.objects.filter(specialization=specialization)
+    return render(request, 'user/pages/TutorList.html', {'tutors': tutors, 'specialization': specialization})
+
 def main_page(request):
-    return render(request, 'user/pages/MainPage.html')
+    specializations = Tutor.objects.values_list('specialization', flat=True).distinct()
+    return render(request, 'user/pages/MainPage.html', {'specializations': specializations})
 
 def register_tutor(request):
     if request.method == 'POST':
@@ -79,3 +85,7 @@ def tutor_logout(request):
         logout(request)
         messages.success(request, "Вы успешно вышли из аккаунта!")
     return redirect('main-page')
+
+def all_tutors(request):
+    tutors = Tutor.objects.all()
+    return render(request, 'user/pages/AllTutors.html', {'tutors': tutors})

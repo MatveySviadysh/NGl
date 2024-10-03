@@ -14,10 +14,11 @@
 
         <div class="category-list">
             <ul>
-                <li>Английский язык</li>
-                <li>Физкультура</li>
-                <li>История</li>
-                <li>Математика</li>
+                {% for specialization in specializations %}
+                    <li><a href="{% url 'tutor_list' specialization %}">{{ specialization }}</a></li>
+                {% empty %}
+                    <li>Нет доступных специализаций.</li>
+                {% endfor %}
             </ul>
         </div>
 

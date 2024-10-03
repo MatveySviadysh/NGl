@@ -11,5 +11,7 @@ urlpatterns = [
     path('cabinet/tutor/login/', login_tutor, name='login_tutor'),
     path('cabinet/tutor/', profile_tutor, name='profile-tutor'),
     path('cabinet/tutor/logout/', tutor_logout, name='logout-tutor'), 
+    path('tutors/<str:specialization>/', tutor_list, name='tutor_list'),
+    path('all/tutors/', all_tutors, name='all_tutors'),
 ]
 
