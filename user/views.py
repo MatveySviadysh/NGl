@@ -39,7 +39,11 @@ def tutor_list(request, specialization):
 
 def main_page(request):
     specializations = Tutor.objects.values_list('specialization', flat=True).distinct()
-    return render(request, 'user/pages/MainPage.html', {'specializations': specializations})
+    user_count = User.objects.count()
+    return render(request, 'user/pages/MainPage.html', {
+        'specializations': specializations,
+        'user_count': user_count,
+    })
 
 def register_tutor(request):
     if request.method == 'POST':
