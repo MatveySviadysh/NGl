@@ -5,9 +5,8 @@
 <div class="profile-container">
     <div class="sidebar">
         <ul>
-            <li><a href="#">Анкета</a></li>
-            <li><a href="#">Сменить пароль</a></li>
-            <li><a href="#">Уведомления</a></li>
+            <li><a href={% url 'change-password-user' %}>Сменить пароль</a></li>
+            <li><a href={% url 'notifications_user' %}>Уведомления</a></li>
             <li><a href={% url 'main-page' %}>На главную</a></li>
         </ul>
     </div>

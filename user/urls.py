@@ -13,5 +13,7 @@ urlpatterns = [
     path('cabinet/tutor/logout/', tutor_logout, name='logout-tutor'), 
     path('tutors/<str:specialization>/', tutor_list, name='tutor_list'),
     path('all/tutors/', all_tutors, name='all_tutors'),
+    path('cabinet/user/notifications/', notifications_user, name='notifications_user'),
+    path('cabinet/user/change_password/', change_password_user, name='change-password-user'),
 ]
 
