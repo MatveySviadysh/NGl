@@ -4,6 +4,7 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
+from django.db.models import Count
 
 def register(request):
     if request.method == 'POST':
@@ -40,9 +41,14 @@ def tutor_list(request, specialization):
 def main_page(request):
     specializations = Tutor.objects.values_list('specialization', flat=True).distinct()
     user_count = User.objects.count()
+    popular_specializations = (Tutor.objects
+        .values('specialization')
+        .annotate(count=Count('id'))
+        .order_by('-count')[:4])
     return render(request, 'user/pages/MainPage.html', {
         'specializations': specializations,
         'user_count': user_count,
+        'popular_specializations': popular_specializations,
     })
 
 def register_tutor(request):

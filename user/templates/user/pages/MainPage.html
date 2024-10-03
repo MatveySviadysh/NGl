@@ -13,9 +13,17 @@
             <button type="submit">Найти</button>
         </div>
 
+        <ul>
+            {% for specialization in popular_specializations %}
+                <li><a href="{% url 'tutor_list' specialization.specialization %}">{{ specialization.specialization }}</a></li>
+            {% empty %}
+                <li>Популярные специализации отсутствуют.</li>
+            {% endfor %}
+        </ul>
+        <p>наши профи</p>
         <div class="category-list">
             <ul>
-                {% for specialization in specializations %}
+                {% for specialization in specializations    %}
                     <li><a href="{% url 'tutor_list' specialization %}">{{ specialization }}</a></li>
                 {% empty %}
                     <li>Нет доступных специализаций.</li>
