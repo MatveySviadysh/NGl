@@ -72,7 +72,7 @@ def login_tutor(request):
     return render(request, 'user/pages/LoginTutor.html', {'form': form})
 
 def profile_tutor(request):
-    return render(request, 'user/pages/ProfileTutor.html')
+    return render(request, 'user/pages/ProfileTutor.html', {'user': request.user})
 
 def tutor_logout(request):
     if request.method == 'POST':
