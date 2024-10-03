@@ -25,5 +25,3 @@ local_settings.py
 .idea/
 .vscode/
 
-# Ignore migration files
-*/migrations/
