@@ -1,63 +1,99 @@
-.login-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100vh;
-  background-color: #f9f9f9;
-  margin-bottom: -200px;
-}
-
-h1 {
-  font-size: 24px;
-  font-weight: 600;
-}
-
-.form-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: calc(100vh - 200px);
-
-}
-
 .header-title {
   font-family: 'Inter', sans-serif;
-  font-size: 64px;
-  font-weight: 600;
-  margin: 0;
-  padding: 0;
-  text-align: left;
-  width: 100%;
-  margin-bottom: 87px;
+  font-size: 80px;
 }
 
-.main-page {
-  padding-left: 215px;
-  padding-right: 242px;
+.main-page{
+  margin-left: 350px;
+  margin-right: 350px;
+  margin-top: 108px;
+}
+
+.count-users{
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  margin-top: -30px;
 }
 
 .search-bar {
-  margin-bottom: 17px;
+  margin-top: 60px;
+  height: 80px;
+  width: 914px;
+  border-radius: 10px;
+  font-size: 18px; /* Увеличение размера текста */
+  color: #333; /* Цвет текста, можно настроить */
+  padding: 10px; /* Добавление отступов */
 }
 
-.teacher-cards {
+.search-bar::placeholder {
+  color: #777; /* Цвет текстовой подсказки (placeholder) */
+  font-size: 18px; /* Увеличение размера текста placeholder */
+  opacity: 1; /* Сделаем его полностью непрозрачным */
+}
+
+.search-button{
+  background-color: FF0000;
+  color: white;
+  font-size: 20px;
+  font-style: bold;
+  height: 80px;
+  width: 220px;
+  border-radius: 10px;
+}
+
+.profi{
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+}
+
+.specializations-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .specialization-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    flex: 0 0 calc(25% - 30px);
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 10px;
+    letter-spacing: 0.5px; // Отступ между символами
+
+    a {
+      text-decoration: none;
+      color: #333;
+
+      &:hover {
+        color: #007bff;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap; // Позволяет элементам переноситься на следующую строку
+  justify-content: space-between; // Распределение элементов по правой и левой стороне
+
+  .box {
+      width: 235.5px; // Ширина прямоугольников
+      height: 243px; // Высота прямоугольников
+      background-color: #4CAF50; // Цвет фона
+      margin-bottom: 15px; // Отступ между строками
+      border-radius: 8px; // Закругленные углы
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); // Тень для эффекта
+  }
+}
+
+.images img {
+  margin-right: 40px;
+  width: 250px;
+  height: 254px;
+  border-radius: 10px; /* Если вы хотите, чтобы границы изображения тоже были закруглены */
+}
+
+.container-images{
   margin-top: 127px;
-  margin-bottom: 165px;
 }
 
-.heading {
-  margin-bottom: 53px
-}
-
-.sub-heading {
-  margin-bottom: 69px;
-}
-
-.categories-section {
-  margin-bottom: 165px;
-}
-
-.how-it-works {
-  margin-bottom: 165px;
-}

@@ -1,19 +1,20 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'user/scss/Header.scss' %}">
-
-<div class="navbar">
-    <div class="navbar-left">
-        <a href="{% url 'main-page' %}">NGL</a>
-    </div>
-    <div class="navbar-right">
-        {% if user.is_authenticated %}
-            <a href="{% url 'logout-user' %}" class="navbar-link">Выйти</a>
-            <a href="{% url 'profile-user' %}">
-                <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 40px; height: 40px; object-fit: cover;">
-            </a>
-        {% else %}
-            <a href="{% url 'login_tutor' %}" class="navbar-link">Вход для специалистов</a>
-            <a href="{% url 'login-user' %}" class="navbar-link">Вход для учеников</a>
-        {% endif %}
+<div class="navbarP">
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="{% url 'main-page' %}">NGL</a>
+        </div>
+        <div class="navbar-right">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout-user' %}" class="navbar-link">Выйти</a>
+                <a href="{% url 'profile-user' %}">
+                    <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 40px; height: 40px; object-fit: cover;">
+                </a>
+            {% else %}
+                <a href="{% url 'login_tutor' %}" class="navbar-link">Вход для специалистов</a>
+                <a href="{% url 'login-user' %}" class="navbar-link">Вход для учеников</a>
+            {% endif %}
+        </div>
     </div>
 </div>

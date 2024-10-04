@@ -1,150 +1,264 @@
 .down_header {
+
   background-color: #EBEBEB;
+
   width: 100%;
+
   height: 30vh; /* Высота футера составляет 30% от высоты экрана */
+
   display: flex;
+
   padding: 20px;
+
   padding-left: 150px;
+
   box-sizing: border-box;
+
   font-size: 15px;
+
   transition: background-color 0.3s ease;
+
   position: fixed; /* Фиксированное положение */
+
   bottom: 0; /* Закрепить футер снизу */
+
   left: 0;
+
   z-index: 10; /* Приоритет отображения */
 
+
   &:hover {
+
     background-color: #e0e0e0;
+
   }
+
 
   .column {
+
     flex: 1;
+
     text-align: left;
+
     display: flex;
+
     flex-direction: column; /* Размещает ссылки вертикально */
-    gap: 10px; /* Единый отступ между элементами */
+
+    gap: 5px; /* Уменьшенный отступ между элементами */
+
   }
+
 
   .first-column {
+
     margin-left: 0;
+
   }
+
 
   h3,
+
   p {
+
     margin: 5px 0;
+
   }
+
 
   .link-wrapper {
-    margin-bottom: 10px; /* Сокращение расстояния */
+
+    margin-bottom: 5px; /* Уменьшение расстояния между ссылками */
+
   }
+
 
   a {
+
     color: #000;
+
     text-decoration: none; /* Убираем подчеркивание под ссылками */
-    margin-bottom: 10px; /* Уменьшить расстояние между ссылками */
+
+    margin-bottom: 5px; /* Уменьшение расстояния между ссылками */
+
     position: relative;
+
     transition: color 0.3s ease;
 
+
     &:hover {
+
       text-decoration: none; /* Убираем подчеркивание при наведении */
+
       color: #FF0000; /* Меняем цвет текста на красный при наведении */
+
       transform: translateY(-2px); /* Добавляем эффект движения */
+
     }
+
   }
+
 
   .catalog {
+
     margin-bottom: 10px; /* Сократить отступ между каталогом и следующей ссылкой */
+
     cursor: pointer;
+
     position: relative;
 
+
     .catalog-title {
+
       display: inline-block;
+
       transition: color 0.3s ease;
 
+
       &:hover {
+
         color: #FF0000; /* Меняем цвет текста каталога на красный при наведении */
+
       }
+
     }
+
 
     .arrow {
+
       margin-left: 5px;
+
       transition: transform 0.3s ease;
+
       display: inline-block;
 
+
       &.open {
+
         transform: rotate(180deg);
+
       }
+
     }
+
 
     .dropdown-menu {
+
       position: absolute;
+
       top: 100%;
+
       left: 0;
+
       background-color: #fff;
+
       border: 1px solid #ccc;
+
       z-index: 1;
+
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
       padding: 10px 0;
+
       opacity: 0;
+
       height: 0;
+
       transition: opacity 0.3s ease, height 0.3s ease;
+
       overflow: hidden;
 
+
       &.open {
+
         opacity: 1;
+
         height: auto;
+
         transition: opacity 0.3s ease;
+
       }
+
 
       a {
+
         margin: 0;
+
         padding: 10px 20px;
+
         white-space: nowrap;
+
         transition: background-color 0.3s ease, border-radius 0.3s ease;
+
         border-radius: 0;
 
+
         &:hover {
+
           background-color: #f0f0f0; /* Меняем цвет фона при наведении */
+
           color: #FF0000; /* Меняем цвет текста в выпадающем меню на красный при наведении */
+
           border-radius: 10px; /* Скругленные углы при наведении */
+
         }
+
       }
+
     }
+
   }
+
 
   .social-icons {
+
     margin-top: 10px;
+
     display: flex;
+
     gap: 10px; /* Уменьшает расстояние между иконками */
+
     justify-content: flex-start; /* Выровнять иконки в начале */
 
+
     .social-icon {
+
       color: #000;
+
       font-size: 1.5em; /* Размер иконок */
+
       transition: color 0.3s;
 
+
       &:hover {
+
         color: #FF0000; /* Меняем цвет иконок на красный при наведении */
+
       }
+
     }
+
   }
 
+
   /* Стили для блока с флагом */
+
   .country-selector {
+
     display: flex;
+
     align-items: center; /* Выровнять флаг и текст по вертикали */
+
     margin-top: 10px; /* Отступ сверху */
+
 
     .flag-icon {
       font-size: 24px; /* Размер флага */
       margin-right: 10px; /* Отступ между флагом и текстом */
     }
-
     a {
       color: #000; /* Цвет ссылки */
       text-decoration: none;
-      transition: color 0.3s ease;
-
+      transition: color 0.3s;
       &:hover {
         text-decoration: none; /* Сохраняем отсутствие подчеркивания при наведении */
         color: #FF0000; /* Меняем цвет текста на красный при наведении */

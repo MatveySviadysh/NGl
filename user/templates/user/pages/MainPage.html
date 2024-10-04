@@ -1,26 +1,39 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'user/scss/MainPage.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
 
 {% include 'user/components/Header.html' %}
+
+
 <body>
     <div class="main-page">
         <h1 class="header-title">Идеальным быть легко</h1>
-        <p>{{ user_count }} клиента доверились нам</p>
+        <p class = "count-users">{{ user_count }} клиента доверились нам</p>
 
-        <div class="search-bar">
-            <input type="text" placeholder="Поиск...">
-            <button type="submit">Найти</button>
+        <div >
+            <input class="search-bar" type="text" placeholder="Услуга или специалист">
+            <button class="search-button" type="submit">Найти</button>
         </div>
 
-        <ul>
-            {% for specialization in popular_specializations %}
-                <li><a href="{% url 'tutor_list' specialization.specialization %}">{{ specialization.specialization }}</a></li>
-            {% empty %}
-                <li>Популярные специализации отсутствуют.</li>
-            {% endfor %}
-        </ul>
-        <p>наши профи</p>
+        <div class = "container-images">
+            <div class="images">
+                <img src="{% static 'user/images/study_images/study1.jpg' %}" alt="Изображение 1">
+                <img src="{% static 'user/images/study_images/study2.jpg' %}" alt="Изображение 2">
+                <img src="{% static 'user/images/study_images/study3.jpg' %}" alt="Изображение 3">
+                <img src="{% static 'user/images/study_images/study4.jpg' %}" alt="Изображение 4">
+            </div>
+            <div class="specializations-container">
+                {% for specialization in popular_specializations %}
+                    <div class="specialization-item">
+                        <a href="{% url 'tutor_list' specialization.specialization %}">{{ specialization.specialization }}</a>
+                    </div>
+                {% empty %}
+                    <div>Популярные специализации отсутствуют.</div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <p class = "profi">Наши профи</p>
         <div class="category-list">
             <ul>
                 {% for specialization in specializations    %}
