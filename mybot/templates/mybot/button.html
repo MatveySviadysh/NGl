@@ -1,0 +1,37 @@
+<!-- templates/button.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Bot Button</title>
+</head>
+<body>
+    <h1>Нажмите на кнопку, чтобы получить ответ от бота</h1>
+    <button id="send-message">Отправить сообщение</button>
+
+    <div id="response-message"></div>
+
+    <script>
+        document.getElementById("send-message").onclick = function() {
+            fetch("{% url 'send_message' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({ "message": "/start" })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const message = data.message || "Сообщение отправлено!";
+                document.getElementById("response-message").innerText = message;
+            })
+            .catch((error) => {
+                console.error('Ошибка:', error);
+                document.getElementById("response-message").innerText = "Ошибка при отправке сообщения!";
+            });
+        };
+    </script>
+</body>
+</html>
