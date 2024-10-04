@@ -1,18 +1,16 @@
 .down_header {
   background-color: #EBEBEB;
   width: 100%;
-  height: 30vh; /* Высота футера составляет 30% от высоты экрана */
+  height: 30vh;
   display: flex;
   padding: 20px;
   padding-left: 150px;
   box-sizing: border-box;
   font-size: 15px;
   transition: background-color 0.3s ease;
-  position: fixed; /* Фиксированное положение */
-  bottom: 0; /* Закрепить футер снизу */
+  bottom: 0;
   left: 0;
-  z-index: 10; /* Приоритет отображения */
-
+  z-index: 10; 
   &:hover {
     background-color: #e0e0e0;
   }
@@ -21,8 +19,8 @@
     flex: 1;
     text-align: left;
     display: flex;
-    flex-direction: column; /* Размещает ссылки вертикально */
-    gap: 10px; /* Единый отступ между элементами */
+    flex-direction: column; 
+    gap: 5px; 
   }
 
   .first-column {
@@ -35,34 +33,31 @@
   }
 
   .link-wrapper {
-    margin-bottom: 10px; /* Сокращение расстояния */
+    margin-bottom: 5px; 
   }
 
   a {
     color: #000;
-    text-decoration: none; /* Убираем подчеркивание под ссылками */
-    margin-bottom: 10px; /* Уменьшить расстояние между ссылками */
+    text-decoration: none;
+    margin-bottom: 5px; 
     position: relative;
     transition: color 0.3s ease;
-
     &:hover {
-      text-decoration: none; /* Убираем подчеркивание при наведении */
-      color: #FF0000; /* Меняем цвет текста на красный при наведении */
-      transform: translateY(-2px); /* Добавляем эффект движения */
+      text-decoration: none; 
+      color: #FF0000; 
+      transform: translateY(-2px); 
     }
   }
 
   .catalog {
-    margin-bottom: 10px; /* Сократить отступ между каталогом и следующей ссылкой */
+    margin-bottom: 10px; 
     cursor: pointer;
     position: relative;
-
     .catalog-title {
       display: inline-block;
       transition: color 0.3s ease;
-
       &:hover {
-        color: #FF0000; /* Меняем цвет текста каталога на красный при наведении */
+        color: #FF0000; 
       }
     }
 
@@ -70,7 +65,6 @@
       margin-left: 5px;
       transition: transform 0.3s ease;
       display: inline-block;
-
       &.open {
         transform: rotate(180deg);
       }
@@ -89,7 +83,6 @@
       height: 0;
       transition: opacity 0.3s ease, height 0.3s ease;
       overflow: hidden;
-
       &.open {
         opacity: 1;
         height: auto;
@@ -104,9 +97,9 @@
         border-radius: 0;
 
         &:hover {
-          background-color: #f0f0f0; /* Меняем цвет фона при наведении */
-          color: #FF0000; /* Меняем цвет текста в выпадающем меню на красный при наведении */
-          border-radius: 10px; /* Скругленные углы при наведении */
+          background-color: #f0f0f0;
+          color: #FF0000;
+          border-radius: 10px; 
         }
       }
     }
@@ -115,39 +108,34 @@
   .social-icons {
     margin-top: 10px;
     display: flex;
-    gap: 10px; /* Уменьшает расстояние между иконками */
-    justify-content: flex-start; /* Выровнять иконки в начале */
-
+    gap: 10px; 
+    justify-content: flex-start; 
     .social-icon {
       color: #000;
-      font-size: 1.5em; /* Размер иконок */
+      font-size: 1.5em; 
       transition: color 0.3s;
 
       &:hover {
-        color: #FF0000; /* Меняем цвет иконок на красный при наведении */
+        color: #FF0000; 
       }
     }
   }
 
-  /* Стили для блока с флагом */
   .country-selector {
     display: flex;
-    align-items: center; /* Выровнять флаг и текст по вертикали */
-    margin-top: 10px; /* Отступ сверху */
-
+    align-items: center; 
+    margin-top: 10px;
     .flag-icon {
-      font-size: 24px; /* Размер флага */
-      margin-right: 10px; /* Отступ между флагом и текстом */
+      font-size: 24px;
+      margin-right: 10px; 
     }
-
     a {
-      color: #000; /* Цвет ссылки */
+      color: #000; 
       text-decoration: none;
-      transition: color 0.3s ease;
-
+      transition: color 0.3s;
       &:hover {
-        text-decoration: none; /* Сохраняем отсутствие подчеркивания при наведении */
-        color: #FF0000; /* Меняем цвет текста на красный при наведении */
+        text-decoration: none; 
+        color: #FF0000; 
       }
     }
   }
