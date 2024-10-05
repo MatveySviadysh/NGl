@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django.db.models import Count
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 def register(request):
     if request.method == 'POST':
@@ -104,4 +106,15 @@ def notifications_user(request):
     return render(request, 'user/pages/NotificationsUser.html')
 
 def change_password_user(request):
-    return render(request, 'user/pages/ChangePassword.html')
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Ваш пароль был успешно изменён!')
+            return redirect('profile-tutor')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'user/pages/ChangePassword.html', {'form': form})
