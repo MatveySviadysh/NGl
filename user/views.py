@@ -7,6 +7,7 @@ from django.views.generic import ListView
 from django.db.models import Count
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.http import JsonResponse
 
 def register(request):
     if request.method == 'POST':
@@ -41,6 +42,12 @@ def tutor_list(request, specialization):
     return render(request, 'user/pages/TutorList.html', {'tutors': tutors, 'specialization': specialization})
 
 def main_page(request):
+    query = request.GET.get('query', '')
+    if query:
+        tutors = Tutor.objects.filter(specialization__icontains=query)
+    else:
+        tutors = Tutor.objects.all()
+
     specializations = Tutor.objects.values_list('specialization', flat=True).distinct()
     user_count = User.objects.count()
     popular_specializations = (Tutor.objects
@@ -51,6 +58,8 @@ def main_page(request):
         'specializations': specializations,
         'user_count': user_count,
         'popular_specializations': popular_specializations,
+        'tutors': tutors,
+        'query': query,
     })
 
 def register_tutor(request):
@@ -89,8 +98,9 @@ def login_tutor(request):
         form = TutorLoginForm()
     return render(request, 'user/pages/LoginTutor.html', {'form': form})
 
-def profile_tutor(request):
-    return render(request, 'user/pages/ProfileTutor.html', {'user': request.user})
+def profile_tutor(request,id):
+    tutor = get_object_or_404(Tutor, id=id)
+    return render(request, 'user/pages/ProfileTutor.html', {'user': request.user}, {'tutor': tutor})
 
 def tutor_logout(request):
     if request.method == 'POST':
@@ -118,3 +128,11 @@ def change_password_user(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'user/pages/ChangePassword.html', {'form': form})
+
+def tutor_list_serarch(request):
+    query = request.GET.get('query', '')
+    tutors = Tutor.objects.filter(specialization__icontains=query) if query else []
+    return render(request, 'user/pages/TutorsList.html', {
+        'tutors': tutors,
+        'query': query,
+    })

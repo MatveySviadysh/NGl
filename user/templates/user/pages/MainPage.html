@@ -10,11 +10,12 @@
         <h1 class="header-title">Идеальным быть легко</h1>
         <p class = "count-users">{{ user_count }} клиента доверились нам</p>
 
-        <div >
-            <input class="search-bar" type="text" placeholder="Услуга или специалист">
+        <form action="{% url 'tutor-list-serarch' %}" method="GET" class="search-container" style="position: relative;">
+            <input class="search-bar" type="text" name="query" placeholder="Услуга или специалист" value="{{ query }}">
             <button class="search-button" type="submit">Найти</button>
-        </div>
-
+        </form>
+        
+        
         <div class = "container-images">
             <div class="images">
                 <img src="{% static 'user/images/study_images/study1.jpg' %}" alt="Изображение 1">
