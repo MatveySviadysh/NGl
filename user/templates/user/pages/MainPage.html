@@ -1,9 +1,9 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/ModelWindow.scss' %}">
 
 {% include 'user/components/Header.html' %}
-
 
 <body>
     <div class="main-page">
@@ -15,8 +15,7 @@
             <button class="search-button" type="submit">Найти</button>
         </form>
         
-        
-        <div class = "container-images">
+        <div class="container-images">
             <div class="images">
                 <img src="{% static 'user/images/study_images/study1.jpg' %}" alt="Изображение 1">
                 <img src="{% static 'user/images/study_images/study2.jpg' %}" alt="Изображение 2">
@@ -33,8 +32,8 @@
                 {% endfor %}
             </div>
         </div>
-        
-        <p class = "profi">Наши профи</p>
+
+        <p class="profi">Наши профи</p>
         <div>
             <div class="text-column">
                 {% for specialization in specializations %}
@@ -46,7 +45,7 @@
                 {% endfor %}
             </div>
         </div>
-        
+
         <div class="how-it-works">
             <p class="profi">Как это работает?</p>
             <div class="images2">
@@ -58,11 +57,10 @@
         <div>
             <div class="imgText">
                 <div class="column">Мы зададим все важные вопросы, чтобы вам было проще описать задачу.</div>
-                <div class="column">Покажем заказ подходящим профи. Они напишут, если готовы помочь.</div>
-                <div class="column">Обо всех деталях договаривайтесь со специалистом и платите ему напрямую.</div>
+                <div class="column">Покажем заказ подходящим профи. Они напишут, если готовы помочь.</div>
+                <div class="column">Обо всех деталях договаривайтесь со специалистом и платите ему напрямую.</div>
             </div>
         </div>
-        
 
         <div class="review-section">
             <h2>Отзывы</h2>
@@ -76,6 +74,21 @@
             </div>
         </div>   
     </div>
-    <button class="fixed-button">Нажми на меня</button>    
+    
+    <button class="fixed-button" id="myBtn">📩</button>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Поддержка</p>
+            <hr class='line'>
+            <button id="djangoBtn">Кнопка Django</button>
+        </div>
+    </div>
+
 </body>
+
 {% include 'user/components/Fotter.html' %}
+
+
+<script src="{% static 'user/js/ModalWindow.js' %}"></script> 
