@@ -59,3 +59,12 @@ class Tutor(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.full_name
+
+class Review(models.Model):
+    username = models.CharField(max_length=100)
+    comment = models.TextField()
+    rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)])
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.username}: {self.comment[:20]}... (Рейтинг: {self.rating})'

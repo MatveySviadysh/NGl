@@ -1,6 +1,7 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/Review.scss' %}">
 <link rel="stylesheet" href="{% static 'mybot/scss/ModelWindow.scss' %}">
 
 {% include 'user/components/Header.html' %}
@@ -61,18 +62,6 @@
                 <div class="column">Обо всех деталях договаривайтесь со специалистом и платите ему напрямую.</div>
             </div>
         </div>
-
-        <div class="review-section">
-            <h2>Отзывы</h2>
-            <div class="review">
-                <p>Отличный преподаватель! <strong>Автор: Елена</strong></p>
-                <p>Рейтинг: ⭐⭐⭐⭐⭐</p>
-            </div>
-            <div class="review">
-                <p>Очень помог с подготовкой к экзаменам. <strong>Автор: Алексей</strong></p>
-                <p>Рейтинг: ⭐⭐⭐⭐</p>
-            </div>
-        </div>   
     </div>
     
     <button class="fixed-button" id="myBtn">📩</button>
@@ -103,9 +92,77 @@
         </div>
     </div>
 
-</body>
+    <div class="reviews-container">
+        <h1 class = 'title-review'>Отзывы</h1>
+        <div class="reviews-grid">
+            {% for review in random_reviews %}
+                <div class="review-card">
+                    <div class="avatar">
+                        <img src="{{ review.avatar_url }}" alt="{{ review.username }}'s avatar" />
+                    </div>
+                    <div class="review-content">
+                        <strong>{{ review.username }}</strong>
+                        <div class="review-rating">
+                            {% with "0 1 2 3 4" as numbers %}
+                                {% for i in numbers.split %}
+                                    {% if forloop.counter0 < review.rating %}
+                                        🌟
+                                    {% else %}
+                                        ✩
+                                    {% endif %}
+                                {% endfor %}
+                            {% endwith %}
+                        </div>
+                        <p class="review-comment">{{ review.comment }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p>Отзывов пока нет.</p>
+            {% endfor %}
+        </div>
+    </div>
+    
+    
+    
+    
+ 
+    <button class="toggle-button">Создать отзыв</button>
+
+    <div class="review-form" style="display: none;">
+        <h1 class="review-title">Создать отзыв</h1>
+        <form method="POST" action="{% url 'review_create' %}" class="form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_comment" class="form-label">Комментарий:</label>
+                <textarea id="id_comment" name="comment" class="form-textarea" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="id_rating" class="form-label">Рейтинг:</label>
+                <select id="id_rating" name="rating" class="form-select" required>
+                    <option value="">Выберите рейтинг</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="form-button">Отправить отзыв</button>
+            </div>
+        </form>
+    </div>
+
+    
+
+
+
+    
 
 {% include 'user/components/Fotter.html' %}
 
-
+<script src="{% static 'user/js/Review.js' %}"></script>
 <script src="{% static 'mybot/js/ModalWindow.js' %}"></script>
