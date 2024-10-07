@@ -6,4 +6,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='/user/main/', permanent=False)), 
     path('user/', include('user.urls')),
+    path('mybot/', include('mybot.urls')),
 ]

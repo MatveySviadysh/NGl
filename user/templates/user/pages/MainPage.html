@@ -1,7 +1,7 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
-<link rel="stylesheet" href="{% static 'user/scss/main_page/ModelWindow.scss' %}">
+<link rel="stylesheet" href="{% static 'mybot/scss/ModelWindow.scss' %}">
 
 {% include 'user/components/Header.html' %}
 
@@ -80,9 +80,26 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Поддержка</p>
+            <p class="support-text">Поддержка</p>
+
             <hr class='line'>
-            <button id="djangoBtn">Кнопка Django</button>
+    
+            <div class = 'main-window-hepl'>
+                <p>Напиши нам</p>
+                <img src="{% static 'mybot/images/message.png' %}"> 
+            </div>
+
+            <form class="form" action="{% url 'button_page' %}" method="post">
+                {% csrf_token %}
+                <div style="display: flex; align-items: center;">
+                    <textarea name="message" id="id_message" required placeholder="Напишите текст вот">{{ form.message.value|default:'' }}</textarea>
+                    {% if form.message.errors %}
+                        <div class="error">{{ form.message.errors }}</div>
+                    {% endif %}
+                    <button class="button-window" type="submit">Отправить</button>
+                </div>
+            </form>
+
         </div>
     </div>
 
@@ -91,4 +108,4 @@
 {% include 'user/components/Fotter.html' %}
 
 
-<script src="{% static 'user/js/ModalWindow.js' %}"></script> 
+<script src="{% static 'mybot/js/ModalWindow.js' %}"></script>
