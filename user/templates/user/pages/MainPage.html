@@ -80,20 +80,26 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Поддержка</p>
+            <p class="support-text">Поддержка</p>
+
             <hr class='line'>
     
-            <form action="{% url 'button_page' %}" method="post">
+            <div class = 'main-window-hepl'>
+                <p>Напиши нам</p>
+                <img src="{% static 'mybot/images/message.png' %}"> 
+            </div>
+
+            <form class="form" action="{% url 'button_page' %}" method="post">
                 {% csrf_token %}
-                <div>
-                    <label for="id_message">Сообщение:</label>
-                    <textarea name="message" id="id_message" required>{{ form.message.value|default:'' }}</textarea>
+                <div style="display: flex; align-items: center;">
+                    <textarea name="message" id="id_message" required placeholder="Напишите текст вот">{{ form.message.value|default:'' }}</textarea>
                     {% if form.message.errors %}
                         <div class="error">{{ form.message.errors }}</div>
                     {% endif %}
+                    <button class="button-window" type="submit">Отправить</button>
                 </div>
-                <button type="submit">Отправить</button>
             </form>
+
         </div>
     </div>
 
