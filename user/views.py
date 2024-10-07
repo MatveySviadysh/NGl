@@ -8,6 +8,7 @@ from django.db.models import Count
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.http import JsonResponse
+import random
 
 def register(request):
     if request.method == 'POST':
@@ -44,10 +45,12 @@ def tutor_list(request, specialization):
 def main_page(request):
     query = request.GET.get('query', '')
     if query:
-        tutors = Tutor.objects.filter(specialization__icontains=query)
+         tutors = Tutor.objects.filter(specialization__icontains=query)
     else:
         tutors = Tutor.objects.all()
 
+    all_reviews = list(Review.objects.all())  # Получаем все отзывы
+    random_reviews = random.sample(all_reviews, min(6, len(all_reviews)))
     specializations = Tutor.objects.values_list('specialization', flat=True).distinct()
     user_count = User.objects.count()
     popular_specializations = (Tutor.objects
@@ -60,6 +63,7 @@ def main_page(request):
         'popular_specializations': popular_specializations,
         'tutors': tutors,
         'query': query,
+        'random_reviews':random_reviews,
     })
 
 def register_tutor(request):

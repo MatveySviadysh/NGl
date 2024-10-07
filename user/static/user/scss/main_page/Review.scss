@@ -93,3 +93,63 @@
         transform: scale(1.1);
     }
 }
+.title-review{
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+.reviews-container {
+    width: 62%;
+    margin: 0 auto; /* Центрирование блока */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    gap: 20px; /* Промежуток между карточками */
+}
+
+.review-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%; /* Круглая форма */
+    overflow: hidden;
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+.avatar img {
+    width: 100%;
+    height: auto;
+}
+
+.review-rating {
+    background-color: #ffdd57; /* Цвет фона для рейтинга */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 10px 0; /* Отступ сверху и снизу */
+}
+
+.review-comment {
+    margin: 10px 0;
+    font-size: 1.1em;
+    text-align: center; /* Выравнивание текста по центру */
+}
+
+.review-date {
+    color: #777; /* Серый цвет для даты */
+    font-size: 0.9em; /* Уменьшенный шрифт для даты */
+    text-align: center; /* Выравнивание по центру */
+}
+    
