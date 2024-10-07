@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tutor
+from .models import Tutor, Review
 
 class TutorAdmin(admin.ModelAdmin):
     list_display = (
@@ -19,3 +19,10 @@ class TutorAdmin(admin.ModelAdmin):
     search_fields = ('email', 'full_name', 'phone_number')
 
 admin.site.register(Tutor, TutorAdmin)
+
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('username', 'rating', 'created_at')
+    ordering = ('-created_at',)
+    search_fields = ('username', 'comment')  
+
+admin.site.register(Review, ReviewAdmin)
