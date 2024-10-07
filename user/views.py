@@ -117,16 +117,16 @@ def notifications_user(request):
 
 def change_password_user(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = CustomPasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
             messages.success(request, 'Ваш пароль был успешно изменён!')
-            return redirect('profile-tutor')
+            return redirect('profile-user')
         else:
             messages.error(request, 'Пожалуйста, исправьте ошибки в форме.')
     else:
-        form = PasswordChangeForm(request.user)
+        form = CustomPasswordChangeForm(request.user)
     return render(request, 'user/pages/ChangePassword.html', {'form': form})
 
 def tutor_list_serarch(request):
@@ -136,3 +136,4 @@ def tutor_list_serarch(request):
         'tutors': tutors,
         'query': query,
     })
+
