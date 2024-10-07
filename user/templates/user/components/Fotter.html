@@ -1,79 +1,73 @@
 {% load static %}
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
 <link rel="stylesheet" href="{% static 'user/scss/Fotter.scss' %}">
 
-<div class="down_header">
-  <div class="column first-column">
-    <div class="link-wrapper">
-      <a class="link" href="#new-order">Новый заказ</a>
-    </div>
-    <div class="catalog">
-      <div class="catalog-title">
-        Каталог ссылок
-        <span class="arrow">&#9660;</span>
+<div class="footer-background">
+  <div class="footer-container"> <!-- Новый контейнер для фона -->
+    <div class="down_header">
+      <div class="column first-column">
+        <div class="link-wrapper">
+          <a class="link" href="#new-order">Новый заказ</a>
+        </div>
+        <div class="catalog">
+          <div class="catalog-title">
+            Каталог ссылок
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="dropdown-menu">
+            <div class="link-wrapper"><a class="dropdown-link" href="#link1">Ссылка 1</a></div>
+            <div class="link-wrapper"><a class="dropdown-link" href="#link2">Ссылка 2</a></div>
+            <div class="link-wrapper"><a class="dropdown-link" href="#link3">Ссылка 3</a></div>
+            <div class="link-wrapper"><a class="dropdown-link" href="#link4">Ссылка 4</a></div>
+          </div>
+        </div>
+        <div class="link-wrapper"><a class="link" href="#services">Все услуги</a></div>
+        <div class="link-wrapper"><a class="link" href="#reviews">Все отзывы</a></div>
+        <div class="link-wrapper"><a class="link" href="#terms">Условия использования</a></div>
       </div>
-      <div class="dropdown-menu">
-        <div class="link-wrapper"><a class="dropdown-link" href="#link1">Ссылка 1</a></div>
-        <div class="link-wrapper"><a class="dropdown-link" href="#link2">Ссылка 2</a></div>
-        <div class="link-wrapper"><a class="dropdown-link" href="#link3">Ссылка 3</a></div>
-        <div class="link-wrapper"><a class="dropdown-link" href="#link4">Ссылка 4</a></div>
+      <div class="column">
+        <div class="link-wrapper"><a class="link" href="#job">Работа в Минске</a></div>
+        <div class="link-wrapper"><a class="link" href="#specialists">Вход для специалистов</a></div>
+      </div>
+      <div class="column">
+        <div class="link-wrapper"><a class="link" href="#about">О компании</a></div>
+        <div class="link-wrapper"><a class="link" href="#vacancies">Вакансии</a></div>
+      </div>
+      <div class="column">
+        <span>Служба поддержки:</span>
+        <div class="link-wrapper">
+          <a class="link" href="#contacts">+375(29)577-37-87</a>
+        </div>
+        <div class="link-wrapper">
+          <a class="link" href="#weekdays">mkomp06@gmail.com</a>
+        </div>
+        <div class="social-icons">
+          <a href="https://t.me/your-telegram-handle" target="_blank" rel="noopener noreferrer" class="social-icon">
+            <i class="fab fa-telegram-plane"></i>
+          </a>
+          <a href="https://youtube.com/your-youtube-channel" target="_blank" rel="noopener noreferrer" class="social-icon">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+        <div class="country-selector">
+          <span class="flag-icon flag-icon-by"></span>
+          <a class="link" href="#country-switch">Беларусь - сменить страну</a>
+        </div>
       </div>
     </div>
-    <div class="link-wrapper"><a class="link" href="#services">Все услуги</a></div>
-    <div class="link-wrapper"><a class="link" href="#reviews">Все отзывы</a></div>
-    <div class="link-wrapper"><a class="link" href="#terms">Условия использования</a></div>
-  </div>
-  
-  <div class="column">
-    <div class="link-wrapper"><a class="link" href="#job">Работа в Минске</a></div>
-    <div class="link-wrapper"><a class="link" href="#specialists">Вход для специалистов</a></div>
-  </div>
-
-  <div class="column">
-    <div class="link-wrapper"><a class="link" href="#about">О компании</a></div>
-    <div class="link-wrapper"><a class="link" href="#vacancies">Вакансии</a></div>
-  </div>
-
-  <div class="column">
-    <span>Служба поддержки:</span>
-    <div class="link-wrapper">
-      <a class="link" href="#contacts">+375(29)577-37-87</a>
-    </div>
-    <div class="link-wrapper">
-      <a class="link" href="#weekdays">mkomp06@gmail.com</a>
-    </div>
-  
-    <!-- Блок с иконками соцсетей -->
-    <div class="social-icons">
-      <a href="https://t.me/your-telegram-handle" target="_blank" rel="noopener noreferrer" class="social-icon">
-        <i class="fab fa-telegram-plane"></i>
-      </a>
-      <a href="https://youtube.com/your-youtube-channel" target="_blank" rel="noopener noreferrer" class="social-icon">
-        <i class="fab fa-youtube"></i>
-      </a>
-    </div>
-  
-    <!-- Добавление блока с флагом и ссылкой на страну -->
-    <div class="country-selector">
-      <span class="flag-icon flag-icon-by"></span> <!-- Флаг Беларуси -->
-      <a class="link" href="#country-switch">Беларусь - сменить страну</a>
-    </div>
-  </div>
+  </div> <!-- Конец нового контейнера для фона -->
 </div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Находим элементы каталога и выпадающего меню
     const catalog = document.querySelector('.catalog');
     const catalogTitle = catalog.querySelector('.catalog-title');
     const dropdownMenu = catalog.querySelector('.dropdown-menu');
 
-    // Обработчик события клика по заголовку каталога
     catalogTitle.addEventListener('click', function() {
-      // Переключение класса 'open' у меню
       dropdownMenu.classList.toggle('open');
-      
-      // Переключение класса 'open' у стрелки
       const arrow = catalogTitle.querySelector('.arrow');
       arrow.classList.toggle('open');
     });

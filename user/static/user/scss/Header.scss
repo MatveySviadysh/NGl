@@ -5,16 +5,19 @@
   align-items: center;
   padding: 10px;
   background-color: #fff;
-  border-bottom: 1px solid #e5e5e5;
   box-sizing: border-box;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  z-index: 1000;  
 }
 
 .navbar-left {
-  margin-left: 209px;
+  margin-left: 345px;
 }
 
 .navbar-right {
-  margin-right: 231px;
+  margin-right: 396px;
 }
 
 .navbar-logo {
@@ -23,7 +26,6 @@
   text-transform: uppercase;
   color: #e60000;
   text-decoration: none;
-  pointer-events: none;
 }
 
 .navbar-logo:hover {
@@ -54,4 +56,8 @@
 
 .navbar-link:hover::after {
   width: 0;
+}
+
+.navbarP {  
+  margin-left: 137px;
 }

@@ -26,7 +26,7 @@ def test_register(client):
 def test_login(client):
     user = User.objects.create_user(username='testuser', password='testpassword123')
 
-    response = client.post(reverse('login-user'), {  # Измените на 'login-user'
+    response = client.post(reverse('login-user'), {
         'username': 'testuser',
         'password': 'testpassword123',
     })
@@ -38,7 +38,7 @@ def test_logout(client):
     user = User.objects.create_user(username='testuser', password='testpassword123')
     client.login(username='testuser', password='testpassword123')
     
-    response = client.get(reverse('logout-user'))  # Измените на 'logout-user'
+    response = client.get(reverse('logout-user'))
     assert response.status_code == 302
     assert not response.wsgi_request.user.is_authenticated
 
@@ -47,37 +47,26 @@ def test_profile(client):
     user = User.objects.create_user(username='testuser', password='testpassword123')
     client.login(username='testuser', password='testpassword123')
     
-    response = client.get(reverse('profile-user'))  # Оставьте как есть
+    response = client.get(reverse('profile-user'))
     assert response.status_code == 200
     assert 'user' in response.context
     assert response.context['user'] == user
 
 @pytest.mark.django_db
 def test_register_tutor(client):
-    # Проверяем, что в начале нет репетиторов
     assert Tutor.objects.count() == 0
-
-    # Данные для регистрации репетитора
     registration_data = {
         'email': 'testtutor@example.com',
         'password': 'testpasswordWORD123',
-        'password_confirm': 'testpasswordWORD123',  # Поле для подтверждения пароля
+        'password_confirm': 'testpasswordWORD123',
         'full_name': 'Test Tutor',
         'phone_number': '+375291234567',
         'specialization': 'Math',
     }
-
-    # Отправляем POST-запрос на регистрацию репетитора
     response = client.post(reverse('register_tutor'), registration_data)
-
-    # Проверяем статус ответа и выводим ошибки, если не редирект
     if response.status_code != 302:
         print(response.context['form'].errors)
-
-    # Проверяем, что произошел успешный редирект
     assert response.status_code == 302
-
-    # Проверяем, что репетитор создан
     assert Tutor.objects.count() == 1
     tutor = Tutor.objects.get(email='testtutor@example.com')
     assert tutor.full_name == 'Test Tutor'
@@ -85,7 +74,6 @@ def test_register_tutor(client):
 
 @pytest.mark.django_db
 def test_login_tutor(client):
-    # Создаем репетитора перед тестом
     tutor = Tutor.objects.create_user(
         email='testtutor@example.com',
         password='testpassword123',
@@ -93,21 +81,16 @@ def test_login_tutor(client):
         phone_number='+375291234567',
         specialization='Math'
     )
-
-    # Отправляем POST-запрос на вход репетитора
     response = client.post(reverse('login_tutor'), {
         'email': 'testtutor@example.com',
         'password': 'testpassword123',
     })
-
-    # Проверяем, что репетитор был успешно залогинен и произошел редирект на страницу профиля
     assert response.status_code == 302
     assert response.wsgi_request.user.is_authenticated
     assert response.url == reverse('profile-tutor')
 
 @pytest.mark.django_db
 def test_tutor_logout(client):
-    # Создаем и логиним репетитора
     tutor = Tutor.objects.create_user(
         email='testtutor@example.com',
         password='testpassword123',
@@ -116,13 +99,86 @@ def test_tutor_logout(client):
         specialization='Math'
     )
     client.login(email='testtutor@example.com', password='testpassword123')
-
-    # Отправляем POST-запрос на выход
     response = client.post(reverse('logout-tutor'))
-
-    # Проверяем, что репетитор был успешно разлогинен
     assert response.status_code == 302
     assert not response.wsgi_request.user.is_authenticated
     assert response.url == reverse('main-page')
 
 
+@pytest.mark.django_db
+def test_change_password_user(client):
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+    new_password_data = {
+        'old_password': 'testpassword123',
+        'new_password1': 'newpasswordWORD123',
+        'new_password2': 'newpasswordWORD123'
+    }
+    response = client.post(reverse('change-password-user'), new_password_data)
+    assert response.status_code == 302
+    assert response.wsgi_request.user.is_authenticated
+    response_login = client.post(reverse('login-user'), {
+        'username': 'testuser',
+        'password': 'newpasswordWORD123',
+    })
+    assert response_login.status_code == 302
+    assert response_login.wsgi_request.user.is_authenticated
+
+@pytest.mark.django_db
+def test_change_password_user_success(client):
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+    new_password_data = {
+        'old_password': 'testpassword123',
+        'new_password1': 'newpasswordWORD123',
+        'new_password2': 'newpasswordWORD123'
+    }
+    response = client.post(reverse('change-password-user'), new_password_data)
+    assert response.status_code == 302
+    assert response.wsgi_request.user.is_authenticated
+    response_login = client.post(reverse('login-user'), {
+        'username': 'testuser',
+        'password': 'newpasswordWORD123',
+    })
+    assert response_login.status_code == 302
+    assert response_login.wsgi_request.user.is_authenticated
+
+@pytest.mark.django_db
+def test_change_password_user_wrong_old_password(client):
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+    new_password_data = {
+        'old_password': 'wrong_old_password',
+        'new_password1': 'newpasswordWORD123',
+        'new_password2': 'newpasswordWORD123'
+    }
+    response = client.post(reverse('change-password-user'), new_password_data)
+    assert response.status_code == 200
+    assert 'old_password' in response.context['form'].errors
+
+@pytest.mark.django_db
+def test_change_password_user_passwords_do_not_match(client):
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+    new_password_data = {
+        'old_password': 'testpassword123',
+        'new_password1': 'newpasswordWORD123',
+        'new_password2': 'different_new_password'
+    }
+    response = client.post(reverse('change-password-user'), new_password_data)
+    assert response.status_code == 200 
+    assert 'new_password2' in response.context['form'].errors
+
+@pytest.mark.django_db
+def test_change_password_user_empty_fields(client):
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+    new_password_data = {
+        'old_password': '',
+        'new_password1': '',
+        'new_password2': ''
+    }
+    response = client.post(reverse('change-password-user'), new_password_data)
+    assert response.status_code == 200
+    assert 'old_password' in response.context['form'].errors
+    assert 'new_password1' in response.context['form'].errors

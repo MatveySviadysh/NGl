@@ -1,54 +1,65 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'user/scss/MainPage.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/ModelWindow.scss' %}">
 
 {% include 'user/components/Header.html' %}
+
 <body>
     <div class="main-page">
         <h1 class="header-title">Идеальным быть легко</h1>
-        <p>{{ user_count }} клиента доверились нам</p>
+        <p class = "count-users">{{ user_count }} клиента доверились нам</p>
 
-        <div class="search-bar">
-            <input type="text" placeholder="Поиск...">
-            <button type="submit">Найти</button>
-        </div>
-
-        <ul>
-            {% for specialization in popular_specializations %}
-                <li><a href="{% url 'tutor_list' specialization.specialization %}">{{ specialization.specialization }}</a></li>
-            {% empty %}
-                <li>Популярные специализации отсутствуют.</li>
-            {% endfor %}
-        </ul>
-        <p>наши профи</p>
-        <div class="category-list">
-            <ul>
-                {% for specialization in specializations    %}
-                    <li><a href="{% url 'tutor_list' specialization %}">{{ specialization }}</a></li>
+        <form action="{% url 'tutor-list-serarch' %}" method="GET" class="search-container" style="position: relative;">
+            <input class="search-bar" type="text" name="query" placeholder="Услуга или специалист" value="{{ query }}">
+            <button class="search-button" type="submit">Найти</button>
+        </form>
+        
+        <div class="container-images">
+            <div class="images">
+                <img src="{% static 'user/images/study_images/study1.jpg' %}" alt="Изображение 1">
+                <img src="{% static 'user/images/study_images/study2.jpg' %}" alt="Изображение 2">
+                <img src="{% static 'user/images/study_images/study3.jpg' %}" alt="Изображение 3">
+                <img src="{% static 'user/images/study_images/study4.jpg' %}" alt="Изображение 4">
+            </div>
+            <div class="specializations-container">
+                {% for specialization in popular_specializations %}
+                    <div class="specialization-item">
+                        <a href="{% url 'tutor_list' specialization.specialization %}">{{ specialization.specialization }}</a>
+                    </div>
                 {% empty %}
-                    <li>Нет доступных специализаций.</li>
+                    <div>Популярные специализации отсутствуют.</div>
                 {% endfor %}
-            </ul>
-        </div>
-
-        <div class="teacher-cards">
-            <div class="teacher-card">
-                <img src="assets/Avatar.png" alt="Учитель">
-                <p>Название Учителя</p>
             </div>
         </div>
 
-        <h2>Заголовок раздела</h2>
-
-        <h3>Подзаголовок раздела</h3>
-
-        <div class="categories-section">
-            <p>Содержимое категорий</p>
+        <p class="profi">Наши профи</p>
+        <div>
+            <div class="text-column">
+                {% for specialization in specializations %}
+                    <div class="column">
+                        <a class="textBox" href="{% url 'tutor_list' specialization %}">{{ specialization }}</a>
+                    </div>
+                {% empty %}
+                    <div class="column">Нет доступных специализаций.</div>
+                {% endfor %}
+            </div>
         </div>
 
         <div class="how-it-works">
-            <h2>Как это работает</h2>
-            <p>Некоторое описание процесса...</p>
+            <p class="profi">Как это работает?</p>
+            <div class="images2">
+                <img src="{% static 'user/images/study_images/study5.png' %}" alt="Изображение 1">
+                <img src="{% static 'user/images/study_images/study6.png' %}" alt="Изображение 2">
+                <img src="{% static 'user/images/study_images/study7.png' %}" alt="Изображение 3">
+            </div>
+        </div>
+        <div>
+            <div class="imgText">
+                <div class="column">Мы зададим все важные вопросы, чтобы вам было проще описать задачу.</div>
+                <div class="column">Покажем заказ подходящим профи. Они напишут, если готовы помочь.</div>
+                <div class="column">Обо всех деталях договаривайтесь со специалистом и платите ему напрямую.</div>
+            </div>
         </div>
 
         <div class="review-section">
@@ -61,7 +72,23 @@
                 <p>Очень помог с подготовкой к экзаменам. <strong>Автор: Алексей</strong></p>
                 <p>Рейтинг: ⭐⭐⭐⭐</p>
             </div>
+        </div>   
+    </div>
+    
+    <button class="fixed-button" id="myBtn">📩</button>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Поддержка</p>
+            <hr class='line'>
+            <button id="djangoBtn">Кнопка Django</button>
         </div>
     </div>
+
 </body>
+
 {% include 'user/components/Fotter.html' %}
+
+
+<script src="{% static 'user/js/ModalWindow.js' %}"></script> 
