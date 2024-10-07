@@ -1,6 +1,7 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/Review.scss' %}">
 <link rel="stylesheet" href="{% static 'mybot/scss/ModelWindow.scss' %}">
 
 {% include 'user/components/Header.html' %}
@@ -103,9 +104,42 @@
         </div>
     </div>
 
-</body>
+    <button class="toggle-button">Создать отзыв</button>
+
+<div class="review-form" style="display: none;">
+    <h1 class="review-title">Создать отзыв</h1>
+    <form method="POST" action="{% url 'review_create' %}" class="form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_comment" class="form-label">Комментарий:</label>
+            <textarea id="id_comment" name="comment" class="form-textarea" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="id_rating" class="form-label">Рейтинг:</label>
+            <select id="id_rating" name="rating" class="form-select" required>
+                <option value="">Выберите рейтинг</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="form-button">Отправить отзыв</button>
+        </div>
+    </form>
+</div>
+
+
+
+
+    
 
 {% include 'user/components/Fotter.html' %}
 
-
+<script src="{% static 'user/js/Review.js' %}"></script>
 <script src="{% static 'mybot/js/ModalWindow.js' %}"></script>

@@ -137,3 +137,16 @@ def tutor_list_serarch(request):
         'query': query,
     })
 
+def review_create(request):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, user=request.user)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.username = request.user.username
+            review.save()
+            return redirect('main-page')
+        else:
+            print(form.errors)
+    else:
+        form = ReviewForm(user=request.user)
+    return render(request, 'review_form.html', {'form': form})
