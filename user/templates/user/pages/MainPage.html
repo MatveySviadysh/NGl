@@ -82,7 +82,18 @@
             <span class="close">&times;</span>
             <p>Поддержка</p>
             <hr class='line'>
-            <button id="djangoBtn">Кнопка Django</button>
+    
+            <form action="{% url 'button_page' %}" method="post">
+                {% csrf_token %}
+                <div>
+                    <label for="id_message">Сообщение:</label>
+                    <textarea name="message" id="id_message" required>{{ form.message.value|default:'' }}</textarea>
+                    {% if form.message.errors %}
+                        <div class="error">{{ form.message.errors }}</div>
+                    {% endif %}
+                </div>
+                <button type="submit">Отправить</button>
+            </form>
         </div>
     </div>
 
