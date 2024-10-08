@@ -2,6 +2,7 @@ import pytest
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from user.models import Tutor 
+from mybot.models import SupportMessage
 
 User = get_user_model()
 
@@ -182,3 +183,48 @@ def test_change_password_user_empty_fields(client):
     assert response.status_code == 200
     assert 'old_password' in response.context['form'].errors
     assert 'new_password1' in response.context['form'].errors
+
+User = get_user_model()
+
+@pytest.mark.django_db
+def test_button_page_get(client):
+    url = reverse('button_page') 
+    response = client.get(url)
+
+    assert response.status_code == 200
+    assert 'form' in response.content.decode()  
+    assert '<h1>Support Message</h1>' in response.content.decode() 
+
+@pytest.mark.django_db
+def test_button_page_post_valid(client):
+    user = User.objects.create_user(username='testuser', email='testuser@example.com', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+
+    url = reverse('button_page')
+    response = client.post(url, {'message': 'This is a test support message'})
+
+    assert response.status_code == 302 
+    assert SupportMessage.objects.count() == 1
+    assert SupportMessage.objects.first().message == 'This is a test support message'
+    assert response.url == reverse('main-page')
+
+@pytest.mark.django_db
+def test_button_page_post_invalid(client):
+    user = User.objects.create_user(username='testuser', email='testuser@example.com', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+
+    url = reverse('button_page')
+    response = client.post(url, {'message': ''}) 
+
+    assert response.status_code == 200 
+    assert SupportMessage.objects.count() == 0 
+    assert 'form' in response.content.decode() 
+    assert 'This field is required.' in response.content.decode() 
+
+@pytest.mark.django_db
+def test_button_page_post_not_logged_in(client):
+    url = reverse('button_page')
+    response = client.post(url, {'message': 'I should not be able to submit'})
+
+    assert response.status_code == 302  
+    assert response.url == reverse('login-user') 
