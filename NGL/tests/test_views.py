@@ -223,3 +223,52 @@ def test_button_page_post_not_logged_in(client):
 
     assert response.status_code == 302  
     assert response.url == reverse('login-user') 
+
+@pytest.mark.django_db
+def test_support_message_detail_get(client):
+    user = User.objects.create_user(username='testuser', email='testuser@example.com', password='testpassword123')
+    message = SupportMessage.objects.create(name=user.username, message='Test message')
+    
+    url = reverse('support_message_detail', args=[message.id])
+    response = client.get(url)
+    
+    assert response.status_code == 200
+    assert 'message' in response.context
+    assert 'response_form' in response.context
+    assert message.message in response.content.decode()
+
+@pytest.mark.django_db
+def test_support_message_detail_post_valid(client):
+    user = User.objects.create_user(username='testuser', email='testuser@example.com', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+    message = SupportMessage.objects.create(name=user.username, message='Test message')
+    url = reverse('support_message_detail', args=[message.id])
+    response = client.post(url, {'message': 'Updated message'})
+    assert response.status_code == 302
+    assert response.url == reverse('admin:mybot_supportmessage_changelist')
+
+@pytest.mark.django_db
+def test_support_message_detail_post_invalid(client):
+    user = User.objects.create_user(username='testuser', email='testuser@example.com', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+    message = SupportMessage.objects.create(name=user.username, message='Test message')
+    url = reverse('support_message_detail', args=[message.id])
+    response = client.post(url, {'message': ''})
+    assert response.status_code == 302
+    assert response.url == '/admin/mybot/supportmessage/'
+    message.refresh_from_db()
+    assert message.message == 'Test message'
+
+@pytest.mark.django_db
+def test_support_message_detail_post_not_logged_in(client):
+    message = SupportMessage.objects.create(name='testuser', message='Test message')
+    url = reverse('support_message_detail', args=[message.id])
+    
+    # Пост неавторизованного клиента
+    response = client.post(url, {'message': 'I should not be able to submit'})
+
+    # Проверка перенаправления
+    assert response.status_code == 302
+    assert response.url == '/admin/mybot/supportmessage/'  # Обновите, если ваше приложение перенаправляет сюда
+
+

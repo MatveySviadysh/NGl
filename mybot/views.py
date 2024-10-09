@@ -27,40 +27,23 @@ class ButtonPageView(View):
         return render(request, 'mybot/button.html', {'form': form})
 
 class SupportMessageDetailView(View):
-
     def get(self, request, message_id):
-
         message = get_object_or_404(SupportMessage, id=message_id)
-
         response_form = SupportResponseForm(instance=message)
-
         return render(request, 'mybot/support_message_detail.html', {
-
             'message': message,
-
             'response_form': response_form,
-
         })
-
-
+    
     def post(self, request, message_id):
-
         message = get_object_or_404(SupportMessage, id=message_id)
-
         response_form = SupportResponseForm(request.POST, instance=message)
-
         if response_form.is_valid():
-
             response_form.save()
-
-            return redirect('admin:app_supportmessage_changelist')  # Перенаправление на список сообщений
-
+            return redirect('admin:mybot_supportmessage_changelist')  # Перенаправление на список сообщений
         return render(request, 'mybot/support_message_detail.html', {
-
             'message': message,
-
             'response_form': response_form,
-
         })
     
 class UserMessagesView(View):
