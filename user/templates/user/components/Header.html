@@ -12,8 +12,8 @@
                     <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 40px; height: 40px; object-fit: cover;">
                 </a>
             {% else %}
-                <a href="{% url 'login_tutor' %}" class="navbar-link">Вход для специалистов</a>
-                <a href="{% url 'login-user' %}" class="navbar-link">Вход для учеников</a>
+                <a href="{% url 'login_tutor' %}" class="navbar-link" target="_blank">Вход для специалистов</a>
+                <a href="{% url 'login-user' %}" class="navbar-link" target="_blank">Вход для учеников</a>
             {% endif %}
         </div>
     </div>

@@ -4,15 +4,22 @@ from django.contrib.auth.models import User
 from .models import Tutor, Review
 
 class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Почта'}))
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'placeholder': 'Имя пользователя'})
+        self.fields['password1'].widget.attrs.update({'placeholder': 'Пароль'})
+        self.fields['password2'].widget.attrs.update({'placeholder': 'Подтвердите пароль'})
+
+
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Имя'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль'}))
 
 
 class TutorRegistrationForm(forms.ModelForm):
