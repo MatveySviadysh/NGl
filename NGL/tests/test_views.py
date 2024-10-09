@@ -3,6 +3,9 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from user.models import Tutor 
 from mybot.models import SupportMessage
+#from user.forms import UserProfileForm 
+from user.models import UserProfile, Review
+
 
 User = get_user_model()
 
@@ -270,5 +273,209 @@ def test_support_message_detail_post_not_logged_in(client):
     # Проверка перенаправления
     assert response.status_code == 302
     assert response.url == '/admin/mybot/supportmessage/'  # Обновите, если ваше приложение перенаправляет сюда
+
+@pytest.mark.django_db  
+def test_change_user_profile_get(client):
+    # Create a user
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+
+    # Create a UserProfile only if it doesn't exist
+    UserProfile.objects.get_or_create(user=user, defaults={
+        'description': 'Initial description', 
+        'phone_number': '1234567890'
+    })
+
+    client.login(username='testuser', password='testpassword123')
+
+    response = client.get(reverse('chenge_user_profile'))  # Adjust the URL name to your actual one
+    assert response.status_code == 200
+    assert 'form' in response.context
+    profile = UserProfile.objects.get(user=user)
+    assert response.context['form'].instance == profile  # Check that the form is initialized with the existing profile
+
+@pytest.mark.django_db  
+def test_change_user_profile_post_valid(client):
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+    profile, created = UserProfile.objects.get_or_create(user=user, defaults={
+        'description': 'Initial description', 
+        'phone_number': '1234567890'
+    })
+    client.login(username='testuser', password='testpassword123')
+
+    update_data = {
+        'description': 'Updated description',
+        'phone_number': '0987654321'
+    }
+    response = client.post(reverse('chenge_user_profile'), update_data)
+
+    assert response.status_code == 302  # Check for redirect after successful update
+    profile.refresh_from_db()  # Refresh the profile instance from the database
+    assert profile.description == 'Updated description'
+    assert profile.phone_number == '0987654321'
+    assert response.url == reverse('profile-user')  # Adjust the redirect URL to your actual one
+
+User = get_user_model()
+
+@pytest.mark.django_db
+def test_profile_tutor_success(client):
+    # Create a tutor for the test
+    tutor = Tutor.objects.create_user(
+        email='testtutor@example.com',
+        password='testpassword123',
+        full_name='Test Tutor',
+        phone_number='+375291234567',
+        specialization='Math'
+    )
+    
+    # Log in as a user (if necessary, modify User creation based on your auth method)
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+    
+    response = client.get(reverse('profile-tutor', args=[tutor.full_name]))
+    
+    assert response.status_code == 200
+    assert 'tutor' in response.context
+    assert response.context['tutor'] == tutor
+    assert response.context['user'] == user
+    assert 'user/pages/ProfileTutor.html' in [template.name for template in response.templates]
+
+@pytest.mark.django_db
+def test_profile_tutor_not_found(client):
+    # Log in as a user
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+
+    # Expecting a 404 for a non-existent tutor
+    response = client.get(reverse('profile-tutor', args=['Non Existent Tutor']))
+    
+    assert response.status_code == 404
+    assert 'user/pages/404.html' in [template.name for template in response.templates]
+
+@pytest.fixture
+def create_tutors(db):
+    # Создание нескольких тьюторов для тестов
+    Tutor.objects.create(
+        full_name='Tutor One',
+        phone_number='+12345678900',
+        specialization='Mathematics',
+        email='tutor1@example.com',
+        tutor_id='TUTOR001',
+        rating=4.5,
+        experience='5 years',
+        services='Math tutoring',
+        price=50.0,
+        verified=True
+    )
+
+    Tutor.objects.create(
+        full_name='Tutor Two',
+        phone_number='+10987654321',
+        specialization='Physics',
+        email='tutor2@example.com',
+        tutor_id='TUTOR002',
+        rating=4.8,
+        experience='3 years',
+        services='Physics tutoring',
+        price=60.0,
+        verified=False
+    )
+
+@pytest.mark.django_db
+def test_all_tutors(client,create_tutors):
+    # Логинимся как пользователь (если требуется)
+    user = User.objects.create_user(username='testuser', password='testpassword123')
+    client.login(username='testuser', password='testpassword123')
+
+    # Делать GET-запрос на страницу всех тьюторов
+    response = client.get(reverse('all_tutors'))  # Убедитесь, что URL-нейм правильный
+
+    # Проверка успешного ответа
+    assert response.status_code == 200
+
+    # Проверка правильного шаблона
+    assert 'user/pages/AllTutors.html' in [template.name for template in response.templates]
+
+    # Проверка наличия списка тьюторов в контексте
+    assert 'tutors' in response.context
+    assert len(response.context['tutors']) == 2  # Ожидаем два тьютора
+
+    # Проверка конкретных значений тьюторов
+    assert response.context['tutors'][0].full_name == 'Tutor One'
+    assert response.context['tutors'][1].full_name == 'Tutor Two'
+    assert response.context['tutors'][0].specialization == 'Mathematics'
+    assert response.context['tutors'][1].specialization == 'Physics'
+    assert response.context['tutors'][0].price == 50.0
+    assert response.context['tutors'][1].price == 60.0
+    assert response.context['tutors'][0].verified is True
+    assert response.context['tutors'][1].verified is False
+
+
+
+@pytest.mark.django_db
+def test_tutor_list_search(client, create_tutors):
+    # Тест с поиском по специализации 'Math'
+    response = client.get(reverse('tutor-list-serarch'), {'query': 'Math'})
+
+    # Проверка успешного ответа
+    assert response.status_code == 200
+    assert 'user/pages/TutorsList.html' in [template.name for template in response.templates]
+    
+    # Проверка наличия списка тьюторов в контексте
+    assert 'tutors' in response.context
+    assert len(response.context['tutors']) == 1  # Ожидаем, что найден один тьютор
+    assert response.context['tutors'][0].full_name == 'Tutor One'
+    assert response.context['query'] == 'Math'
+
+    # Тест с пустым запросом
+    response_empty = client.get(reverse('tutor-list-serarch'), {'query': ''})
+    
+    # Проверка успешного ответа
+    assert response_empty.status_code == 200
+    assert len(response_empty.context['tutors']) == 0
+    assert response_empty.context['query'] == ''
+
+@pytest.fixture
+def user(db):
+    # Создание пользователя для теста
+    return User.objects.create_user(username='testuser', password='password')
+
+@pytest.mark.django_db
+def test_review_create_success(client, user):
+    # Авторизация пользователя
+    client.login(username='testuser', password='password')
+
+    # Данные для нового отзыва
+    data = {
+        'comment': 'Great service!',
+        'rating': 5
+    }
+
+    # Отправка POST-запроса для создания отзыва
+    response = client.post(reverse('review_create'), data)
+
+    # Проверка успешного создания отзыва
+    assert response.status_code == 302  # 302 Redirect
+    assert Review.objects.count() == 1  # Проверяем, что отзыв создан
+    review = Review.objects.first()
+    assert review.username == 'testuser'
+    assert review.comment == 'Great service!'
+
+def test_review_create_invalid_form(client, user):
+    # Авторизация пользователя
+    client.login(username='testuser', password='password')
+
+    # Отправка POST-запроса с некорректными данными
+    data = {
+        'comment': '',  # Пустое поле, если контент обязательный
+        'rating': 6  # Предположим, что рейтинг должен быть от 1 до 5
+    }
+    
+    response = client.post(reverse('review_create'), data)
+
+    # Проверка на ошибку формы
+    assert response.status_code == 200  # Вернемся на ту же страницу с ошибками
+    assert Review.objects.count() == 0  # Отзыв не создан
+    assert 'form' in response.context  # Проверяем, что форма передана в контекст
+    assert response.context['form'].errors  # Проверяем, что есть ошибки в форме
 
 
