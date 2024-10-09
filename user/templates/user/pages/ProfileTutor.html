@@ -2,12 +2,30 @@
 <div class="tutor-profile">
     <h1>Профиль Репетитора</h1>
     <div class="tutor-info">
-        <p><strong>Имя: </strong>{{ tutor }}</p>  {# Предположим, что у вас есть поле name в модели Tutor #}
+        <p><strong>Имя: </strong>{{ tutor.full_name }}</p>
+        <p><strong>Email: </strong>{{ tutor.email }}</p>
+        <p><strong>Телефон: </strong>{{ tutor.phone_number }}</p>
+        <p><strong>Специализация: </strong>{{ tutor.specialization }}</p>
+        <p><strong>Рейтинг: </strong>{{ tutor.rating }}</p>
+        <p><strong>Опыт: </strong>{{ tutor.experience }}</p>
+        <p><strong>Цена: </strong>{{ tutor.price }}</p>
+        <p><strong>Услуги: </strong>{{ tutor.services }}</p>
+        <p><strong>Проверен: </strong>{{ tutor.verified|yesno:"Да,Нет" }}</p>
+        {% if tutor.avatar %}
+            <div>
+                <strong>Аватар:</strong>
+                <img src="{{ tutor.avatar.url }}" alt="Avatar" style="max-width: 150px;">
+            </div>
+        {% endif %}
+        {% if tutor.video %}
+            <div>
+                <strong>Видео:</strong>
+                <video controls style="max-width: 300px;">
+                    <source src="{{ tutor.video.url }}" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+        {% endif %}
     </div>
-
-    <form action="{% url 'logout-tutor' %}" method="post" class="logout-form">
-        {% csrf_token %}
-        <button type="submit" class="logout-button">Выйти</button>
-    </form>
 </div>
 {% endblock %}

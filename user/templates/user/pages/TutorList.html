@@ -2,7 +2,9 @@
 <div class="tutor-list">
     <ul>
         {% for tutor in tutors %}
-            <li>{{ tutor.full_name }} -{{ tutor.specialization }} </li>
+            <li>
+                <a href="{% url 'profile-tutor' tutor.full_name %}">{{ tutor.full_name }}</a> - {{ tutor.specialization }}
+            </li>
         {% empty %}
             <li>Нет доступных преподавателей по данной специальности.</li>
         {% endfor %}
