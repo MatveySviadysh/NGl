@@ -10,6 +10,17 @@ from django.contrib.auth import update_session_auth_hash
 from django.http import JsonResponse
 import random
 
+def chenge_user_profile(request):
+    profile = UserProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile-user')
+    else:
+        form = UserProfileForm(instance=profile)
+    return render(request, 'user/pages/ChengeProfile.html', {'form': form, 'profile': profile})
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
