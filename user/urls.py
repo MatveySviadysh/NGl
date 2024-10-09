@@ -17,5 +17,6 @@ urlpatterns = [
     path('cabinet/user/change_password/', change_password_user, name='change-password-user'),
     path('tutors/', tutor_list_serarch, name='tutor-list-serarch'),
     path('user/reviews/create/', review_create, name='review_create'),
+    path('user/chenge_user_profile/', chenge_user_profile, name='chenge_user_profile'),
 ]
 

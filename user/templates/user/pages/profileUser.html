@@ -1,41 +1,44 @@
 {% load static %}
+
+<link rel="stylesheet" href="{% static 'user/scss/User/ProfileUser.scss' %}">
+
 {% include 'user/components/Header.html' %}
-<link rel="stylesheet" href="{% static 'user/scss/ProfileUser.scss' %}">
 
-<div class="profile-container">
-    <div class="sidebar">
-        <ul >
-            <li><a href={% url 'notifications_user' %}>Уведомления</a></li>
-            <li><a href={% url 'main-page' %}>На главную</a></li>
-            <li><a href={% url 'change-password-user' %}>Сменить пароль</a></li>
-            <li><a href={% url 'all_tutors' %}>специалисты</a></li>
-            <li><a href={% url 'user_messages' %}>сообщени</a></li>
-        </ul>
+<div class="container">
+    <div class="text-column">
+        <a href="{% url 'notifications_user' %}">Уведомления</a><br>
+        <a href="{% url 'main-page' %}">На главную</a><br>
+        <a href="{% url 'change-password-user' %}">Сменить пароль</a><br>
+        <a href="{% url 'all_tutors' %}">Специалисты</a><br>
+        <a href="{% url 'user_messages' %}">Сообщения</a><br>
+        <a href="{% url 'chenge_user_profile' %}">Изменить акаунт</a><br>
     </div>
-    <div class="profile-content">
-        <h1>Профиль</h1>
-        <h1>Профиль пользователя</h1>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Сохранить изменения</button>
-        </form>
-
-        <h2>Ваш аватар:</h2>
-        {% if profile.avatar %}
-            <img src="{{ profile.avatar.url }}" alt="Аватар" width="100">
-        {% else %}
-            <p>Аватар отсутствует</p>
-        {% endif %}
-
-        <h2>Описание:</h2>
-        <p>{{ profile.description|default:"Нет описания" }}</p>
+    
+    
+    <div class="tutor-column">
+        <div class="profile-content">
+            <div class="user-info">
+                <p class="username">Имя пользователя: <strong>{{ profile.user.username }}</strong></p>
+            </div>
+            <div class="description-container">
+                <h2>Описание:</h2>
+                <p class="description-text">{{ profile.description|default:"Нет описания" }}</p>
+            </div>
+            <div>
+                {{profile.phone_number}}
+            </div>
+        </div>
     </div>
-    <div class="profile-picture">
-        <img src="{% static 'user/images/default_avatar.jpg' %}" alt="Avatar">
+
+    <div class="form-column">
+        <div class="avatar-container">
+            {% if profile.avatar %}
+                <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар">
+            {% else %}
+                <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар">
+            {% endif %}
+        </div>
     </div>
 </div>
-
-
 
 {% include 'user/components/Fotter.html' %}
