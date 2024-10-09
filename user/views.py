@@ -48,7 +48,13 @@ def user_logout(request):
 
 def tutor_list(request, specialization):
     tutors = Tutor.objects.filter(specialization=specialization)
-    return render(request, 'user/pages/TutorList.html', {'tutors': tutors, 'specialization': specialization})
+    tutor_count = tutors.count()  
+    return render(request, 'user/pages/TutorList.html', {
+        'tutors': tutors, 
+        'specialization': specialization,
+        'tutor_count': tutor_count 
+    })
+
 
 def main_page(request):
     query = request.GET.get('query', '')
