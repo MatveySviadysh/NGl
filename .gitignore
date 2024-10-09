@@ -25,3 +25,4 @@ local_settings.py
 .idea/
 .vscode/
 
+avatars/Screenshot_from_*
