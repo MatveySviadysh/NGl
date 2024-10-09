@@ -181,4 +181,4 @@ def review_create(request):
             print(form.errors)
     else:
         form = ReviewForm(user=request.user)
-    return render(request, 'review_form.html', {'form': form})
+    return render(request, 'user/pages/review_form.html', {'form': form})
