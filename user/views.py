@@ -31,8 +31,16 @@ def user_login(request):
         form = UserLoginForm()
     return render(request, 'user/pages/loginUser.html', {'form': form})
 
-def profile(request):
-    return render(request, 'user/pages/profileUser.html', {'user': request.user})
+def profile_user(request):
+    profile = UserProfile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile-user')
+    else:
+        form = UserProfileForm(instance=profile)
+    return render(request, 'user/pages/profileUser.html', {'form': form, 'profile': profile})
 
 def user_logout(request):
     logout(request)
