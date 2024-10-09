@@ -14,22 +14,22 @@
     </div>
     <div class="profile-content">
         <h1>Профиль</h1>
-        <form action="{% url 'profile-user' %}" method="POST">
+        <h1>Профиль пользователя</h1>
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="name">Имя:</label>
-                <input type="text" id="name" name="name" value="{{ user.username }}" required>
-            </div>
-            <div class="form-group">
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" value="{{ user.email }}" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Телефон:</label>
-                <input type="tel" id="phone" name="phone" value="{{ user.profile.phone_number }}" required>
-            </div>
-            <button type="submit" class="save-btn">СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+            {{ form.as_p }}
+            <button type="submit">Сохранить изменения</button>
         </form>
+
+        <h2>Ваш аватар:</h2>
+        {% if profile.avatar %}
+            <img src="{{ profile.avatar.url }}" alt="Аватар" width="100">
+        {% else %}
+            <p>Аватар отсутствует</p>
+        {% endif %}
+
+        <h2>Описание:</h2>
+        <p>{{ profile.description|default:"Нет описания" }}</p>
     </div>
     <div class="profile-picture">
         <img src="{% static 'user/images/default_avatar.jpg' %}" alt="Avatar">
