@@ -1,0 +1,10 @@
+<h2>Ваши сообщения</h2>
+<ul>
+    {% for message in messages %}
+        <li>
+            <strong>Сообщение:</strong> {{ message.message }}<br>
+            <strong>Ответ:</strong> {{ message.response|default:"Нет ответа" }}<br>
+            <strong>Дата создания:</strong> {{ message.created_at }}
+        </li>
+    {% endfor %}
+</ul>

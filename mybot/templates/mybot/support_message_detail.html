@@ -1,0 +1,9 @@
+<h2>Сообщение от {{ message.name }}</h2>
+<p>Сообщение: {{ message.message }}</p>
+
+<h3>Ответ администратора</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ response_form.as_p }}
+    <button type="submit">Отправить ответ</button>
+</form>
