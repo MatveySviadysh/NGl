@@ -1,0 +1,101 @@
+.registration-container {
+    margin: 100px auto;
+    background: white;
+    max-width: 550px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 19px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+
+    .title-text {
+        font-family: Nunito Sans, sans-serif;
+        margin-bottom: 20px;
+        color: black;
+        font-size: 22px;
+        font-weight: 300;
+    }
+
+    .registration-form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 15px;
+
+            input, select {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ddd;
+                border-radius: 13px;
+                font-size: 15px;
+                transition: border-color 0.3s;
+
+                &::placeholder {
+                    color: #999;
+                }
+
+                &:focus {
+                    border-color: #007bff;
+                    outline: none;
+                }
+            }
+        }
+
+        .registration-button {
+            background: #020202;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            width: 100%;
+            border-radius: 13px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.3s;
+        
+            &:hover {
+                background: darken(#ff4000, 10%);
+                transform: translateY(-2px);
+            }
+        
+            &:active {
+                transform: translateY(1px);
+                background: darken(#ea0505, 15%);
+            }
+        }
+    }
+    
+    .footer-link {
+        margin-top: 20px;
+
+        .login-link {
+            color: black;
+            transition: color 0.3s;
+
+            &:hover {
+                color: darken(#e30b0b, 10%);
+            }
+        }
+    }
+}
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f6f9fc;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 500px;
+    color: #6c6b6b;
+    font-family: Nunito Sans,sans-serif;
+}
