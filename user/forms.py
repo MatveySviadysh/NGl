@@ -14,9 +14,15 @@ class UserLoginForm(AuthenticationForm):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
+
 class TutorRegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
-    password_confirm = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль'}))
+    password_confirm = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Повторите пароль'}))
+    full_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'ФИО'}))
+    phone_number = forms.CharField(max_length=15, widget=forms.TextInput(attrs={'placeholder': 'Телефон'}))
+    specialization = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Специализация'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Почта'}))
+
 
     class Meta:
         model = Tutor
@@ -30,8 +36,8 @@ class TutorRegistrationForm(forms.ModelForm):
             raise forms.ValidationError("Пароли не совпадают")
         
 class TutorLoginForm(forms.Form):
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Почта'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Введите пароль'}))
     
     def clean(self):
         email = self.cleaned_data.get('email')

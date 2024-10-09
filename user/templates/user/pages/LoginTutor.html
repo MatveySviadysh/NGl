@@ -1,20 +1,24 @@
 {% load static %}
-{% include 'user/components/Header.html' %}
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Войти</button>
-</form>
+<link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorRegister.scss' %}">
 
-{% if messages %}
-    <ul>
-    {% for message in messages %}
-        <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-{% endif %}
-
-<a href="{% url 'register_tutor' %}">регистрация</a>
-
-{% include 'user/components/Fotter.html' %}
+<div class="auth-container">
+    <div class="registration-container">
+        <h1 class="title-text">Вход</h1>
+        <form method="post" class="registration-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_email">Почта</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="id_password">Пароль</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="registration-button">Войти</button>
+        </form>
+        <div class="footer-link">
+            <a class="login-link" href="{% url 'register_tutor' %}">Регистрация</a>
+        </div>
+    </div>
+</div>
