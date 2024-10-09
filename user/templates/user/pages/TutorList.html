@@ -3,7 +3,15 @@
     <ul>
         {% for tutor in tutors %}
             <li>
-                <a href="{% url 'profile-tutor' tutor.full_name %}">{{ tutor.full_name }}</a> - {{ tutor.specialization }}
+                <a href="{% url 'profile-tutor' tutor.full_name %}">{{ tutor.full_name }}</a> - {{ tutor.specialization }} <br>
+                <strong>Телефон:</strong> {{ tutor.phone_number }} <br>
+                <strong>Email:</strong> {{ tutor.email }} <br>
+                <strong>Рейтинг:</strong> {{ tutor.rating }} <br>
+                <strong>Опыт:</strong> {{ tutor.experience }} лет <br>
+                <strong>Цена за занятие:</strong> {{ tutor.price }} ₽ <br>
+                <strong>Услуги:</strong> {{ tutor.services }} <br>
+                {% if tutor.verified %} <strong>Статус:</strong> Подтверждено {% else %} <strong>Статус:</strong> Не подтверждено {% endif %}
+                <br><br>
             </li>
         {% empty %}
             <li>Нет доступных преподавателей по данной специальности.</li>
