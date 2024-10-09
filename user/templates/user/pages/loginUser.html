@@ -1,13 +1,24 @@
-{% include 'user/components/Header.html' %}
+{% load static %}
 
-<h2>Вход</h2>
+<link rel="stylesheet" href="{% static 'user/scss/User/UserRegister.scss' %}">
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Войти</button>
-    <a href="{% url 'register-user' %}">регистрация</a>
-</form>
-
-{% include 'user/components/Fotter.html' %}
-    
+<div class="auth-container">
+    <div class="registration-container">
+        <h2 class="title-text">Вход</h2>
+        <form method="post" class="registration-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">Имя</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="id_password">Пароль</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="registration-button">Войти</button>
+        </form>
+        <div class="footer-link">
+            <a href="{% url 'register-user' %}" class="login-link">Регистрация</a>
+        </div>
+    </div>
+</div>
