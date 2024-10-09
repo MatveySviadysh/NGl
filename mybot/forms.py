@@ -5,3 +5,8 @@ class SupportMessageForm(forms.ModelForm):
     class Meta:
         model = SupportMessage
         fields = ['message']
+
+class SupportResponseForm(forms.ModelForm):
+    class Meta:
+        model = SupportMessage
+        fields = ['response']
