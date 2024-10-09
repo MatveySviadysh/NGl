@@ -49,7 +49,7 @@ def main_page(request):
     else:
         tutors = Tutor.objects.all()
 
-    all_reviews = list(Review.objects.all())  # Получаем все отзывы
+    all_reviews = list(Review.objects.all())
     random_reviews = random.sample(all_reviews, min(6, len(all_reviews)))
     specializations = Tutor.objects.values_list('specialization', flat=True).distinct()
     user_count = User.objects.count()
@@ -77,7 +77,7 @@ def register_tutor(request):
                 phone_number=form.cleaned_data['phone_number'],
                 specialization=form.cleaned_data['specialization'],
             )
-            return redirect('profile-tutor')
+            return redirect('profile-tutor', full_name=tutor.full_name)
     else:
         form = TutorRegistrationForm()
     return render(request, 'user/pages/RegisterTutor.html', {'form': form})
@@ -93,7 +93,7 @@ def login_tutor(request):
                 if tutor.check_password(password):
                     login(request, tutor)
                     messages.success(request, "Вы успешно вошли как репетитор!")
-                    return redirect('profile-tutor')
+                    return redirect('profile-tutor', full_name=tutor.full_name)
                 else:
                     messages.error(request, "Неверный пароль")
             except Tutor.DoesNotExist:
@@ -112,6 +112,7 @@ def tutor_logout(request):
     if request.method == 'POST':
         logout(request)
         messages.success(request, "Вы успешно вышли из аккаунта!")
+        return redirect('main-page')
     return redirect('main-page')
 
 def all_tutors(request):
