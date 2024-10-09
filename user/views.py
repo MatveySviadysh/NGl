@@ -102,9 +102,11 @@ def login_tutor(request):
         form = TutorLoginForm()
     return render(request, 'user/pages/LoginTutor.html', {'form': form})
 
-def profile_tutor(request,id):
-    tutor = get_object_or_404(Tutor, id=id)
-    return render(request, 'user/pages/ProfileTutor.html', {'user': request.user}, {'tutor': tutor})
+def profile_tutor(request, full_name):
+    tutor = Tutor.objects.filter(full_name=full_name).first()
+    if not tutor:
+        return render(request, 'user/pages/404.html', status=404)
+    return render(request, 'user/pages/ProfileTutor.html', {'user': request.user, 'tutor': tutor})
 
 def tutor_logout(request):
     if request.method == 'POST':
