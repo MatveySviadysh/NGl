@@ -1,31 +1,59 @@
-{% block content %}
-<div class="tutor-profile">
-    <h1>Профиль Репетитора</h1>
-    <div class="tutor-info">
-        <p><strong>Имя: </strong>{{ tutor.full_name }}</p>
-        <p><strong>Email: </strong>{{ tutor.email }}</p>
-        <p><strong>Телефон: </strong>{{ tutor.phone_number }}</p>
-        <p><strong>Специализация: </strong>{{ tutor.specialization }}</p>
-        <p><strong>Рейтинг: </strong>{{ tutor.rating }}</p>
-        <p><strong>Опыт: </strong>{{ tutor.experience }}</p>
-        <p><strong>Цена: </strong>{{ tutor.price }}</p>
-        <p><strong>Услуги: </strong>{{ tutor.services }}</p>
-        <p><strong>Проверен: </strong>{{ tutor.verified|yesno:"Да,Нет" }}</p>
-        {% if tutor.avatar %}
-            <div>
-                <strong>Аватар:</strong>
-                <img src="{{ tutor.avatar.url }}" alt="Avatar" style="max-width: 150px;">
+{% load static %}
+
+    <link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorList.scss' %}">
+    {% include 'user/components/Header.html' %}
+    <div class="container">
+        <div class="text-column">
+            <p>О специалисте</p>
+        </div>
+        <div class="tutor-column">
+            <div class="rectangle">
+                <div class="text">Чтобы писать специалистам, заполните детали заказа</div>
+                <button class="button">Заполнить детали заказа</button>
             </div>
-        {% endif %}
-        {% if tutor.video %}
-            <div>
-                <strong>Видео:</strong>
-                <video controls style="max-width: 300px;">
-                    <source src="{{ tutor.video.url }}" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
+            <div class="tutor-list">
+                <ul>
+                        <li class="tutor-item">
+                            <div class="tutor-header">
+                                <div class="avatar-container">
+                                    {% if profile.avatar %}
+                                        <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар">
+                                    {% else %}
+                                        <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар">
+                                    {% endif %}
+                                </div>
+                                <div class="tutor-info">
+                                    <a href="{% url 'profile-tutor' tutor.full_name %}">
+                                        <strong>{{ tutor.full_name }}</strong>
+                                    </a>
+                                    <span class="specialization">{{ tutor.specialization }}</span>
+                                </div>
+                            </div>
+                            <div class="tutor-details">
+                                <div class="send-message-button">
+                                    <button class="button">Отправить сообщение</button>
+                                </div>
+                                <p><strong>Телефон:</strong> {{ tutor.phone_number }}</p>
+                                <p><strong>Email:</strong> {{ tutor.email }}</p>
+                                <p><strong>Рейтинг:</strong> {{ tutor.rating }}</p>
+                                <p><strong>Опыт:</strong> {{ tutor.experience }} лет</p>
+                                <p><strong>Цена за занятие:</strong> {{ tutor.price }} ₽</p>
+                                <p><strong>Услуги:</strong> {{ tutor.services }}</p>
+                                {% if tutor.verified %}
+                                    <p><strong>Статус:</strong> Подтверждено</p>
+                                {% else %}
+                                    <p><strong>Статус:</strong> Не подтверждено</p>
+                                {% endif %}
+                            </div>
+                            <div class="discount">
+                                <span>–25%</span> На первое занятие
+                            </div>
+                            <p class="location">
+                                Выезд: {{ tutor.location }} | Работает дистанционно: {{ tutor.remote }}
+                            </p>
+                        </li>
+                </ul>
             </div>
-        {% endif %}
+        </div>
     </div>
-</div>
-{% endblock %}
+
