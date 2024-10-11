@@ -8,15 +8,16 @@
         <form method="post" class="registration-form">
             {% csrf_token %}
             <div class="form-group">
-                <label for="id_email">Почта</label>
+                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
                 {{ form.email }}
             </div>
             <div class="form-group">
-                <label for="id_password">Пароль</label>
+                <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
                 {{ form.password }}
             </div>
-            <button type="submit" class="registration-button">Войти</button>
+            <button type="submit" class="registration-button">Войти</button>    
         </form>
+        
         <div class="footer-link">
             <a class="login-link" href="{% url 'register_tutor' %}">Регистрация</a>
         </div>

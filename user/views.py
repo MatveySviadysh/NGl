@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
@@ -93,16 +93,21 @@ def main_page(request):
 
 def register_tutor(request):
     if request.method == 'POST':
-        form = TutorRegistrationForm(request.POST)
+        form = TutorRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            tutor = Tutor.objects.create_user(
+            user = User.objects.create_user(
+                username=form.cleaned_data['email'],
                 email=form.cleaned_data['email'],
-                password=form.cleaned_data['password'],
+                password=form.cleaned_data['password']
+            )
+            tutor = Tutor.objects.create(
+                user=user,
                 full_name=form.cleaned_data['full_name'],
                 phone_number=form.cleaned_data['phone_number'],
                 specialization=form.cleaned_data['specialization'],
+                email=form.cleaned_data['email'],
             )
-            return redirect('profile-tutor', full_name=tutor.full_name)
+            return redirect('login_tutor')
     else:
         form = TutorRegistrationForm()
     return render(request, 'user/pages/RegisterTutor.html', {'form': form})
@@ -114,19 +119,36 @@ def login_tutor(request):
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
             try:
-                tutor = Tutor.objects.get(email=email)
-                if tutor.check_password(password):
-                    login(request, tutor)
-                    messages.success(request, "Вы успешно вошли как репетитор!")
-                    return redirect('profile-tutor', full_name=tutor.full_name)
+                user = User.objects.get(email=email)
+                tutor = Tutor.objects.get(user=user)
+                user = authenticate(request, username=user.username, password=password)
+                
+                if user is not None:
+                    login(request, user)
+                    return redirect('main-page')
                 else:
-                    messages.error(request, "Неверный пароль")
+                    form.add_error(None, 'Неверный пароль')
+            except User.DoesNotExist:
+                form.add_error(None, 'Пользователь не найден.')
             except Tutor.DoesNotExist:
-                messages.error(request, "Пользователь с таким email не найден")
+                form.add_error(None, 'Пользователь с таким email не найден.')
     else:
         form = TutorLoginForm()
     return render(request, 'user/pages/LoginTutor.html', {'form': form})
 
+@login_required
+def edit_tutor_profile(request):
+    tutor = request.user.tutor
+    if request.method == 'POST':
+        form = TutorProfileUpdateForm(request.POST, request.FILES, instance=tutor)
+        if form.is_valid():
+            form.save()
+            return redirect('main-page')
+    else:
+        form = TutorProfileUpdateForm(instance=tutor)
+    return render(request, 'user/pages/EditTutorProfile.html', {'form': form})
+
+@login_required
 def profile_tutor(request, full_name):
     tutor = Tutor.objects.filter(full_name=full_name).first()
     if not tutor:

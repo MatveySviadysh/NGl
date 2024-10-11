@@ -22,29 +22,19 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.userprofile.save()
 
-class TutorManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('Email is required')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
+phone_validator = RegexValidator(
+    regex=r'^\+375\d{9}$',
+    message="Введите номер телефона в формате: +375xxxxxxxxx (9 цифр после +375)."
+)
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        return self.create_user(email, password, **extra_fields)
-
-
-class Tutor(AbstractBaseUser, PermissionsMixin):
+class Tutor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     full_name = models.CharField(max_length=255)
     phone_number = models.CharField(
         max_length=15,
-        validators=[RegexValidator(regex='^\+?1?\d{9,15}$')]
+        validators=[phone_validator]
     )
-    specialization = models.TextField()
+    specialization = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
     avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
     tutor_id = models.CharField(max_length=50, unique=True, blank=True, null=True)
@@ -56,26 +46,6 @@ class Tutor(AbstractBaseUser, PermissionsMixin):
     price = models.FloatField(blank=True, null=True)
     last_login = models.DateTimeField(null=True, blank=True)
 
-    objects = TutorManager()
-
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='tutor_set',
-        blank=True,
-        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
-        verbose_name='groups',
-    )
-
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='tutor_set',
-        blank=True,
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions',
-    )
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['full_name', 'phone_number']
 
     def __str__(self):
         return self.full_name
