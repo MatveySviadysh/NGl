@@ -80,9 +80,6 @@ class ReviewForm(forms.ModelForm):
             self.instance.username = self.user.username 
 
 class TutorProfileUpdateForm(forms.ModelForm):
-
     class Meta:
-
         model = Tutor
-
-        fields = ['full_name', 'phone_number', 'specialization', 'email', 'avatar']
+        fields = ['full_name', 'phone_number', 'specialization', 'email', 'avatar','price','services','video','experience',]
