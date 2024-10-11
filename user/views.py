@@ -90,53 +90,27 @@ def main_page(request):
         'query': query,
         'random_reviews':random_reviews,
     })
+
 def register_tutor(request):
-
     if request.method == 'POST':
-
         form = TutorRegistrationForm(request.POST, request.FILES)
-
         if form.is_valid():
-
-            # Создаем пользователя
-
             user = User.objects.create_user(
-
                 username=form.cleaned_data['email'],
-
                 email=form.cleaned_data['email'],
-
                 password=form.cleaned_data['password']
-
             )
-
-            # Создаем репетитора
-
             tutor = Tutor.objects.create(
-
                 user=user,
-
                 full_name=form.cleaned_data['full_name'],
-
                 phone_number=form.cleaned_data['phone_number'],
-
                 specialization=form.cleaned_data['specialization'],
-
                 email=form.cleaned_data['email'],
-
-                # Добавьте другие поля по необходимостям
-
             )
-
-            return redirect('login_tutor')  # После успешной регистрации
-
+            return redirect('login_tutor')
     else:
-
         form = TutorRegistrationForm()
-
     return render(request, 'user/pages/RegisterTutor.html', {'form': form})
-
-from django.contrib.auth import authenticate, login
 
 def login_tutor(request):
     if request.method == 'POST':
@@ -146,12 +120,12 @@ def login_tutor(request):
             password = form.cleaned_data['password']
             try:
                 user = User.objects.get(email=email)
-                tutor = Tutor.objects.get(user=user)  # Получаем репетитора по пользователю
+                tutor = Tutor.objects.get(user=user)
                 user = authenticate(request, username=user.username, password=password)
                 
                 if user is not None:
                     login(request, user)
-                    return redirect('main-page')  # Замените на нужный URL
+                    return redirect('main-page')
                 else:
                     form.add_error(None, 'Неверный пароль')
             except User.DoesNotExist:
@@ -160,33 +134,21 @@ def login_tutor(request):
                 form.add_error(None, 'Пользователь с таким email не найден.')
     else:
         form = TutorLoginForm()
-
     return render(request, 'user/pages/LoginTutor.html', {'form': form})
 
 @login_required
-
 def edit_tutor_profile(request):
-
-    tutor = request.user.tutor  # Получаем объект репетитора
-
-
+    tutor = request.user.tutor
     if request.method == 'POST':
-
         form = TutorProfileUpdateForm(request.POST, request.FILES, instance=tutor)
-
         if form.is_valid():
-
-            form.save()  # Сохраняем изменения
-
-            return redirect('main-page')  # Перенаправление после сохранения
-
+            form.save()
+            return redirect('main-page')
     else:
-
         form = TutorProfileUpdateForm(instance=tutor)
-
-
     return render(request, 'user/pages/EditTutorProfile.html', {'form': form})
 
+@login_required
 def profile_tutor(request, full_name):
     tutor = Tutor.objects.filter(full_name=full_name).first()
     if not tutor:
