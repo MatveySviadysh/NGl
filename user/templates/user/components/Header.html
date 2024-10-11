@@ -8,13 +8,21 @@
         <div class="navbar-right">
             {% if user.is_authenticated %}
                 <a href="{% url 'logout-user' %}" class="navbar-link">Выйти</a>
+                
+                {% if user.tutor %}
+                    <span>Добро пожаловать, Репетитор {{ user.tutor.full_name }}!</span>
+                {% else %}
                 <a href="{% url 'profile-user' %}">
                     <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 40px; height: 40px; object-fit: cover;">
                 </a>
+                    <span>Добро пожаловать, Пользователь!</span>
+                {% endif %}
             {% else %}
                 <a href="{% url 'login_tutor' %}" class="navbar-link" target="_blank">Вход для специалистов</a>
                 <a href="{% url 'login-user' %}" class="navbar-link" target="_blank">Вход для учеников</a>
             {% endif %}
         </div>
+        
+        
     </div>
 </div>

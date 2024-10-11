@@ -1,4 +1,4 @@
-{% load static %}
+{% comment %} {% load static %}
 
 <link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorRegister.scss' %}">
 
@@ -21,4 +21,10 @@
             <a class="login-link" href="{% url 'register_tutor' %}">Регистрация</a>
         </div>
     </div>
-</div>
+</div> {% endcomment %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.email.label }} {{ form.email }}<br>
+    {{ form.password.label }} {{ form.password }}<br>
+    <button type="submit">Войти</button>
+</form>
