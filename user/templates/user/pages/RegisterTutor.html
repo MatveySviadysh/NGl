@@ -1,68 +1,66 @@
-{% comment %} {% load static %}
+{% load static %}
 
 <link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorRegister.scss' %}">
 
-<div class="registration-container">
-    <h1 class="title-text">Регистрация</h1>
-    <form method="post" class="registration-form" enctype="multipart/form-data">
-        {% csrf_token %}
+<div class="auth-container">
+    <div class="registration-container">
+        <h1 class="title-text">Регистрация</h1>
+        <form method="post" class="registration-form" enctype="multipart/form-data">
+            {% csrf_token %}
 
-        <div class="form-group">
-            <label for="id_full_name">ФИО</label>
-            {{ form.full_name }}
-            {% if form.full_name.errors %}
-                <div class="error">{{ form.full_name.errors }}</div>
-            {% endif %}
+            <div class="form-group">
+                <label for="id_full_name">ФИО</label>
+                {{ form.full_name }}
+                {% if form.full_name.errors %}
+                    <div class="error">{{ form.full_name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_phone_number">Телефон</label>
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                    <div class="error">{{ form.phone_number.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_specialization">Специализация</label>
+                {{ form.specialization }}
+                {% if form.specialization.errors %}
+                    <div class="error">{{ form.specialization.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">Почта</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password1">Пароль</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="error">{{ form.password.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">Подтверждение пароля</label>
+                {{ form.password_confirm }}
+                {% if form.password_confirm.errors %}
+                    <div class="error">{{ form.password_confirm.errors }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="registration-button">Продолжить</button>
+        </form>
+
+        <div class="footer-link">
+            <a class="login-link" href="{% url 'login_tutor' %}">Уже есть аккаунт? Вход</a>
         </div>
-
-        <div class="form-group">
-            <label for="id_phone_number">Телефон</label>
-            {{ form.phone_number }}
-            {% if form.phone_number.errors %}
-                <div class="error">{{ form.phone_number.errors }}</div>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="id_specialization">Специализация</label>
-            {{ form.specialization }}
-            {% if form.specialization.errors %}
-                <div class="error">{{ form.specialization.errors }}</div>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="id_email">Почта</label>
-            {{ form.email }}
-            {% if form.email.errors %}
-                <div class="error">{{ form.email.errors }}</div>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="id_password1">Пароль</label>
-            {{ form.password1 }}
-            {% if form.password1.errors %}
-                <div class="error">{{ form.password1.errors }}</div>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            <label for="id_password2">Подтверждение пароля</label>
-            {{ form.password2 }}
-            {% if form.password2.errors %}
-                <div class="error">{{ form.password2.errors }}</div>
-            {% endif %}
-        </div>
-
-        <button type="submit" class="registration-button">Продолжить</button>
-    </form>
-    <div class="footer-link">
-        <a class="login-link" href="{% url 'login_tutor' %}">Уже есть аккаунт? Вход</a>
     </div>
-</div> {% endcomment %}
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Зарегистрироваться</button>
-</form>
+</div>
