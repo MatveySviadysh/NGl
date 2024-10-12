@@ -2,7 +2,6 @@
 
 <link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
 <link rel="stylesheet" href="{% static 'user/scss/main_page/Review.scss' %}">
-<link rel="stylesheet" href="{% static 'mybot/scss/ModelWindow.scss' %}">
 
 {% include 'user/components/Header.html' %}
 
@@ -62,35 +61,11 @@
                 <div class="column">Обо всех деталях договаривайтесь со специалистом и платите ему напрямую.</div>
             </div>
         </div>
+        <a href="{% url 'create_order' %}">asdasdasd</a>
     </div>
     
-    <button class="fixed-button" id="myBtn">📩</button>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p class="support-text">Поддержка</p>
-
-            <hr class='line'>
-    
-            <div class = 'main-window-hepl'>
-                <p>Напиши нам</p>
-                <img src="{% static 'mybot/images/message.png' %}"> 
-            </div>
-
-            <form class="form" action="{% url 'button_page' %}" method="post">
-                {% csrf_token %}
-                <div style="display: flex; align-items: center;">
-                    <textarea name="message" id="id_message" required placeholder="Напишите текст вот">{{ form.message.value|default:'' }}</textarea>
-                    {% if form.message.errors %}
-                        <div class="error">{{ form.message.errors }}</div>
-                    {% endif %}
-                    <button class="button-window" type="submit">Отправить</button>
-                </div>
-            </form>
-
-        </div>
-    </div>
+    {% include 'user/components/HelpWindow.html' %}
 
     <div class="reviews-container">
         <h1 class = 'title-review'>Отзывы</h1>
@@ -171,4 +146,3 @@
 {% include 'user/components/Fotter.html' %}
 
 <script src="{% static 'user/js/Review.js' %}"></script>
-<script src="{% static 'mybot/js/ModalWindow.js' %}"></script>
