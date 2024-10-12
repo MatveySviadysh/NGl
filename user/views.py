@@ -9,6 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.http import JsonResponse
 import random
+from django.core.paginator import Paginator
 
 def chenge_user_profile(request):
     profile = UserProfile.objects.get(user=request.user)
@@ -59,11 +60,15 @@ def user_logout(request):
 
 def tutor_list(request, specialization):
     tutors = Tutor.objects.filter(specialization=specialization)
-    tutor_count = tutors.count()  
+    tutor_count = tutors.count()
+    paginator = Paginator(tutors, 10)  
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     return render(request, 'user/pages/TutorList.html', {
-        'tutors': tutors, 
+        'tutors': page_obj, 
         'specialization': specialization,
-        'tutor_count': tutor_count 
+        'tutor_count': tutor_count,
+        'page_obj': page_obj,  
     })
 
 
@@ -204,3 +209,15 @@ def review_create(request):
     else:
         form = ReviewForm(user=request.user)
     return render(request, 'user/pages/review_form.html', {'form': form})
+
+def all_tutors(request):
+    tutors = Tutor.objects.all()  
+    paginator = Paginator(tutors, 10) 
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'user/pages/AllTutors.html', {
+        'tutors': page_obj,
+        'tutor_count': tutors.count(),
+        'page_obj': page_obj,
+    })
