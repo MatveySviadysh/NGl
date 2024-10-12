@@ -97,11 +97,17 @@
         <div class="reviews-grid">
             {% for review in random_reviews %}
                 <div class="review-card">
-                    <div class="avatar">
-                        <img src="{{ review.avatar_url }}" alt="{{ review.username }}'s avatar" />
+                    <div class="avatar-container">
+                        {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" class="avatar-img" alt="Аватар" href="{% url 'profile-user' %}">
+                        {% else %}
+                            <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-img" alt="Дефолтный аватар" href="{% url 'profile-user' %}">
+                        {% endif %}
                     </div>
                     <div class="review-content">
-                        <strong>{{ review.username }}</strong>
+                        <strong class="review-name">
+                            <a href="{% url 'profile-user' %}">{{ review.username }}</a>
+                        </strong>
                         <div class="review-rating">
                             {% with "0 1 2 3 4" as numbers %}
                                 {% for i in numbers.split %}
@@ -129,15 +135,14 @@
     <button class="toggle-button">Создать отзыв</button>
 
     <div class="review-form" style="display: none;">
-        <h1 class="review-title">Создать отзыв</h1>
         <form method="POST" action="{% url 'review_create' %}" class="form">
             {% csrf_token %}
-            
+    
             <div class="form-group">
                 <label for="id_comment" class="form-label">Комментарий:</label>
                 <textarea id="id_comment" name="comment" class="form-textarea" rows="4" required></textarea>
             </div>
-
+    
             <div class="form-group">
                 <label for="id_rating" class="form-label">Рейтинг:</label>
                 <select id="id_rating" name="rating" class="form-select" required>
@@ -149,12 +154,13 @@
                     <option value="5">5</option>
                 </select>
             </div>
-
+    
             <div class="form-group">
                 <button type="submit" class="form-button">Отправить отзыв</button>
             </div>
         </form>
     </div>
+    
 
     
 
