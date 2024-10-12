@@ -13,7 +13,46 @@
         <div class="tutor-list">
             <ul>
                 <li>
-                    вопросы
+                    <form method="POST" action="{% url 'create_order' %}">
+                        {% csrf_token %}
+                        <ul>
+                            <li>
+                                <label>Для кого нужен специалист?</label><br>
+                                <input type="radio" name="target_audience" value="для себя"> Для себя<br>
+                                <input type="radio" name="target_audience" value="для ребенка"> Для ребенка<br>
+                                <input type="radio" name="target_audience" value="для семьи"> Для семьи<br>
+                            </li>
+                            <li>
+                                <label>Ваш возраст:</label>
+                                <input type="text" name="age" required>
+                            </li>
+                            <li>
+                                <label>Пол специалиста:</label><br>
+                                <input type="radio" name="gender" value="мужчина"> Мужчина<br>
+                                <input type="radio" name="gender" value="женщина"> Женщина<br>
+                                <input type="radio" name="gender" value="не важно"> Не важно<br>
+                            </li>
+                            <li>
+                                <label>Сколько консультаций планируете?</label><br>
+                                <input type="radio" name="consultation_count" value="1-2"> 1-2<br>
+                                <input type="radio" name="consultation_count" value="решу позже"> Решу после первой консультации<br>
+                            </li>
+                            <li>
+                                <label>В каком формате удобно встречаться со специалистом?</label><br>
+                                <input type="radio" name="meeting_format" value="онлайн"> Онлайн<br>
+                                <input type="radio" name="meeting_format" value="лично"> Лично<br>
+                            </li>
+                            <li>
+                                <label>Выберите подходящую стоимость встреч с психологом:</label><br>
+                                <input type="text" name="price" required>
+                            </li>
+                            <li>
+                                <label>Пожелания для специалиста:</label><br>
+                                <textarea name="comments" rows="4"></textarea>
+                            </li>
+                        </ul>
+                        <button type="submit">Отправить</button>
+                    </form>
                 </li>
             </ul>
         </div>
