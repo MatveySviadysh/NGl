@@ -5,6 +5,10 @@
     <div class="container">
         <div class="text-column">
             <p>О специалисте</p>
+            <a href="{% url 'edit-tutor-profile' %}" class="btn btn-primary">
+                Редактировать профиль
+            </a>
+            
         </div>
         <div class="tutor-column">
             <div class="rectangle">
@@ -16,8 +20,8 @@
                         <li class="tutor-item">
                             <div class="tutor-header">
                                 <div class="avatar-container">
-                                    {% if profile.avatar %}
-                                        <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар">
+                                    {% if tutor.avatar %}
+                                        <img src="{{ tutor.avatar.url }}" class="avatar-image" alt="Аватар">
                                     {% else %}
                                         <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар">
                                     {% endif %}

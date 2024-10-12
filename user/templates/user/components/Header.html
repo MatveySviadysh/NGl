@@ -8,21 +8,27 @@
         <div class="navbar-right">
             {% if user.is_authenticated %}
                 <a href="{% url 'logout-user' %}" class="navbar-link">Выйти</a>
-                
                 {% if user.tutor %}
-                    <span>Добро пожаловать, Репетитор {{ user.tutor.full_name }}!</span>
+                    <a href="{% url 'profile-tutor' user.tutor.full_name %}">
+                        {% if tutor.avatar %}
+                            <img src="{{ tutor.avatar.url }}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+                        {% else %}
+                            <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 40px; height: 40px; object-fit: cover;">
+                        {% endif %}
+                    </a>
                 {% else %}
-                <a href="{% url 'profile-user' %}">
-                    <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 40px; height: 40px; object-fit: cover;">
-                </a>
-                    <span>Добро пожаловать, Пользователь!</span>
+                    <a href="{% url 'profile-user' %}">
+                        {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+                        {% else %}
+                            <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 40px; height: 40px; object-fit: cover; " class="avatar-image" alt="Дефолтный аватар">
+                        {% endif %}
+                    </a>
                 {% endif %}
             {% else %}
                 <a href="{% url 'login_tutor' %}" class="navbar-link" target="_blank">Вход для специалистов</a>
                 <a href="{% url 'login-user' %}" class="navbar-link" target="_blank">Вход для учеников</a>
             {% endif %}
         </div>
-        
-        
     </div>
 </div>

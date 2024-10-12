@@ -11,6 +11,7 @@ from django.http import JsonResponse
 import random
 from django.core.paginator import Paginator
 
+@login_required
 def chenge_user_profile(request):
     profile = UserProfile.objects.get(user=request.user)
     if request.method == 'POST':
@@ -73,6 +74,11 @@ def tutor_list(request, specialization):
 
 
 def main_page(request):
+    if request.user.is_authenticated and hasattr(request.user, 'tutor'):
+        tutor = request.user.tutor
+    else:
+        tutor = None
+    profile = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
     query = request.GET.get('query', '')
     if query:
          tutors = Tutor.objects.filter(specialization__icontains=query)
@@ -94,6 +100,8 @@ def main_page(request):
         'tutors': tutors,
         'query': query,
         'random_reviews':random_reviews,
+        'profile': profile, 
+        'tutor':tutor,
     })
 
 def register_tutor(request):
@@ -153,7 +161,6 @@ def edit_tutor_profile(request):
         form = TutorProfileUpdateForm(instance=tutor)
     return render(request, 'user/pages/EditTutorProfile.html', {'form': form})
 
-@login_required
 def profile_tutor(request, full_name):
     tutor = Tutor.objects.filter(full_name=full_name).first()
     if not tutor:
@@ -174,6 +181,7 @@ def all_tutors(request):
 def notifications_user(request):
     return render(request, 'user/pages/NotificationsUser.html')
 
+@login_required
 def change_password_user(request):
     if request.method == 'POST':
         form = CustomPasswordChangeForm(request.user, request.POST)
