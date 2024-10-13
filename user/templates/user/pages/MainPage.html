@@ -73,12 +73,15 @@
             {% for review in random_reviews %}
                 <div class="review-card">
                     <div class="avatar-container">
-                        {% if profile.avatar %}
-                            <img src="{{ profile.avatar.url }}" class="avatar-img" alt="Аватар" href="{% url 'profile-user' %}">
-                        {% else %}
-                            <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-img" alt="Дефолтный аватар" href="{% url 'profile-user' %}">
-                        {% endif %}
+                        {% with review.user.userprofile as profile %}
+                            {% if profile.avatar %}
+                                <img src="{{ profile.avatar.url }}" class="avatar-img" alt="Аватар">
+                            {% else %}
+                                <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-img" alt="Дефолтный аватар">
+                            {% endif %}
+                        {% endwith %}
                     </div>
+                    
                     <div class="review-content">
                         <strong class="review-name">
                             <a href="{% url 'profile-user' %}">{{ review.username }}</a>

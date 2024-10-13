@@ -76,8 +76,6 @@ class ReviewForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        if self.user and self.user.is_authenticated:
-            self.instance.username = self.user.username 
 
 class TutorProfileUpdateForm(forms.ModelForm):
     class Meta:
