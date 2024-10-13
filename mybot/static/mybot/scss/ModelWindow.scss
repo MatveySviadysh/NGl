@@ -5,9 +5,10 @@
     z-index: 1;
     left: 0;
     top: 0;
-    width: 400px;
-    height: 100%;
-    overflow: auto;
+    width: 90%; /* Make it responsive */
+    max-width: 400px; /* Maximum width */
+    height: auto; /* Auto height */
+    overflow: auto; /* Allow scrolling if needed */
 }
 
 .modal-content {
@@ -15,12 +16,11 @@
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #ccc;
-    width: 80%;
     border-radius: 10px;
     transition: transform 0.3s ease;
 
     &:hover {
-        transform: scale(1.05); // Эффект увеличения при наведении
+        transform: scale(1.05); /* Hover effect */
     }
 }
 
@@ -32,7 +32,7 @@
 
     &:hover,
     &:focus {
-        color: #f00; // Цвет при наведении
+        color: #f00; /* Color on hover */
         text-decoration: none;
         cursor: pointer;
     }
@@ -56,7 +56,7 @@
     right: 20px;
 
     &:hover {
-        background: #ff4d4d;
+        background: #ff4d4d; 
         transform: scale(1.05);
     }
 
@@ -66,57 +66,61 @@
 }
 
 .button-window {
-    background-color: #FF0000; /* Красный цвет */
-    color: white; /* Цвет текста белый */
+    background-color: #FF0000; /* Red color */
+    color: white; /* White text */
     font-size: 16px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+
 }
 
 .button-window:hover {
-    background-color: #CC0000; /* Более темный красный при наведении */
-    transform: scale(1.05); /* Увеличение при наведении */
+    background-color: #CC0000; /* Darker red on hover */
 }
 
 .button-window:active {
-    transform: scale(0.95); /* Уменьшение при нажатии */
+   transform: scale(0.95); /* Scale down on click */
 }
 
-
-.form{
-    margin-top: 150px;
-    display: flex;
-
-    flex-direction: column;
+.form {
+   display: flex; 
+   flex-direction: column; 
+   margin-top: 20px; /* Reduced margin for better fit */
 }
+
+.form-group {
+   display: flex; 
+   flex-direction: column; 
+   gap: 10px; /* Space between elements */
+}
+
 textarea {
-
-    margin-right: 10px; /* Отступ справа от текстового поля */
-
-    width: 300px; /* Ширина текстового поля (можно изменить) */
-
+   width: calc(100% - 20px); /* Full width minus padding */
+   margin-right: 10px; /* Right margin for spacing */
+   resize: vertical; /* Allow vertical resizing only */
+   padding: 10px; /* Padding inside textarea */
 }
+
 .support-text {
-    font-size: 18px; /* Размер шрифта */
-    color: black; /* Цвет текста */
-    text-align: center; /* Выравнивание по центру */
-    margin: 20px 0; /* Отступы сверху и снизу */
-    font-family: 'Arial', sans-serif; /* Шрифт */
+   font-size: 18px; 
+   color: black; 
+   text-align: center; 
+   margin-bottom: 10px; 
+   font-family: 'Arial', sans-serif; 
 }
 
 .line {
-    border: none; /* Убираем стандартное оформление */
-    border-top: 1px solid gray; /* Серый цвет и ширина 1px */
-    margin: 20px 0; /* Отступы сверху и снизу */
+   border-top: 1px solid gray; 
+   margin-top: 10px; 
+   margin-bottom: 10px; 
 }
 
 .main-window-hepl{
-    font-size: 23px; /* Размер шрифта */
-    color: black; /* Цвет текста */
-    text-align: center; /* Выравнивание по центру */
-    margin: 20px 0; /* Отступы сверху и снизу */
-    font-family: 'Arial', sans-serif;
+   font-size: 23px; 
+   color:black; 
+   text-align:center; 
+   margin-bottom :10px ; 
 }
