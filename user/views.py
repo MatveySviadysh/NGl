@@ -217,6 +217,20 @@ def review_create(request):
         form = ReviewForm(user=request.user)
     return render(request, 'user/pages/review_form.html', {'form': form})
 
+def all_review(request):
+    reviews_list = Review.objects.all()
+    paginator = Paginator(reviews_list, 20)
+
+    page_number = request.GET.get('page')
+    reviews = paginator.get_page(page_number)
+
+    context = {
+        'reviews': reviews,
+        'star_range': range(1, 6)
+    }
+    
+    return render(request, 'user/pages/AllReview.html', context)
+
 def all_tutors(request):
     tutors = Tutor.objects.all()  
     paginator = Paginator(tutors, 10) 
