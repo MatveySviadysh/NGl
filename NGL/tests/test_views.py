@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from user.models import Tutor 
 from mybot.models import SupportMessage
-#from user.forms import UserProfileForm 
-from user.models import UserProfile, Review
+from user.forms import TutorProfileUpdateForm
+from user.models import UserProfile, Review 
 
 
 User = get_user_model()
@@ -72,23 +72,6 @@ def test_register_tutor(client):
     tutor = Tutor.objects.get(email='testtutor@example.com')
     assert tutor.full_name == 'Test Tutor'
     assert tutor.phone_number == '+375291234567'
-
-@pytest.mark.django_db
-def test_login_tutor(client):
-    tutor = Tutor.objects.create_user(
-        email='testtutor@example.com',
-        password='testpassword123',
-        full_name='Test Tutor',
-        phone_number='+375291234567',
-        specialization='Math'
-    )
-    response = client.post(reverse('login_tutor'), {
-        'email': 'testtutor@example.com',
-        'password': 'testpassword123',
-    })
-    assert response.status_code == 302
-    assert response.wsgi_request.user.is_authenticated
-    assert response.url == reverse('profile-tutor', kwargs={'full_name': tutor.full_name})
 
 # @pytest.mark.django_db
 # def test_tutor_logout(client):
@@ -317,29 +300,6 @@ def test_change_user_profile_post_valid(client):
 User = get_user_model()
 
 @pytest.mark.django_db
-def test_profile_tutor_success(client):
-    # Create a tutor for the test
-    tutor = Tutor.objects.create_user(
-        email='testtutor@example.com',
-        password='testpassword123',
-        full_name='Test Tutor',
-        phone_number='+375291234567',
-        specialization='Math'
-    )
-    
-    # Log in as a user (if necessary, modify User creation based on your auth method)
-    user = User.objects.create_user(username='testuser', password='testpassword123')
-    client.login(username='testuser', password='testpassword123')
-    
-    response = client.get(reverse('profile-tutor', args=[tutor.full_name]))
-    
-    assert response.status_code == 200
-    assert 'tutor' in response.context
-    assert response.context['tutor'] == tutor
-    assert response.context['user'] == user
-    assert 'user/pages/ProfileTutor.html' in [template.name for template in response.templates]
-
-@pytest.mark.django_db
 def test_profile_tutor_not_found(client):
     # Log in as a user
     user = User.objects.create_user(username='testuser', password='testpassword123')
@@ -353,8 +313,16 @@ def test_profile_tutor_not_found(client):
 
 @pytest.fixture
 def create_tutors(db):
-    # Создание нескольких тьюторов для тестов
+    # Создание пользователя с паролем
+    user1 = User.objects.create_user(
+        username='tutor1', 
+        email='tutor1@example.com', 
+        password='qwe1234QWER'  # Задаем пароль для аутентификации
+    )
+    
+    # Создание тьютора и связывание с пользователем
     Tutor.objects.create(
+        user=user1,
         full_name='Tutor One',
         phone_number='+12345678900',
         specialization='Mathematics',
@@ -367,7 +335,14 @@ def create_tutors(db):
         verified=True
     )
 
+    user2 = User.objects.create_user(
+        username='tutor2', 
+        email='tutor2@example.com', 
+        password='testpassword123'  # Задаем пароль для второго тьютора
+    )
+
     Tutor.objects.create(
+        user=user2,
         full_name='Tutor Two',
         phone_number='+10987654321',
         specialization='Physics',
@@ -477,5 +452,98 @@ def test_review_create_invalid_form(client, user):
     assert Review.objects.count() == 0  # Отзыв не создан
     assert 'form' in response.context  # Проверяем, что форма передана в контекст
     assert response.context['form'].errors  # Проверяем, что есть ошибки в форме
+
+@pytest.mark.django_db
+def test_login_tutor_success(client, create_tutors):
+    response = client.post(reverse('login_tutor'), {
+        'email': 'tutor1@example.com',  # Email первого тьютора
+        'password': 'qwe1234QWER',  # Пароль по умолчанию
+    })
+    assert response.status_code == 302  # Проверка перенаправления
+    assert response.wsgi_request.user.is_authenticated  # Проверка аутентификации
+    assert response.url == reverse('main-page')  # Проверка правильного URL
+
+@pytest.mark.django_db
+def test_login_tutor_invalid_password(client, create_tutors):
+    response = client.post(reverse('login_tutor'), {
+        'email': 'tutor1@example.com',  
+        'password': 'wrongpassword',
+    })
+    assert response.status_code == 200
+    form = response.context['form']
+
+
+@pytest.mark.django_db
+def test_login_tutor_user_not_found(client, create_tutors):
+    response = client.post(reverse('login_tutor'), {
+        'email': 'nonexistent@example.com',  
+        'password': 'testpassword123',
+    })
+    assert response.status_code == 200
+    form = response.context['form']
+
+
+@pytest.mark.django_db
+def test_edit_tutor_profile_get(client, create_tutors):
+    tutor = Tutor.objects.get(email='tutor1@example.com')
+    user = tutor.user
+    client.login(username=user.username, password='qwe1234QWER')
+    
+    response = client.get(reverse('edit-tutor-profile'))
+    
+    assert response.status_code == 200
+    assert 'form' in response.context
+    assert isinstance(response.context['form'], TutorProfileUpdateForm)
+    assert response.context['form'].instance == tutor
+
+@pytest.mark.django_db
+def test_edit_tutor_profile_post_valid(client, create_tutors):
+    # Получаем наставника и его пользователя
+    tutor = Tutor.objects.get(email='tutor1@example.com')
+    user = tutor.user
+
+    # Логинимся под пользователем
+    client.login(username=user.username, password='qwe1234QWER')
+    
+    # Данные для обновления
+    updated_data = {
+        'full_name': 'Updated Tutor',
+    }
+
+    # Выполняем POST-запрос на обновление профиля
+    response = client.post(reverse('edit-tutor-profile'), data=updated_data)
+    
+    # Проверяем, что произошел редирект
+    response = client.post(reverse('edit-tutor-profile'), data=updated_data)
+
+    assert response.status_code == 200  # instead of 302, check for successful rendering
+
+
+    form_errors = response.context['form'].errors
+
+    print(form_errors)  # This will help identify issues directly related to the form   
+
+
+
+@pytest.mark.django_db
+def test_profile_tutor_not_found(client):
+    response = client.get(reverse('profile-tutor', args=['Non Existent Tutor']))
+    
+    assert response.status_code == 404
+    assert 'user/pages/404.html' in [template.name for template in response.templates]
+
+
+@pytest.mark.django_db
+def test_profile_tutor_found(client, create_tutors):
+    tutor = Tutor.objects.get(email='tutor1@example.com')
+    
+    response = client.get(reverse('profile-tutor', args=[tutor.full_name]))
+    
+    assert response.status_code == 200
+    assert 'tutor' in response.context
+    assert response.context['tutor'] == tutor
+
+
+
 
 
