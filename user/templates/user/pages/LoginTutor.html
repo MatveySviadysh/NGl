@@ -13,7 +13,10 @@
             </div>
             <div class="form-group">
                 <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
-                {{ form.password }}
+                <div class="password-container">
+                    {{ form.password }} <!-- Ensure this is an input of type "password" -->
+                    <button type="button" id="toggle-password-tutor" onclick="togglePasswordTutor()" class="toggle-button">👁️</button> <!-- Eye icon -->
+                </div>
             </div>
             <button type="submit" class="registration-button">Войти</button>    
         </form>
@@ -23,3 +26,41 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'user/js/ShowPassword.js' %}"></script>
+
+<style>
+.password-container {
+    position: relative;
+}
+
+.toggle-button {
+    position: absolute;
+    right: 10px; /* Space from the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    color: #aaa; /* Default color for the button */
+}
+
+.toggle-button:hover {
+    color: #555; /* Darker color on hover */
+}
+</style>
+
+<script>
+    function togglePasswordTutor() {
+        const passwordField = document.querySelector('#{{ form.password.id_for_label }}'); // Get the password input
+        const toggleButton = document.getElementById('toggle-password-tutor');
+        
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text'; // Show password
+            toggleButton.style.color = '#888'; // Change color to gray
+        } else {
+            passwordField.type = 'password'; // Hide password
+            toggleButton.style.color = ''; // Reset color
+        }
+    }
+</script>
