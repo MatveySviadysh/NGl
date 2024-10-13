@@ -1,10 +1,51 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<link rel="stylesheet" href="{% static 'user/scss/Tutor/EditTutorProfile.scss' %}">
 
 {% block content %}
-<h2>Редактировать профиль репетитора</h2>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Сохранить изменения</button>
-</form>
-<a href="{% url 'main-page' %}">Назад</a>
+<div class="form-container">
+    <h2 class="form-title">Редактировать профиль</h2>
+    <form method="POST" enctype="multipart/form-data" class="edit-profile-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.full_name.label_tag }}
+            {{ form.full_name|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.phone_number.label_tag }}
+            {{ form.phone_number|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.specialization.label_tag }}
+            {{ form.specialization|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.avatar.label_tag }}
+            {{ form.avatar|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.price.label_tag }}
+            {{ form.price|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.services.label_tag }}
+            {{ form.services|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.video.label_tag }}
+            {{ form.video|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.experience.label_tag }}
+            {{ form.experience|add_class:"form-input" }}
+        </div>
+
+        <button type="submit" class="button">Сохранить изменения</button>
+    </form>
+</div>
 {% endblock %}
