@@ -80,4 +80,14 @@ class ReviewForm(forms.ModelForm):
 class TutorProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Tutor
-        fields = ['full_name', 'phone_number', 'specialization', 'email', 'avatar','price','services','video','experience',]
+        fields = [
+            'full_name', 
+            'phone_number', 
+            'specialization', 
+            'email', 
+            'avatar',
+            'price',
+            'services',
+            'video',
+            'experience',
+        ]

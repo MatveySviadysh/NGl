@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'user',
     'mybot',
     'order',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
