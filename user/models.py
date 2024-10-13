@@ -51,6 +51,7 @@ class Tutor(models.Model):
         return self.full_name
 
 class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
     username = models.CharField(max_length=100)
     comment = models.TextField()
     rating = models.PositiveIntegerField(choices=[(i, i) for i in range(1, 6)])
