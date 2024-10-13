@@ -42,18 +42,23 @@
 
             <div class="form-group">
                 <label for="id_password1">Пароль</label>
-                {{ form.password }}
-                {% if form.password.errors %}
-                    <div class="error">{{ form.password.errors }}</div>
-                {% endif %}
+                <div class="password-container">
+                    {{ form.password }} 
+                    <button type="button" id="toggle-password-tutor" onclick="togglePasswordTutor()" class="toggle-button">👁️</button> <!-- Eye icon -->
+                    {% if form.password.errors %}
+                        <div class="error">{{ form.password.errors }}</div>
+                    {% endif %}
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="id_password2">Подтверждение пароля</label>
-                {{ form.password_confirm }}
-                {% if form.password_confirm.errors %}
-                    <div class="error">{{ form.password_confirm.errors }}</div>
-                {% endif %}
+                <div class="password-container">
+                    {{ form.password_confirm }} 
+                    <button type="button" id="toggle-password-confirm-tutor" onclick="togglePasswordConfirmTutor()" class="toggle-button">👁️</button> <!-- Eye icon -->
+                    {% if form.password_confirm.errors %}
+                        <div class="error">{{ form.password_confirm.errors }}</div>
+                    {% endif %}
+                </div>
             </div>
 
             <button type="submit" class="registration-button">Продолжить</button>
@@ -64,3 +69,56 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'user/js/ShowPassword.js' %}"></script>
+
+<script>
+// Function to toggle password visibility for tutor registration
+function togglePasswordTutor() {
+    const passwordField = document.querySelector('#id_password'); // Get the password input
+    const toggleButton = document.getElementById('toggle-password-tutor');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text'; // Show password
+        toggleButton.style.color = '#888'; // Change color to gray
+    } else {
+        passwordField.type = 'password'; // Hide password
+        toggleButton.style.color = ''; // Reset color
+    }
+}
+
+// Function to toggle confirmation password visibility for tutor registration
+function togglePasswordConfirmTutor() {
+    const passwordField = document.querySelector('#id_password_confirm'); // Get the confirm password input
+    const toggleButton = document.getElementById('toggle-password-confirm-tutor');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text'; // Show password
+        toggleButton.style.color = '#888'; // Change color to gray
+    } else {
+        passwordField.type = 'password'; // Hide password
+        toggleButton.style.color = ''; // Reset color
+    }
+}
+</script>
+
+<style>
+.password-container {
+    position: relative;
+}
+
+.toggle-button {
+    position: absolute;
+    right: 10px; /* Space from the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    color: #aaa; /* Default color for the button */
+}
+
+.toggle-button:hover {
+    color: #555; /* Darker color on hover */
+}
+</style>

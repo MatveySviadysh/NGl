@@ -13,7 +13,10 @@
             </div>
             <div class="form-group">
                 <label for="id_password">Пароль</label>
-                {{ form.password }}
+                <div class="password-container">
+                    {{ form.password }}
+                    <button type="button" id="toggle-password" onclick="togglePassword()" class="toggle-button">👁️</button> <!-- Eye icon -->
+                </div>
             </div>
             <button type="submit" class="registration-button">Войти</button>
         </form>
@@ -22,3 +25,26 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'user/js/ShowPassword.js' %}"></script>
+
+<style>
+.password-container {
+    position: relative;
+}
+
+.toggle-button {
+    position: absolute;
+    right: 10px; /* Space from the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    color: #aaa; /* Default color for the button */
+}
+
+.toggle-button:hover {
+    color: #555; /* Darker color on hover */
+}
+</style>
