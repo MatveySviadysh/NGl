@@ -19,5 +19,6 @@ urlpatterns = [
     path('user/reviews/create/', review_create, name='review_create'),
     path('user/chenge_user_profile/', chenge_user_profile, name='chenge_user_profile'),
     path('edit-profile/', edit_tutor_profile, name='edit-tutor-profile'),
+    path('all_review/', all_review, name='all_review'),
 ]
 

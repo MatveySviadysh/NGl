@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static 'user/scss/Fotter.scss' %}">
 
 <div class="footer-background">
-  <div class="footer-container"> <!-- Новый контейнер для фона -->
+  <div class="footer-container">
     <div class="down_header">
       <div class="column first-column">
         <div class="link-wrapper">
@@ -24,7 +24,8 @@
           </div>
         </div>
         <div class="link-wrapper"><a class="link" href="#services">Все услуги</a></div>
-        <div class="link-wrapper"><a class="link" href="#reviews">Все отзывы</a></div>
+        <div class="link-wrapper"><a class="link" href="{% url 'all_review' %}">Все отзывы</a></div>
+        
         <div class="link-wrapper"><a class="link" href="#terms">Условия использования</a></div>
       </div>
       <div class="column">

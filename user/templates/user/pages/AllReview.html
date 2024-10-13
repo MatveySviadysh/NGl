@@ -1,0 +1,75 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/scss/AllReview.scss' %}">
+
+{% include 'user/components/Header.html' %}
+
+<div class='review-container'>
+    <h2 class='title'>Отзывы о специалистах</h2>
+    {% block content %}
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+            <div class="review-card">
+                <div class="avatar-container">
+                    {% with review.user.userprofile as profile %}
+                        {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" class="avatar-img" alt="Аватар">
+                        {% else %}
+                            <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-img" alt="Дефолтный аватар">
+                        {% endif %}
+                    {% endwith %}
+                </div>
+
+                <div class="review-content">
+                    <strong class="review-name">
+                        <a href="{% url 'profile-user' %}">{{ review.username }}</a>
+                    </strong>
+
+                    <div class="review-rating">
+                        {% for i in star_range %}
+                            {% if i <= review.rating %}
+                                <span class="filled-star">⭐</span> <!-- Filled star -->
+                            {% else %}
+                                <span class="empty-star">✩</span> <!-- Empty star -->
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+                    <div>
+                        {{ review.created_at|date:"Y-m-d" }}
+                    </div>
+                    <p class="review-comment">{{ review.comment }}</p>
+                    <p class="review-category">{{ review.category }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас пока нет комментариев.</p>
+    {% endif %}
+    {% endblock %}
+</div>
+<!-- Pagination Controls -->
+<div class="pagination">
+    <span class="step-links">
+        {% if reviews.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ reviews.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}.
+        </span>
+
+        {% if reviews.has_next %}
+            <a href="?page={{ reviews.next_page_number }}">next</a>
+            <a href="?page={{ reviews.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+{% include 'user/components/HelpWindow.html' %}
+{% include 'user/components/Fotter.html' %}
+
+<script src="{% static 'user/js/Review.js' %}"></script>
