@@ -13,12 +13,13 @@ class ButtonPageView(View):
         if isinstance(request.user, AnonymousUser):
             return redirect('login-user')
 
-        form = SupportMessageForm(request.POST)
+        form = SupportMessageForm(request.POST, request.FILES)
         if form.is_valid():
             support_message = SupportMessage(
                 name=request.user.username,
                 email=request.user.email,
                 message=form.cleaned_data['message'],
+                image=request.FILES.get('image'),
             )
             support_message.save()
             return redirect('main-page')
@@ -40,7 +41,7 @@ class SupportMessageDetailView(View):
         response_form = SupportResponseForm(request.POST, instance=message)
         if response_form.is_valid():
             response_form.save()
-            return redirect('admin:mybot_supportmessage_changelist')  # Перенаправление на список сообщений
+            return redirect('admin:mybot_supportmessage_changelist')
         return render(request, 'mybot/support_message_detail.html', {
             'message': message,
             'response_form': response_form,
