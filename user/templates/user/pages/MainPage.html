@@ -39,13 +39,11 @@
                 <h3 class="course-guarantee">количество заявок:{{count_orders}}</h3>
         
                 <div class="course-button">
-                    {% if user.is_authenticated %}
                         {% if not user.tutor %}
                             <a href="{% url 'create_order' %}" class="submit-application-btn">
                                 Оставить заявку
                             </a>
                         {% endif %}
-                    {% endif %}
                 </div>
             </div>
             <div class="course-image">
