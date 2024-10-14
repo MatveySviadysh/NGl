@@ -247,3 +247,9 @@ def all_tutors(request):
         'tutor_count': tutors.count(),
         'page_obj': page_obj,
     })
+
+def about_company(request):
+    return render(request, 'user/pages/FotterPage/AboutCompany.html')
+
+def all_service(request):
+    return render(request, 'user/pages/FotterPage/AllService.html')

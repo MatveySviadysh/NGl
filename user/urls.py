@@ -20,5 +20,7 @@ urlpatterns = [
     path('user/chenge_user_profile/', chenge_user_profile, name='chenge_user_profile'),
     path('edit-profile/', edit_tutor_profile, name='edit-tutor-profile'),
     path('all_review/', all_review, name='all_review'),
+    path('about_company/', about_company, name='about_company'),
+    path('all_service/', all_service, name='all_service'),
 ]
 
