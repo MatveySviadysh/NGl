@@ -61,7 +61,11 @@
                 <div class="column">Обо всех деталях договаривайтесь со специалистом и платите ему напрямую.</div>
             </div>
         </div>
-        <a href="{% url 'create_order' %}">asdasdasd</a>
+        {% if user.is_authenticated %}
+            {% if not user.tutor %}
+                <a href="{% url 'create_order' %}">Создать заказ на консультацию</a>
+            {% endif %}
+        {% endif %}
     </div>
     
 

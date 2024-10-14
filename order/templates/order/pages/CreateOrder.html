@@ -2,7 +2,6 @@
 
 <link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorList.scss' %}">
 
-
 {% include 'user/components/Header.html' %}
 <div class="container">
     <div class="text-column">
@@ -13,7 +12,7 @@
         <div class="tutor-list">
             <ul>
                 <li>
-                    <form method="POST" action="{% url 'create_order' %}">
+                    <form method="POST" action="{% url 'create_order' %}" onsubmit="return validateSpecialization()">
                         {% csrf_token %}
                         <ul>
                             <li>
@@ -24,7 +23,7 @@
                             </li>
                             <li>
                                 <label>Ваш возраст:</label>
-                                <input type="text" name="age" required>
+                                <input type="number" name="age" required min="1">
                             </li>
                             <li>
                                 <label>Пол специалиста:</label><br>
@@ -44,15 +43,59 @@
                             </li>
                             <li>
                                 <label>Выберите подходящую стоимость встреч с психологом:</label><br>
-                                <input type="text" name="price" required>
+                                <input type="number" step=".01" name="price" required min="0">
                             </li>
                             <li>
                                 <label>Пожелания для специалиста:</label><br>
                                 <textarea name="comments" rows="4"></textarea>
                             </li>
+                            <li>
+                                <label>Специализация специалиста:</label><br>
+                                <!-- Call the validateAndCapitalizeInput function on input -->
+                                <input type="text" id="specialization" name="specialization"
+                                       required placeholder="Введите специализацию"
+                                       oninput="validateAndCapitalizeInput(this)">
+                            </li>
                         </ul>
                         <button type="submit">Отправить</button>
                     </form>
+
+                    <!-- JavaScript for validation and capitalization -->
+                    <script>
+                        function validateAndCapitalizeInput(input) {
+                            // Удаляем все символы, кроме русских букв и пробелов
+                            input.value = input.value.replace(/[^а-яА-ЯёЁ\s]/g, '');
+    
+                            // Преобразуем каждое слово в заглавную букву
+                            const words = input.value.split(' ');
+                            for (let i = 0; i < words.length; i++) {
+                                if (words[i]) {
+                                    words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+                                }
+                            }
+                            input.value = words.join(' ');
+                        }
+
+                        function validateSpecialization() {
+                            const specializationInput = document.getElementById('specialization');
+                            const specializationValue = specializationInput.value.trim();
+
+                            // Check if the first letter is uppercase
+                            if (specializationValue.length === 0 || !/^[А-ЯЁ]/.test(specializationValue)) {
+                                alert('Специализация должна начинаться с заглавной буквы и быть на русском языке.');
+                                return false; // Prevent form submission
+                            }
+
+                            // Check if the input contains only Russian letters and spaces
+                            if (!/^[А-ЯЁа-яё\s]+$/.test(specializationValue)) {
+                                alert('Специализация должна содержать только русские буквы.');
+                                return false; // Prevent form submission
+                            }
+
+                            return true; // Allow form submission
+                        }
+                    </script>
+
                 </li>
             </ul>
         </div>
@@ -60,4 +103,3 @@
 </div>
 
 {% include 'mybot/HelpWindow.html' %}
-

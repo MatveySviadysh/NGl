@@ -1,0 +1,30 @@
+
+{% block content %}
+<div class="container">
+    <h1>Репетиторы, подходящие под ваш запрос</h1>
+    
+    {% if tutors %}
+        <ul class="tutor-list">
+            {% for tutor in tutors %}
+                <li>
+                    <div class="tutor-info">
+                        <a href="{% url 'profile-tutor' tutor.full_name %}">
+                            <strong>{{ tutor.full_name }}</strong>
+                        </a>
+                        <p>Специализация: {{ tutor.specialization }}</p>
+                        <p>Телефон: {{ tutor.phone_number }}</p>
+                        <p>Email: {{ tutor.email }}</p>
+                        <p>Рейтинг: {{ tutor.rating }}</p>
+                        <p>Цена за консультацию: {{ tutor.price }} руб.</p>
+                        {% if tutor.avatar %}
+                            <img src="{{ tutor.avatar.url }}" alt="{{ tutor.full_name }}'s avatar" />
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>К сожалению, нет доступных репетиторов по вашему запросу.</p>
+    {% endif %}
+</div>
+{% endblock %}
