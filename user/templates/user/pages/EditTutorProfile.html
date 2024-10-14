@@ -18,7 +18,13 @@
         </div>
         <div class="form-group">
             {{ form.specialization.label_tag }}
-            {{ form.specialization|add_class:"form-input" }}
+            <input type="text" id="id_specialization" name="specialization" 
+                   oninput="capitalizeInput(this)" 
+                   value="{{ form.specialization.value|default:'' }}" 
+                   class="form-input">
+            {% if form.specialization.errors %}
+                <div class="error">{{ form.specialization.errors }}</div>
+            {% endif %}
         </div>
         <div class="form-group">
             {{ form.email.label_tag }}
@@ -49,3 +55,17 @@
     </form>
 </div>
 {% endblock %}
+<script>
+function capitalizeInput(input) {
+    // Преобразуем каждое слово в заглавную букву
+    input.value = input.value.replace(/[^а-яА-ЯёЁ\s]/g, '');
+    
+    const words = input.value.split(' ');
+    for (let i = 0; i < words.length; i++) {
+        if (words[i]) {
+            words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+        }
+    }
+    input.value = words.join(' ');
+}
+</script>
