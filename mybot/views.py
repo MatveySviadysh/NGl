@@ -4,6 +4,10 @@ from .forms import SupportMessageForm, SupportResponseForm
 from .models import SupportMessage
 from django.contrib.auth.models import AnonymousUser
 
+
+def Help_page(request):
+    return render(request, 'mybot/HelpPage.html',)
+
 class ButtonPageView(View):
     def get(self, request, *args, **kwargs):
         form = SupportMessageForm()
