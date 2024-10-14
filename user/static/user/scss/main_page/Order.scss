@@ -1,0 +1,51 @@
+.chinese-course-section {
+    display: flex; /* Используем flexbox для выравнивания содержимого */
+    background-color:#fbfcfe; /* Полупрозрачный фон для контента */
+    border-radius: 10px; /* Скругленные углы */
+    overflow: hidden; /* Скрываем часть изображения, выходящую за пределы блока */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 100px;
+    margin-right: 60px; /* Тень для глубины */
+}
+
+.course-content {
+    padding: 20px; /* Отступы вокруг контента */
+    flex: 1; /* Занимает доступное пространство */
+}
+
+.course-guarantee {
+    font-size: 24px; /* Размер шрифта заголовка */
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+.course-description {
+    font-size: 16px; /* Размер шрифта описания */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+.course-button {
+    margin-top: 200px;
+    margin-left: 300px; /* Отступ сверху для кнопки */
+}
+
+.submit-application-btn {
+    background-color: #4CAF50; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    padding: 10px 20px; /* Внутренние отступы кнопки */
+    text-decoration: none; /* Убираем подчеркивание текста */
+    border-radius: 5px; /* Скругленные углы кнопки */
+    transition: background-color 0.3s ease; /* Плавный переход цвета фона при наведении */
+}
+
+.submit-application-btn:hover {
+    background-color: #45a049; /* Цвет фона кнопки при наведении */
+}
+
+.course-image {
+    flex-shrink: 0; /* Не сжимать изображение при уменьшении размера блока */
+}
+
+.course-photo {
+    width: 100%; /* Изображение занимает всю ширину блока */
+    height: auto; /* Высота автоматически подстраивается под ширину */
+}

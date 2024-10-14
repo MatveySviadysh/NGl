@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+
+from order.models import UserConsultation
 from .forms import *
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -74,6 +76,7 @@ def tutor_list(request, specialization):
 
 
 def main_page(request):
+    count_orders = UserConsultation.objects.all().count()
     if request.user.is_authenticated and hasattr(request.user, 'tutor'):
         tutor = request.user.tutor
     else:
@@ -102,6 +105,7 @@ def main_page(request):
         'random_reviews':random_reviews,
         'profile': profile, 
         'tutor':tutor,
+        'count_orders':count_orders,
     })
 
 def register_tutor(request):

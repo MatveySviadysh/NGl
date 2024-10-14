@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
 <link rel="stylesheet" href="{% static 'user/scss/main_page/Review.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/Order.scss' %}">
 
 {% include 'user/components/Header.html' %}
 
@@ -33,6 +34,25 @@
             </div>
         </div>
 
+        <div class="chinese-course-section">
+            <div class="course-content">
+                <h3 class="course-guarantee">количество заявок:{{count_orders}}</h3>
+        
+                <div class="course-button">
+                    {% if user.is_authenticated %}
+                        {% if not user.tutor %}
+                            <a href="{% url 'create_order' %}" class="submit-application-btn">
+                                Оставить заявку
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="course-image">
+                <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины">
+            </div>
+        </div>
+
         <p class="profi">Наши профи</p>
         <div>
             <div class="text-column">
@@ -45,6 +65,10 @@
                 {% endfor %}
             </div>
         </div>
+
+        
+        
+        
 
         <div class="how-it-works">
             <p class="profi">Как это работает?</p>
@@ -61,11 +85,6 @@
                 <div class="column">Обо всех деталях договаривайтесь со специалистом и платите ему напрямую.</div>
             </div>
         </div>
-        {% if user.is_authenticated %}
-            {% if not user.tutor %}
-                <a href="{% url 'create_order' %}">Создать заказ на консультацию</a>
-            {% endif %}
-        {% endif %}
     </div>
     
 
