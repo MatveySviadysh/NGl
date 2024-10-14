@@ -211,6 +211,7 @@ def review_create(request):
         if form.is_valid():
             review = form.save(commit=False)
             review.user = request.user
+            review.username = request.user.username  # Заполняем поле username
             review.save()
             return redirect('main-page')
     else:
