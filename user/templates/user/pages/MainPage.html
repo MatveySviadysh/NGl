@@ -88,7 +88,7 @@
                     
                     <div class="review-content">
                         <strong class="review-name">
-                            <a href="{% url 'profile-user' %}">{{ review.username }}</a>
+                            {{ review.username }}
                         </strong>
                         <div class="review-rating">
                             {% with "0 1 2 3 4" as numbers %}
