@@ -5,16 +5,23 @@
     <div class="container">
         <div class="text-column">
             <p>О специалисте</p>
-            <a href="{% url 'edit-tutor-profile' %}" target="_blank" class="btn btn-primary">
-                Редактировать профиль
-            </a>
-            
+            {% if user.is_authenticated %}
+                {% if  user.tutor %}
+                    <a href="{% url 'edit-tutor-profile' %}" target="_blank" class="btn btn-primary">
+                        Редактировать профиль
+                    </a>
+                {% endif %}
+            {% endif %}
         </div>
         <div class="tutor-column">
-            <div class="rectangle">
-                <div class="text">Чтобы писать специалистам, заполните детали заказа</div>
-                <button class="button">Заполнить детали заказа</button>
-            </div>
+                    {% if user.is_authenticated %}
+                        {% if not user.tutor %}
+                            <div class="rectangle">
+                                <div class="text">Чтобы писать специалистам, заполните детали заказа</div>
+                                <button class="button">Заполнить детали заказа</button>
+                            </div>
+                        {% endif %}
+                    {% endif %}
             <div class="tutor-list">
                 <ul>
                         <li class="tutor-item">
