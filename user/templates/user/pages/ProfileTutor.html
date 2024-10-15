@@ -5,6 +5,8 @@
     <div class="container">
         <div class="text-column">
             <p>О специалисте</p>
+            <p>услуги и цены</p>
+            <p>отзывы</p>
             {% if user.is_authenticated %}
                 {% if  user.tutor %}
                     <a href="{% url 'edit-tutor-profile' %}" target="_blank" class="btn btn-primary">
