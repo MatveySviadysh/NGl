@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'order',
     'widget_tweaks',
     'chat',
+    'subscription',
 ]
 
 MIDDLEWARE = [

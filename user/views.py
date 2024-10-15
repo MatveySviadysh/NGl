@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from order.models import UserConsultation
+from subscription.models import Subscription
 from .forms import *
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
@@ -166,11 +167,13 @@ def edit_tutor_profile(request):
     return render(request, 'user/pages/EditTutorProfile.html', {'form': form})
 
 def profile_tutor(request, full_name):
-    tutor = Tutor.objects.filter(full_name=full_name).first()
-    if not tutor:
-        return render(request, 'user/pages/404.html', status=404)
-    return render(request, 'user/pages/ProfileTutor.html', {'user': request.user, 'tutor': tutor})
-
+    tutor = get_object_or_404(Tutor, full_name=full_name)
+    is_subscribed = Subscription.objects.filter(user=request.user, tutor=tutor).exists() if request.user.is_authenticated else False
+    return render(request, 'user/pages/ProfileTutor.html', {
+        'user': request.user,
+        'tutor': tutor,
+        'is_subscribed': is_subscribed
+    })
 def tutor_logout(request):
     if request.method == 'POST':
         logout(request)
