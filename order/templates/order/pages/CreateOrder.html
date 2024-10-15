@@ -5,8 +5,8 @@
 {% include 'user/components/Header.html' %}
 <div class="container">
     <div class="text-column">
-        <p id="completion-percentage">заказ 0%</p> <!-- Placeholder for completion percentage -->
-        <a href="{% url 'help-page' %}"><p>пожержка</p></a>
+        <p id="completion-percentage">заказ 0%</p>
+        <a href="{% url 'help-page' %}" style="text-decoration: none; color: black;"><p>пожержка</p></a>
     </div>
     <div class="tutor-column">
         <div class="tutor-list">
@@ -60,6 +60,7 @@
                             </li>
                         </ul>
                         <button type="submit">Отправить</button>
+                        <button type="button" onclick="clearForm()">Очистить</button>
                     </form>
 
                     <!-- JavaScript for validation and completion percentage -->
@@ -94,7 +95,14 @@
                                 return false; // Prevent form submission
                             }
 
-                            return true; // Allow form submission
+                            return true;
+                        }
+                        
+                        function clearForm() {
+                            const form = document.querySelector('form');
+                            form.reset();
+                            document.getElementById('completion-percentage').innerText = 'заказ 0%';
+                            document.getElementById('specialization').value = '';
                         }
 
                         function updateCompletionPercentage() {
@@ -140,3 +148,86 @@
 </div>
 
 {% include 'mybot/HelpWindow.html' %}
+
+<style>
+    .tutor-column { <!-- Placeholder for completion percentage -->
+        flex-basis: 70%;
+        margin-top:20px;
+        .tutor-list {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            
+            ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+    
+                li {
+                    margin-bottom: 20px;
+    
+                    label {
+                        font-weight: bold;
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        display: block;
+                    }
+    
+                    input[type="radio"], input[type="number"], input[type="text"], textarea {
+                        margin-top: 10px;
+                        width: 100%;
+                        padding: 10px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        font-size: 14px;
+                    }
+    
+                    input[type="radio"] {
+                        width: auto;
+                        margin-right: 10px;
+                    }
+    
+                    textarea {
+                        resize: vertical;
+                    }
+                }
+            }
+            
+            button {
+                background-color: #e60000;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                &:hover {
+                    background-color: #218838;
+                }
+            }
+        }
+    }
+    
+    #completion-percentage {
+        font-weight: bold;
+        color: #ff5722;
+        margin-bottom: 20px;
+    }
+    
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            padding: 10px;
+        }
+    
+        .text-column, .tutor-column {
+            flex-basis: 100%;
+            margin-bottom: 20px;
+        }
+    
+        .tutor-list {
+            padding: 15px;
+        }
+    }
+</style>
