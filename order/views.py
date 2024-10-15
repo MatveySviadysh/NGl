@@ -19,7 +19,7 @@ def answer(request):
 
     return render(request, 'order/pages/AnswerPage.html', context)
 
-@login_required
+@login_required(login_url='login-user') 
 def create_order(request):
     if request.method == 'POST':
         form = UserConsultationForm(request.POST)

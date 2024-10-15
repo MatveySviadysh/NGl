@@ -1,0 +1,51 @@
+.chinese-course-section2 {
+    display: flex; /* Use Flexbox for layout */
+    align-items: center;
+    margin: 80px 360px; /* Center items horizontally */
+    background-color: #fbfcfe; /* Background color */
+    border-radius: 15px; /* Rounded corners */
+    overflow: hidden; 
+    width: 1105px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+}
+
+.course-image2 {
+    position: relative; /* Establishes a positioning context for absolute positioning */
+    width: 50%;
+}
+
+.course-guarantee2 {
+    position: absolute; /* Positioning the text absolutely within its parent */
+    top: 20px; /* Distance from the top of the image */
+    left: 800px; /* Distance from the left of the image */
+    color: white; /* Text color */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
+    padding: 10px; /* Padding around the text */
+}
+
+.course-button2 {
+    position: absolute; /* Positioning the button absolutely within its parent */
+    bottom: 20px; /* Distance from the bottom of the image */
+    left: 20px; /* Distance from the left of the image */
+}
+
+.toggle-button {
+    display: inline-block; /* Make it behave like a button */
+    background-color: #ff5733; /* Button background color */
+    color: white; /* Text color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding for button */
+    border-radius: 5px; /* Rounded corners for button */
+    font-size: 16px; /* Font size */
+    text-decoration: none; /* Remove underline from link */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.toggle-button:hover {
+    background-color: #c70039; /* Darker shade on hover */
+}
+
+html {
+    scroll-behavior: smooth; /* Enable smooth scrolling */
+}

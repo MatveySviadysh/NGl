@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
 <link rel="stylesheet" href="{% static 'user/scss/main_page/Review.scss' %}">
 <link rel="stylesheet" href="{% static 'user/scss/main_page/Order.scss' %}">
-
+<link rel="stylesheet" href="{% static 'user/scss/main_page/ReviewContainer.scss' %}">
 {% include 'user/components/Header.html' %}
 
 <body>
@@ -34,22 +34,22 @@
             </div>
         </div>
 
-        <div class="chinese-course-section">
-            <div class="course-content">
-                <h3 class="course-guarantee">количество заявок:{{count_orders}}</h3>
-        
-                <div class="course-button">
-                        {% if not user.tutor %}
-                            <a href="{% url 'create_order' %}" class="submit-application-btn">
-                                Оставить заявку
-                            </a>
-                        {% endif %}
+        {% if not user.tutor %}
+            <div class="chinese-course-section">
+                <div class="course-content">
+                    <h3 class="course-guarantee">количество заявок:{{count_orders}}</h3>
+                    
+                    <div class="course-button">
+                        <a href="{% url 'create_order' %}" class="submit-application-btn">
+                            Оставить заявку
+                        </a>
+                    </div>
+                </div>
+                <div class="course-image">
+                    <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины">
                 </div>
             </div>
-            <div class="course-image">
-                <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины">
-            </div>
-        </div>
+        {% endif %}
 
         <p class="profi">Наши профи</p>
         <div>
@@ -87,6 +87,19 @@
     
 
     {% include 'mybot/HelpWindow.html' %}
+
+    {% if user.is_authenticated %}
+        <div class="chinese-course-section2">
+            <div class="course-image2">
+                <img src="{% static 'user/images/review_woman2.jpg' %}" class="course-photo2" alt="Изображение женщины">
+                <h3 class="course-guarantee2">Количество отзывов: 34</h3>
+                <div class="course-button2">
+                    <a href="#reviewSection" class="toggle-button">Создать отзыв</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
 
     <div class="reviews-container">
         <h1 class = 'title-review'>Отзывы</h1>
@@ -126,19 +139,16 @@
             {% endfor %}
         </div>
     </div>
-    
- 
-    <button class="toggle-button">Создать отзыв</button>
 
-    <div class="review-form" style="display: none;">
+    <div class="review-form" id="reviewSection" style="display: none;">
         <form method="POST" action="{% url 'review_create' %}" class="form">
             {% csrf_token %}
-    
+        
             <div class="form-group">
                 <label for="id_comment" class="form-label">Комментарий:</label>
                 <textarea id="id_comment" name="comment" class="form-textarea" rows="4" required></textarea>
             </div>
-    
+        
             <div class="form-group">
                 <label for="id_rating" class="form-label">Рейтинг:</label>
                 <select id="id_rating" name="rating" class="form-select" required>
@@ -156,7 +166,9 @@
             </div>
         </form>
     </div>
+    
 
 {% include 'user/components/Fotter.html' %}
 
 <script src="{% static 'user/js/Review.js' %}"></script>
+
