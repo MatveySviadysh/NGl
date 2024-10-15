@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'mybot',
     'order',
     'widget_tweaks',
+    'chat',
 ]
 
 MIDDLEWARE = [
