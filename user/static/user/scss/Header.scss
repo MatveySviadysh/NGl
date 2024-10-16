@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 10px 5%;
   background-color: #fff;
   box-sizing: border-box;
   position: fixed; 
@@ -13,11 +13,16 @@
 }
 
 .navbar-left {
-  margin-left: 345px;
+  flex: 1;
+  margin-left: 270px;
 }
 
 .navbar-right {
-  margin-right: 396px;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 340px;
 }
 
 .navbar-logo {
@@ -30,21 +35,17 @@
 
 .navbar-logo:hover {
   color: #ff0000;
-  transform: none;
-  background: none;
 }
 
 .navbar-link {
-  margin-left: 55px;
+  margin: 0 10px;
   font-size: 15px;
   color: #333;
   text-decoration: none;
   font-weight: normal;
   position: relative;
-  padding: 8px 16px;
   border-radius: 8px;
   transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
-  display: inline-block;
 }
 
 .navbar-link:hover {
@@ -54,10 +55,35 @@
   transform: translateY(-2px);
 }
 
-.navbar-link:hover::after {
-  width: 0;
+.navbarP {  
+  padding: 0 5%;
 }
 
-.navbarP {  
-  margin-left: 137px;
+.avatar-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.photo_header {
+  display: flex;
+  align-items: center;
+}
+
+.profile-button {
+  margin-right: 10px;
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+  font-weight: normal;
+  border-radius: 8px;
+  transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.profile-button:hover {
+  color: #ff0000;
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
 }
