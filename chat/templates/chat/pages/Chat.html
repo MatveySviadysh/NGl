@@ -1,1 +1,16 @@
-asd
+<body>
+    <h1>Chat with {{ chatroom.responder.username }}</h1>
+    <div id="messages">
+        {% for message in messages %}
+            <div>
+                <strong>{{ message.sender.username }}:</strong> {{ message.content }}
+            </div>
+        {% endfor %}
+    </div>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <textarea name="content" rows="3" cols="30" required></textarea>
+        <button type="submit">Send</button>
+    </form>
+</body>

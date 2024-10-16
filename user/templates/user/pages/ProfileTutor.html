@@ -7,6 +7,9 @@
             <p>О специалисте</p>
             <p>услуги и цены</p>
             <p>отзывы</p>
+            {% if user.tutor %}
+                <a href = "{% url 'tutor_chat_list' %}">сообщения</p>                        
+            {% endif %}
             {% if user.is_authenticated %}
                 {% if  user.tutor %}
                     <a href="{% url 'edit-tutor-profile' %}" target="_blank" class="btn btn-primary">
@@ -41,9 +44,11 @@
                                 </div>
                             </div>
                             <div class="tutor-details">
-                                <div class="send-message-button">
-                                    <button class="button" onclick="location.href='{% url 'chat_with_tutor' %}'">Отправить сообщение</button>
-                                </div>
+                                {% if not user.tutor %}
+                                    <div class="send-message-button">
+                                        <button class="button" onclick="location.href='{% url 'chat_with_tutor' chatroom.id %}'">Отправить сообщение</button>
+                                    </div>
+                                {% endif %}
 
                                 <div class='container_button_subscribed'>
                                     {% if user.is_authenticated %}
