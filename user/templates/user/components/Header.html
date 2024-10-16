@@ -24,7 +24,6 @@
                         {% else %}
                             <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар" />
                         {% endif %}
-                        <p>профиль</p>
                     </a>
                 {% else %}
                     <a href="{% url 'profile-user' %}">

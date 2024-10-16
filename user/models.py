@@ -32,7 +32,8 @@ class Tutor(models.Model):
     full_name = models.CharField(max_length=255)
     phone_number = models.CharField(
         max_length=15,
-        validators=[phone_validator]
+        validators=[phone_validator],
+        unique=True
     )
     specialization = models.CharField(max_length=50)
     email = models.EmailField(unique=True)

@@ -52,10 +52,12 @@
 
                                 <div class='container_button_subscribed'>
                                     {% if user.is_authenticated %}
-                                        {% if is_subscribed %}
-                                            <a href="{% url 'unsubscribe' tutor.id %}" class="subscribed_button unsubscribe_button">Отписаться от репетитора</a>
-                                        {% else %}
-                                            <a href="{% url 'subscribe' tutor.id %}" class="subscribed_button">Подписаться на репетитора</a>
+                                        {% if not user.tutor %}
+                                            {% if is_subscribed %}
+                                                <a href="{% url 'unsubscribe' tutor.id %}" class="subscribed_button unsubscribe_button">Отписаться от репетитора</a>
+                                            {% else %}
+                                                <a href="{% url 'subscribe' tutor.id %}" class="subscribed_button">Подписаться на репетитора</a>
+                                            {% endif %}
                                         {% endif %}
                                     {% endif %}
                                 </div>
