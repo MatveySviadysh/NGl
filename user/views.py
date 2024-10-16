@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
+from chat.models import ChatRoom
 from order.models import UserConsultation
 from subscription.models import Subscription
 from .forms import *
@@ -63,6 +64,7 @@ def user_logout(request):
     return redirect('main-page')
 
 def tutor_list(request, specialization):
+    profile = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
     tutors = Tutor.objects.filter(specialization=specialization)
     tutor_count = tutors.count()
     paginator = Paginator(tutors, 10)  
@@ -73,6 +75,7 @@ def tutor_list(request, specialization):
         'specialization': specialization,
         'tutor_count': tutor_count,
         'page_obj': page_obj,  
+        'profile': profile,
     })
 
 
@@ -167,13 +170,24 @@ def edit_tutor_profile(request):
     return render(request, 'user/pages/EditTutorProfile.html', {'form': form})
 
 def profile_tutor(request, full_name):
+    profile = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
     tutor = get_object_or_404(Tutor, full_name=full_name)
     is_subscribed = Subscription.objects.filter(user=request.user, tutor=tutor).exists() if request.user.is_authenticated else False
+    
+    chatroom, created = ChatRoom.objects.get_or_create(
+        requester=request.user,
+        responder=tutor.user,
+        defaults={'chat_type': 'personal'}
+    )
+    
     return render(request, 'user/pages/ProfileTutor.html', {
         'user': request.user,
         'tutor': tutor,
-        'is_subscribed': is_subscribed
+        'is_subscribed': is_subscribed,
+        'profile':profile,
+        'chatroom':chatroom,
     })
+
 def tutor_logout(request):
     if request.method == 'POST':
         logout(request)
