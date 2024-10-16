@@ -199,8 +199,6 @@ def all_tutors(request):
     tutors = Tutor.objects.all()
     return render(request, 'user/pages/AllTutors.html', {'tutors': tutors})
 
-def notifications_user(request):
-    return render(request, 'user/pages/NotificationsUser.html')
 
 @login_required
 def change_password_user(request):
