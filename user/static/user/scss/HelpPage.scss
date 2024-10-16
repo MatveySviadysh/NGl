@@ -1,0 +1,36 @@
+.container {
+    margin-left: 350px;
+    margin-right: 410px;
+    display: flex;
+    align-items: flex-start; /* позволяет разместить их на одной линии */
+    gap: 200px; /* расстояние между столбцами */
+    margin-top: 100px; /* начальный отступ от верхней части */
+}
+
+.text-column {
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    color: #333;
+}
+
+.header {
+    margin-bottom: 50px;
+    font-weight: bold;
+    font-size: 52px;
+    font-family: 'Inter', sans-serif;
+}
+
+.mini-header{
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 21px;
+    font-family: 'Inter', sans-serif;
+}
+
+.text {
+    margin: 0; /* убираем лишние отступы */
+    padding: 0; /* убираем лишние отступы */
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+}

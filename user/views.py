@@ -256,3 +256,6 @@ def about_company(request):
 
 def all_service(request):
     return render(request, 'user/pages/FotterPage/AllService.html')
+
+def help_page(request):
+    return render(request, 'user/pages/HelpPage.html')
