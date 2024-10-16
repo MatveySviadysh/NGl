@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import ChatRoom, Message
+from django.db.models import Q
 
 def chat_with_tutor(request, chatroom_id):
     chatroom = get_object_or_404(ChatRoom, id=chatroom_id)
@@ -27,3 +28,14 @@ def tutor_chat_list(request):
     return render(request, 'chat/pages/TutorChatList.html', {
         'chatrooms': chatrooms,
     })
+
+def user_chats(request):
+    if request.user.is_authenticated:
+        chatrooms = ChatRoom.objects.filter(
+            Q(requester=request.user) | Q(responder=request.user)
+        ).distinct()
+        return render(request, 'chat/pages/UserChats.html', {
+            'chatrooms': chatrooms,
+        })
+    else:
+        return redirect('login-user')

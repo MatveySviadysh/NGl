@@ -1,0 +1,17 @@
+<body>
+    <h1>Ваши Чаты</h1>
+    <ul>
+        {% for chatroom in chatrooms %}
+            <li>
+                <a href="{% url 'chat_with_tutor' chatroom.id %}">
+                    Чат с 
+                    {% if chatroom.requester == user %}
+                        {{ chatroom.responder.username }}
+                    {% else %}
+                        {{ chatroom.requester.username }}
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
