@@ -1,0 +1,23 @@
+{% block content %}
+<h1>Мои подписки</h1>
+
+{% if subscriptions %}
+    <ul>
+    {% for subscription in subscriptions %}
+        <li>
+            <a href="{% url 'profile-tutor' subscription.tutor.full_name %}">
+                {{ subscription.tutor.full_name }} - {{ subscription.tutor.specialization }}
+            </a>
+            <form action="{% url 'unsubscribe' subscription.tutor.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Отписаться</button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>У вас нет подписок.</p>
+{% endif %}
+
+<a href="{% url 'main-page' %}">Вернуться на главную</a>
+{% endblock %}
