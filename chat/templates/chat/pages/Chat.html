@@ -1,16 +1,164 @@
-<body>
-    <h1>Chat with {{ chatroom.responder.username }}</h1>
-    <div id="messages">
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'chat/scss/Chat.scss' %}">
+{% include 'user/components/Header.html' %}
+
+<body class="chat-container">
+    <h1 class="chat-heading">{{ chatroom.responder.username }}</h1>
+    <hr>
+    <div id="messages" class="chat-messages">
         {% for message in messages %}
-            <div>
-                <strong>{{ message.sender.username }}:</strong> {{ message.content }}
+            <div class="chat-message__wrapper {% if message.sender == user %}chat-message--sent-wrapper{% else %}chat-message--received-wrapper{% endif %}">
+                {% comment %} <strong class="chat-message__sender">{{ message.sender.username }}</strong> {% endcomment %}
+                <div class="chat-message {% if message.sender == user %}chat-message--sent{% else %}chat-message--received{% endif %}">
+                    <span class="chat-message__content">{{ message.content }}</span>
+                </div>
             </div>
         {% endfor %}
     </div>
     
-    <form method="POST">
+    <form method="POST" class="chat-form">
         {% csrf_token %}
-        <textarea name="content" rows="3" cols="30" required></textarea>
-        <button type="submit">Send</button>
+        <div class="chat-form__wrapper">
+            <textarea class="chat-form__textarea" name="content" rows="3" cols="30" required></textarea>
+            <button type="submit" class="chat-form__button">
+                <img width="50" height="50" src="https://img.icons8.com/ios/50/sent--v1.png" alt="sent--v1"/>
+            </button>
+        </div>
     </form>
 </body>
+
+<style>
+    :root {
+        --primary-color: #e83d0d;
+        --background-color: #E0E0E0;
+        --text-color: #333;
+        --border-radius: 10px;
+        --chat-background: #FFFFFF;
+        --button-hover-color: #007BB5;
+        --sent-message-color: #f5f5dc;
+        --received-message-color: #add4e6;
+    }
+    
+    hr {
+        border: none;
+        border-top: 2px solid #eee;
+        margin: 20px 0;
+    }
+    
+    .chat-container {
+        width: 80%;
+        max-width: 1070px;
+        max-height: 800px;
+        margin: 140px 370px;
+        background-color: var(--chat-background);
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        overflow-y: auto;
+        padding: 20px;
+    }
+    
+    .chat-heading {
+        text-align: left;
+        padding: 10px 0;
+        font-size: 2em;
+        color: black;
+    }
+    
+    .chat-message__wrapper {
+        margin-bottom: 15px;
+        clear: both;
+    }
+    
+    .chat-message__sender {
+        font-weight: bold;
+        color: var(--text-color);
+    }
+    
+    .chat-message {
+        border-radius: var(--border-radius);
+        padding: 10px;
+        margin-top: 5px;
+        max-width: 300px;
+        word-wrap: break-word;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .chat-message--sent {
+        background-color: var(--sent-message-color);
+        float: right;
+    }
+
+    .chat-message--received {
+        background-color: var(--received-message-color);
+        color: white;
+        float: left;
+    }
+
+    .chat-messages {
+        margin-bottom: 20px;
+    }
+
+    .chat-message--sent-wrapper {
+        text-align: right;
+    }
+
+    .chat-message--received-wrapper {
+        text-align: left;
+    }
+
+    .chat-form__wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .chat-form__textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: var(--border-radius);
+        border: 1px solid #ccc;
+        font-size: 1em;
+        margin-right: 10px;
+        resize: none;
+    }
+    
+    .chat-form__button {
+        background-color: #f0efef;
+        color: white;
+        width: 67px;
+        height: 67px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+        margin-bottom:10px;
+    }
+
+    .chat-message--sent:hover, 
+    .chat-message--received:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transform: scale(1.02); /* Легкое увеличение */
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+
+    .chat-form__textarea:focus {
+        border-color: var(--primary-color); /* Меняем цвет рамки */
+        box-shadow: 0 0 10px rgba(232, 61, 13, 0.5); /* Тень вокруг поля */
+        outline: none; /* Убираем стандартный фокус */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Плавный переход */
+    }
+
+    .chat-form__button:hover {
+        background-color: #c5c5c5;
+        transform: scale(1.05); /* Легкое увеличение при ховере */
+        box-shadow: 0 4px 15px rgba(0, 123, 181, 0.4); /* Больше тени */
+        transition: background-color 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Плавные переходы */
+    }
+
+    .chat-form__button:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease-in-out;
+    }
+</style>
