@@ -1,12 +1,16 @@
 {% load static %}
+
 <link rel="stylesheet" href="{% static 'user/scss/HelpPage.scss' %}">
+
 {% include 'user/components/Header.html' %}
+
 <body>
     <div class="container">
         <div class="text-column">
-            <p>Заказ</p>
+            <a href="{% url 'create_order' %}" class="">
+                Заказ
+            </a>
             <p>Поддержка</p>
-            <p>Специалисты</p>
         </div>
         <div class="text">
             <div class="header">Вопросы и ответы</div>
@@ -37,3 +41,10 @@
     </div>
     
 </body>
+
+<style>
+    a{
+        text-decoration:  none;
+        color: black;
+    }
+</style>

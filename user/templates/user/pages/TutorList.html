@@ -4,14 +4,16 @@
     {% include 'user/components/Header.html' %}
     <div class="container">
         <div class="text-column">
-            <p>Заказ</p>
-            <p>Поддержка</p>
+            <p><a href="{% url 'create_order' %}" class="submit-application-btn">
+                заказ
+            </a></p>
+            <a href="{% url 'help_page' %}" style="text-decoration: none; color: black;"><p>пожержка</p></a>
             <p>Специалисты {{ tutor_count }}</p>
         </div>
         <div class="tutor-column">
             <div class="rectangle">
                 <div class="text">Чтобы писать специалистам, заполните детали заказа</div>
-                <button class="button">Заполнить детали заказа</button>
+                <button class="button" onclick="window.location.href='{% url 'create_order' %}'">Заполнить детали заказа</button>
             </div>
             <div class="tutor-list">
                 <ul>
@@ -69,6 +71,11 @@
                 </a>
             {% endif %}
         </span>
-    
     </div>
     
+<style>
+    a{
+        text-decoration:  none;
+        color: black;
+    }
+</style>

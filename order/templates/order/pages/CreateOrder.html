@@ -6,7 +6,7 @@
 <div class="container">
     <div class="text-column">
         <p id="completion-percentage">заказ  0%</p>
-        <a href="{% url 'help-page' %}" style="text-decoration: none; color: black;"><p>пожержка</p></a>
+        <a href="{% url 'help_page' %}" style="text-decoration: none; color: black;"><p>пожержка</p></a>
     </div>
     <div class="tutor-column">
         <div class="tutor-list">
@@ -150,6 +150,7 @@
 {% include 'mybot/HelpWindow.html' %}
 
 <style>
+    
     .tutor-column { <!-- Placeholder for completion percentage -->
         flex-basis: 70%;
         margin-top:20px;
