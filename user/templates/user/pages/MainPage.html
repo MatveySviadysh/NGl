@@ -66,10 +66,6 @@
             </div>
         </div>
 
-        
-        
-        
-
         <div class="how-it-works">
             <p class="profi">Как это работает?</p>
             <div class="images2">
@@ -80,9 +76,18 @@
         </div>
         <div>
             <div class="imgText">
-                <div class="column">Мы зададим все важные вопросы, чтобы вам было проще описать задачу.</div>
-                <div class="column">Покажем заказ подходящим профи. Они напишут, если готовы помочь.</div>
-                <div class="column">Обо всех деталях договаривайтесь со специалистом и платите ему напрямую.</div>
+                <div class="column2">
+                    <div class="title_column">оставить отзыв</div>
+                    <div>Мы зададим все важные вопросы, чтобы вам было проще описать задачу.</div>
+                </div>
+                <div class="column2">
+                    <div class="title_column">Напишите специалистам</div>
+                    <div>Уточните по поводу заказа. Они готовы помочь.</div>
+                </div>
+                <div class="column2">
+                    <div class="title_column">Выберите подходящего</div>
+                    <div>Обо всех деталях договаривайтесь со специалистом и платите ему напрямую.</div>
+                </div>
             </div>
         </div>
     </div>
@@ -174,3 +179,34 @@
 
 <script src="{% static 'user/js/Review.js' %}"></script>
 
+<style>
+    .imgText {
+        display: flex; /* Ensure flex layout for columns */
+        justify-content: space-between; /* Space out columns evenly */
+        margin: 2rem 0; /* Space above and below the section */
+    }
+
+    .column2 {
+        flex: 1; /* Distribute columns evenly */
+        margin: 0 1rem; /* Add some space between columns */
+        padding: 0; /* Remove padding inside the column */
+        background-color: #f9f9f9; /* Light background color */
+        transition: box-shadow 0.3s; /* Smooth transition for hover effect */
+        border-radius: 8px; /* Optional: Add rounded corners */
+    }
+
+    /* Title styling */
+    .title_column {
+        font-size: 1.5rem; /* Title font size */
+        font-weight: bold; /* Bold font for titles */
+    }
+    @media (max-width: 768px) {
+        .imgText {
+            flex-direction: column; /* Stack columns on small screens */
+        }
+
+        .column2 {
+            margin: 1rem 0; /* Add vertical space between stacked columns */
+        }
+    }
+</style>
