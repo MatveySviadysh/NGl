@@ -171,7 +171,12 @@ def edit_tutor_profile(request):
 
 def profile_tutor(request, full_name):
     profile = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
-    tutor = get_object_or_404(Tutor, full_name=full_name)
+    tutor = Tutor.objects.filter(full_name=full_name).first()
+    if tutor is None:
+        print("Tutor not found for full_name:", full_name)
+    elif tutor.user is None:
+        print("Tutor found but associated user is None.")
+
     is_subscribed = Subscription.objects.filter(user=request.user, tutor=tutor).exists() if request.user.is_authenticated else False
     
     chatroom, created = ChatRoom.objects.get_or_create(
