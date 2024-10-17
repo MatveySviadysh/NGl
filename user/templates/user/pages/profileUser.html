@@ -33,9 +33,9 @@
     <div class="form-column">
         <div class="avatar-container">
             {% if profile.avatar %}
-                <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар">
+                <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар" style=" width: 300px;height: 300px;">
             {% else %}
-                <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар">
+                <img src="{% static 'user/images/default_avatar.jpg' %}" style=" width: 300px;height: 300px;" class="avatar-image" alt="Дефолтный аватар">
             {% endif %}
         </div>
     </div>
