@@ -39,7 +39,7 @@
         {% if not user.tutor %}
             <div class="chinese-course-section">
                 <div class="course-content">
-                    <h3 class="course-guarantee">количество заявок:{{count_orders}}</h3>
+                    <a class="course-guarantee">количество заявок:{{count_orders}}</a>
                     
                     <div class="course-button">
                         <a href="{% url 'create_order' %}" class="submit-application-btn">
@@ -67,7 +67,7 @@
         </div>
 
         <div class="how-it-works">
-            <p class="profi">Как это работает?</p>
+            <p class="how-text">Как это работает?</p>
             <div class="images2">
                 <img src="{% static 'user/images/study_images/study.gif' %}" alt="Изображение 1">
                 <img src="{% static 'user/images/study_images/study1.gif' %}" alt="Изображение 2">
