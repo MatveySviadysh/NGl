@@ -35,8 +35,6 @@
                 {% endfor %}
             </div>
         </div>
-
-        {% if not user.tutor %}
             <div class="chinese-course-section">
                 <div class="course-content">
                     <a class="course-guarantee">количество заявок:{{count_orders}}</a>
@@ -51,8 +49,6 @@
                     <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины">
                 </div>
             </div>
-        {% endif %}
-
         <p class="profi">Наши профи</p>
         <div>
             <div class="text-column">
