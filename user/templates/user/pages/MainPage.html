@@ -13,7 +13,7 @@
         <h1 class="header-title">Каждый шаг близит к цели</h1>
         <p class = "count-users">{{ user_count }} клиента доверились нам</p>
 
-        <form action="{% url 'tutor-list-serarch' %}" method="GET" class="search-container" style="position: relative;">
+        <form action="{% url 'tutor-list-serarch' %}" method="GET">
             <input class="search-bar" type="text" name="query" placeholder="Услуга или специалист" value="{{ query }}">
             <button class="search-button" type="submit">Найти</button>
         </form>

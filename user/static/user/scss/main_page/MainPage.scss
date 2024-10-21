@@ -16,13 +16,16 @@
 }
 
 .search-bar {
+  border: none;
   margin-top: 60px;
   height: 80px;
-  width: 914px;
-  border-radius: 10px;
-  font-size: 18px;
-  color: #333; 
+  width: 905px;
+  background-color: #DEDEDE;
+  border-radius: 17px;
+  font-size: 35px;
   padding: 10px; 
+  margin-right: 9px;
+  transition: background-color 0.3s; /* Плавный переход */
 }
 
 .search-bar::placeholder {
@@ -31,14 +34,26 @@
   opacity: 1;
 }
 
-.search-button{
-  background-color: FF0000;
+.search-bar:hover {
+  background-color: #C0C0C0; /* Цвет при наведении */
+}
+
+.search-button {
+  margin-top: 10px;
+  border: none;
+  background-color: crimson;
   color: white;
-  font-size: 20px;
-  font-style: bold;
+  font-size: 30px;
+  font-family: 'Inter', sans-serif;
   height: 80px;
   width: 220px;
-  border-radius: 10px;
+  border-radius: 17px;
+  transition: background-color 0.3s, transform 0.3s; /* Плавный переход */
+}
+
+.search-button:hover {
+  background-color: darkred; /* Цвет при наведении */
+  transform: scale(1.05); /* Немного увеличиваем кнопку */
 }
 
 .profi{
