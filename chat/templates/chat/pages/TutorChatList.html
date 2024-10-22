@@ -1,0 +1,16 @@
+<body>
+    <h1>Мои чаты</h1>
+    <ul>
+        {% for chatroom in chatrooms %}
+            <li>
+                <a href="{% url 'chat_with_tutor' chatroom.id %}">
+                    Чат с {{ chatroom.requester.username }}
+                </a>
+                <p>Последнее сообщение: {{ chatroom.last_message }}</p>
+                <p>Создано: {{ chatroom.created_at }}</p>
+            </li>
+        {% empty %}
+            <li>У вас нет чатов.</li>
+        {% endfor %}
+    </ul>
+</body>

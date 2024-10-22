@@ -1,0 +1,13 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/User/ChengeProfileUser.scss' %}">
+
+
+<div class="form-container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2>Редактировать профиль</h2>
+        {{ form.as_p }}
+        <button type="submit" class="button">Сохранить изменения</button>
+    </form>
+</div>

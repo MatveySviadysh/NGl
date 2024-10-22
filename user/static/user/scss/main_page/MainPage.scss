@@ -1,0 +1,233 @@
+.header-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 66px;
+}
+
+.main-page{
+  margin-left: 350px;
+  margin-right: 350px;
+  margin-top: 108px;
+}
+
+.count-users{
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  margin-top: -30px;
+}
+
+.search-bar {
+  border: none;
+  margin-top: 60px;
+  height: 80px;
+  width: 905px;
+  background-color: #DEDEDE;
+  border-radius: 17px;
+  font-size: 35px;
+  padding: 10px; 
+  margin-right: 9px;
+  transition: background-color 0.3s; /* Плавный переход */
+}
+
+.search-bar::placeholder {
+  color: #777;
+  font-size: 18px; 
+  opacity: 1;
+}
+
+.search-bar:hover {
+  background-color: #C0C0C0; /* Цвет при наведении */
+}
+
+.search-button {
+  margin-top: 10px;
+  border: none;
+  background-color: crimson;
+  color: white;
+  font-size: 30px;
+  font-family: 'Inter', sans-serif;
+  height: 80px;
+  width: 220px;
+  border-radius: 17px;
+  transition: background-color 0.3s, transform 0.3s; /* Плавный переход */
+}
+
+.search-button:hover {
+  background-color: darkred; /* Цвет при наведении */
+  transform: scale(1.05); /* Немного увеличиваем кнопку */
+}
+
+.profi{
+  margin-top: 600px;
+  margin-bottom: 0px;
+  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+}
+
+.specializations-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .specialization-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    flex: 0 0 calc(25% - 30px);
+    box-sizing: border-box;
+    margin-right: 24px;
+    letter-spacing: 0.5px;
+    color: black;
+    text-decoration: none;
+
+    a {
+      text-decoration: none;
+      color: #333;
+
+      &:hover {
+        color: #007bff;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; 
+  .box {
+      width: 235.5px; 
+      height: 243px; 
+      background-color: #4CAF50; 
+      margin-bottom: 15px; 
+      border-radius: 8px; 
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  }
+}
+
+.images img {
+  margin-right: 40px;
+  width: 250px;
+  height: 254px;
+  border-radius: 10px;
+}
+
+.container-images{
+  margin-top: 127px;
+}
+.list-spec {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;
+
+  div {
+      background-color: #f9f9f9; 
+      padding: 10px; 
+      border: 1px solid #ddd; 
+      border-radius: 5px; 
+      text-align: center; 
+  }
+
+  @media (max-width: 768px) { 
+      grid-template-columns: repeat(2, 1fr); 
+  }
+
+  @media (max-width: 480px) {
+      grid-template-columns: 1fr; 
+  }
+}
+
+.images2 {
+  margin-right: 40px;
+}
+
+.textBox{
+  font-family: 'Inter', sans-serif;
+  color: black;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.images2 img {
+  margin-right: 52px;
+  width: 333px;
+  height: 283px;
+  border-radius: 10px;
+}
+.text-column {
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'Inter', sans-serif;
+  color: black;
+  font-size: 20px;
+  margin-right: 77px;
+}
+
+.column {
+  flex: 0 1 calc(20% - 10px); 
+  padding: 0px; 
+  box-sizing: border-box; 
+  text-align: left; 
+  margin-left: 10px; 
+  margin-bottom: 20px; 
+}
+
+.imgText {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 90px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  .column {
+      max-width: 330px;
+      flex: 1; 
+      padding: 20px; 
+      box-sizing: border-box; 
+      border: 1px solid #ccc; 
+      text-align: center; 
+  }
+}
+
+.fixed-button {
+  position: fixed;
+  bottom: 20px; 
+  left: 20px;  
+  background-color: #3498db; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #2980b9;
+  }
+
+  &:active {
+    background-color: #1abc9c; 
+  }
+}
+
+.avatar-img {
+  width: 100px; 
+  height: 100px;
+  border-radius: 50%; 
+}
+
+.review-name {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  color: black;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.how-text{
+  margin-top: 100px;
+  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+}

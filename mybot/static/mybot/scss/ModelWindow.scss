@@ -1,0 +1,126 @@
+.modal {
+    margin-top: 200px;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 90%; /* Make it responsive */
+    max-width: 400px; /* Maximum width */
+    height: auto; /* Auto height */
+    overflow: auto; /* Allow scrolling if needed */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05); /* Hover effect */
+    }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+
+    &:hover,
+    &:focus {
+        color: #f00; /* Color on hover */
+        text-decoration: none;
+        cursor: pointer;
+    }
+}
+
+.fixed-button {
+    background: #e60000;
+    width: 65px;
+    height: 65px;
+    font-size: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    &:hover {
+        background: #ff4d4d; 
+        transform: scale(1.05);
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.button-window {
+    background-color: #FF0000; /* Red color */
+    color: white; /* White text */
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+}
+
+.button-window:hover {
+    background-color: #CC0000; /* Darker red on hover */
+}
+
+.button-window:active {
+   transform: scale(0.95); /* Scale down on click */
+}
+
+.form {
+   display: flex; 
+   flex-direction: column; 
+   margin-top: 20px; /* Reduced margin for better fit */
+}
+
+.form-group {
+   display: flex; 
+   flex-direction: column; 
+   gap: 10px; /* Space between elements */
+}
+
+textarea {
+   width: calc(100% - 20px); /* Full width minus padding */
+   margin-right: 10px; /* Right margin for spacing */
+   resize: vertical; /* Allow vertical resizing only */
+   padding: 10px; /* Padding inside textarea */
+}
+
+.support-text {
+   font-size: 18px; 
+   color: black; 
+   text-align: center; 
+   margin-bottom: 10px; 
+   font-family: 'Arial', sans-serif; 
+}
+
+.line {
+   border-top: 1px solid gray; 
+   margin-top: 10px; 
+   margin-bottom: 10px; 
+}
+
+.main-window-hepl{
+   font-size: 23px; 
+   color:black; 
+   text-align:center; 
+   margin-bottom :10px ; 
+}

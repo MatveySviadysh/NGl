@@ -1,0 +1,81 @@
+{% load static %}
+    <link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+    <link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorList.scss' %}">
+    {% include 'user/components/Header.html' %}
+    <div class="container">
+        <div class="text-column">
+            <p><a href="{% url 'create_order' %}" class="submit-application-btn">
+                заказ
+            </a></p>
+            <a href="{% url 'help_page' %}" style="text-decoration: none; color: black;"><p>пожержка</p></a>
+            <p>Специалисты {{ tutor_count }}</p>
+        </div>
+        <div class="tutor-column">
+            <div class="rectangle">
+                <div class="text">Чтобы писать специалистам, заполните детали заказа</div>
+                <button class="button" onclick="window.location.href='{% url 'create_order' %}'">Заполнить детали заказа</button>
+            </div>
+            <div class="tutor-list">
+                <ul>
+                    {% for tutor in tutors %}
+                        <li class="tutor-item">
+                            <div class="tutor-header">
+                                <img src="{{ tutor.image_url }}" alt="Фото {{ tutor.full_name }}">
+                                <div class="tutor-info">
+                                    <a href="{% url 'profile-tutor' tutor.full_name %}">
+                                        <strong>{{ tutor.full_name }}</strong>
+                                    </a>
+                                    <span class="specialization">{{ tutor.specialization }}</span>
+                                </div>
+                            </div>
+                            <div class="tutor-details">
+                                <p><strong>Телефон:</strong> {{ tutor.phone_number }}</p>
+                                <p><strong>Email:</strong> {{ tutor.email }}</p>
+                                <p><strong>Рейтинг:</strong> {{ tutor.rating }}</p>
+                                <p><strong>Опыт:</strong> {{ tutor.experience }} лет</p>
+                                <p><strong>Цена за занятие:</strong> {{ tutor.price }} ₽</p>
+                                <p><strong>Услуги:</strong> {{ tutor.services }}</p>
+                                {% if tutor.verified %}
+                                    <p><strong>Статус:</strong> Подтверждено</p>
+                                {% else %}
+                                    <p><strong>Статус:</strong> Не подтверждено</p>
+                                {% endif %}
+                            </div>
+                            <div class="discount">
+                                <span>–25%</span> На первое занятие
+                            </div>
+                            <p class="location">
+                                Выезд: {{ tutor.location }} | Работает дистанционно: {{ tutor.remote }}
+                            </p>
+                        </li>
+                    {% empty %}
+                        <li>Нет доступных преподавателей по данной специальности.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">
+                    <button class="button-pagination"> < </button>
+                </a>
+            {% endif %}
+            <span class="current">
+                Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">
+                    <button class="button-pagination"> > </button>
+                </a>
+            {% endif %}
+        </span>
+    </div>
+    
+<style>
+    a{
+        text-decoration:  none;
+        color: black;
+    }
+</style>

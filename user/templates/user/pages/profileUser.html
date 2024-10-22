@@ -1,0 +1,77 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/User/ProfileUser.scss' %}">
+
+{% include 'user/components/Header.html' %}
+
+<div class="container">
+    <div class="text-column">
+        <a href="{% url 'main-page' %}" >На главную</a><br>
+        <a href="{% url 'change-password-user' %}" target="_blank">Сменить пароль</a><br>
+        <a href="{% url 'all_tutors' %}" >Специалисты</a><br>
+        <a href="{% url 'user_messages' %}" >Сообщения</a><br>
+        <a href="{% url 'chenge_user_profile' %}" target="_blank">Изменить акаунт</a><br>
+        <a href='{% url 'user_chats' %}'>Чаты</a><br>
+        <a href='{% url 'user_subscriptions' %}'>подписки</a>
+    </div>
+    
+    <div class="tutor-column" style="margin-top: 50px;">
+        <div class="profile-content">
+            <div class="user-info">
+                {% if profile.user.username or profile.phone_number %}
+                    <p class="username" style="font-size: 20px;"><strong>{{ profile.user.username }}</strong></p>
+                {% endif %}
+                {% if  profile.phone_number %}
+                    <p>{{ profile.phone_number }}</p>
+                {% endif %}
+            </div>
+            <div class="description-container">
+                <h2>Описание:</h2>
+                <style>
+
+                    .description-text {
+                
+                        width: 100%;                    /* Ширина 100% */
+                
+                        max-width: 100px;              /* Максимальная ширина 100px */
+                
+                        margin-top: 30px;
+                
+                        font-size: 18px;               /* Размер шрифта 18px */
+                
+                        border: 1px solid #ccc;        /* Рамка вокруг текста */
+                
+                        padding: 10px;                 /* Отступы внутри рамки */
+                
+                        border-radius: 5px;            /* Закругленные углы */
+                
+                        background-color: #f9f9f9;     /* Цвет фона */
+                
+                        overflow-wrap: break-word;      /* Перенос слов */
+                
+                    }
+                
+                </style>
+                {% if profile.description %}
+                    <p class="description-text">{{ profile.description }}</p>
+                {% else %}
+                    <a href="{% url 'chenge_user_profile' %}" class="button">Добавить описание</a><br>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+    
+
+    <div class="form-column">
+        <div class="avatar-container">
+            {% if profile.avatar %}
+                <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар" style=" width: 300px;height: 300px;margin-left: 100px;">
+            {% else %}
+                <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 300px; height: 300px; margin-left: 100px;" class="avatar-image" alt="Дефолтный аватар">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% include 'user/components/Fotter.html' %}

@@ -1,0 +1,132 @@
+{% load static %}
+    <link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+    <link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorList.scss' %}">
+    {% include 'user/components/Header.html' %}
+    <div class="container">
+        <div class="text-column">
+            <p>О специалисте</p>
+            <p>услуги и цены</p>
+            <p>отзывы</p>
+            {% if user.tutor %}
+                <a href = "{% url 'tutor_chat_list' %}">сообщения</p>                        
+            {% endif %}
+            {% if user.is_authenticated %}
+                {% if  user.tutor %}
+                    <a href="{% url 'edit-tutor-profile' %}" target="_blank" class="btn btn-primary">
+                        Редактировать профиль
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="tutor-column">
+                    {% if user.is_authenticated %}
+                        {% if not user.tutor %}
+                            <div class="rectangle">
+                                <div class="text">Чтобы писать специалистам, заполните детали заказа</div>
+                                <button class="button">Заполнить детали заказа</button>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+            <div class="tutor-list">
+                <ul>
+                        <li class="tutor-item">
+                            <div class="tutor-header">
+                                <div class="avatar-container">
+                                    {% if tutor.avatar %}
+                                        <img src="{{ tutor.avatar.url }}" class="avatar-image" alt="Аватар">
+                                    {% else %}
+                                        <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар">
+                                    {% endif %}
+                                </div>
+                                <div class="tutor-info">
+                                        <strong>{{ tutor.full_name }}</strong>
+                                    <span class="specialization">{{ tutor.specialization }}</span>
+                                </div>
+                            </div>
+                            <div class="tutor-details">
+                                {% if not user.tutor %}
+                                    <div class="send-message-button">
+                                        <button class="button" onclick="location.href='{% url 'chat_with_tutor' chatroom.id %}'">Отправить сообщение</button>
+                                    </div>
+                                {% endif %}
+
+                                <div class='container_button_subscribed'>
+                                    {% if user.is_authenticated %}
+                                        {% if not user.tutor %}
+                                            {% if is_subscribed %}
+                                                <a href="{% url 'unsubscribe' tutor.id %}" class="subscribed_button unsubscribe_button">Отписаться от репетитора</a>
+                                            {% else %}
+                                                <a href="{% url 'subscribe' tutor.id %}" class="subscribed_button">Подписаться на репетитора</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+
+
+
+                                
+                                <p><strong>Телефон:</strong> {{ tutor.phone_number }}</p>
+                                <p><strong>Email:</strong> {{ tutor.email }}</p>
+                                <p><strong>Рейтинг:</strong> {{ tutor.rating }}</p>
+                                <p><strong>Опыт:</strong> {{ tutor.experience }} лет</p>
+                                <p><strong>Цена за занятие:</strong> {{ tutor.price }} ₽</p>
+                                <p><strong>Услуги:</strong> {{ tutor.services }}</p>
+                                {% if tutor.verified %}
+                                    <p><strong>Статус:</strong> Подтверждено</p>
+                                {% else %}
+                                    <p><strong>Статус:</strong> Не подтверждено</p>
+                                {% endif %}
+                            </div>
+                            <div class="discount">
+                                <span>–25%</span> На первое занятие
+                            </div>
+                            <p class="location">
+                                Выезд: {{ tutor.location }} | Работает дистанционно: {{ tutor.remote }}
+                            </p>
+                        </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<style>
+    .container_button_subscribed {
+        position: absolute;
+        top:230px;
+        left: 1250px; /* Positions the element absolutely within its closest positioned ancestor */
+    }
+    
+    .subscribed_button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s, transform 0.2s; /* Added transform property */
+    }
+    
+    /* Styles for the "Подписаться" button */
+    .subscribed_button {
+        background-color: #e60000; /* Red color */
+        color: white; /* White text */
+    }
+    
+    .subscribed_button:hover {
+        opacity: 0.8; /* Slight dimming on hover */
+        transform: scale(1.05); /* Scale up on hover */
+    }
+    
+    /* Styles for the "Отписаться" button */
+    .unsubscribe_button {
+        background-color: #757575; /* Gray color */
+        color: white; /* White text */
+    }
+    
+    .unsubscribe_button:hover {
+        background-color: #5c5c5c; /* Dark gray color on hover */
+        transform: scale(1.05); /* Scale up on hover */
+    }
+    
+</style>

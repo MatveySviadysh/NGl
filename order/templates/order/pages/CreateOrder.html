@@ -1,0 +1,234 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorList.scss' %}">
+
+{% include 'user/components/Header.html' %}
+<div class="container">
+    <div class="text-column">
+        <p id="completion-percentage">заказ  0%</p>
+        <a href="{% url 'help_page' %}" style="text-decoration: none; color: black;"><p>пожержка</p></a>
+    </div>
+    <div class="tutor-column">
+        <div class="tutor-list">
+            <ul>
+                <li>
+                    <form method="POST" action="{% url 'create_order' %}" onsubmit="return validateSpecialization()">
+                        {% csrf_token %}
+                        <ul>
+                            <li>
+                                <label>Для кого нужен специалист?</label><br>
+                                <input type="radio" name="target_audience" value="для себя" oninput="updateCompletionPercentage()"> Для себя<br>
+                                <input type="radio" name="target_audience" value="для ребенка" oninput="updateCompletionPercentage()"> Для ребенка<br>
+                                <input type="radio" name="target_audience" value="для семьи" oninput="updateCompletionPercentage()"> Для семьи<br>
+                            </li>
+                            <li>
+                                <label>Ваш возраст:</label>
+                                <input type="number" name="age" required min="1" oninput="updateCompletionPercentage()">
+                            </li>
+                            <li>
+                                <label>Пол специалиста:</label><br>
+                                <input type="radio" name="gender" value="мужчина" oninput="updateCompletionPercentage()"> Мужчина<br>
+                                <input type="radio" name="gender" value="женщина" oninput="updateCompletionPercentage()"> Женщина<br>
+                                <input type="radio" name="gender" value="не важно" oninput="updateCompletionPercentage()"> Не важно<br>
+                            </li>
+                            <li>
+                                <label>Сколько консультаций планируете?</label><br>
+                                <input type="radio" name="consultation_count" value="1-2" oninput="updateCompletionPercentage()"> 1-2<br>
+                                <input type="radio" name="consultation_count" value="решу позже" oninput="updateCompletionPercentage()"> Решу после первой консультации<br>
+                            </li>
+                            <li>
+                                <label>В каком формате удобно встречаться со специалистом?</label><br>
+                                <input type="radio" name="meeting_format" value="онлайн" oninput="updateCompletionPercentage()"> Онлайн<br>
+                                <input type="radio" name="meeting_format" value="лично" oninput="updateCompletionPercentage()"> Лично<br>
+                            </li>
+                            <li>
+                                <label>Выберите подходящую стоимость встреч:</label><br>
+                                <input type="number" step=".01" name="price" required min="0" oninput="updateCompletionPercentage()">
+                            </li>
+                            <li>
+                                <label>Пожелания для специалиста:</label><br>
+                                <textarea name="comments" rows="4" oninput="updateCompletionPercentage()"></textarea>
+                            </li>
+                            <li>
+                                <label>Специализация специалиста:</label><br>
+                                <!-- Call the validateAndCapitalizeInput function on input -->
+                                <input type="text"
+                                       id="specialization"
+                                       name="specialization"
+                                       required placeholder="Введите специализацию"
+                                       oninput="validateAndCapitalizeInput(this); updateCompletionPercentage()">
+                            </li>
+                        </ul>
+                        <button type="submit">Отправить</button>
+                        <button type="button" onclick="clearForm()">Очистить</button>
+                    </form>
+
+                    <!-- JavaScript for validation and completion percentage -->
+                    <script>
+                        function validateAndCapitalizeInput(input) {
+                            // Удаляем все символы, кроме русских букв и пробелов
+                            input.value = input.value.replace(/[^а-яА-ЯёЁ\s]/g, '');
+    
+                            // Преобразуем каждое слово в заглавную букву
+                            const words = input.value.split(' ');
+                            for (let i = 0; i < words.length; i++) {
+                                if (words[i]) {
+                                    words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+                                }
+                            }
+                            input.value = words.join(' ');
+                        }
+
+                        function validateSpecialization() {
+                            const specializationInput = document.getElementById('specialization');
+                            const specializationValue = specializationInput.value.trim();
+
+                            // Check if the first letter is uppercase
+                            if (specializationValue.length === 0 || !/^[А-ЯЁ]/.test(specializationValue)) {
+                                alert('Специализация должна начинаться с заглавной буквы и быть на русском языке.');
+                                return false; // Prevent form submission
+                            }
+
+                            // Check if the input contains only Russian letters and spaces
+                            if (!/^[А-ЯЁа-яё\s]+$/.test(specializationValue)) {
+                                alert('Специализация должна содержать только русские буквы.');
+                                return false; // Prevent form submission
+                            }
+
+                            return true;
+                        }
+                        
+                        function clearForm() {
+                            const form = document.querySelector('form');
+                            form.reset();
+                            document.getElementById('completion-percentage').innerText = 'заказ 0%';
+                            document.getElementById('specialization').value = '';
+                        }
+
+                        function updateCompletionPercentage() {
+                            const totalFields = 9; // Total number of fields to track
+                            let filledFields = 0;
+
+                            // Check each field for completion
+                            const age = document.querySelector('input[name=age]').value;
+                            const price = document.querySelector('input[name=price]').value;
+                            
+                            // Count radio buttons
+                            const targetAudience = document.querySelectorAll('input[name=target_audience]:checked').length;
+                            const gender = document.querySelectorAll('input[name=gender]:checked').length;
+                            const consultationCount = document.querySelectorAll('input[name=consultation_count]:checked').length;
+                            const meetingFormat = document.querySelectorAll('input[name=meeting_format]:checked').length;
+
+                            // Increment filledFields based on user inputs
+                            if (age) filledFields++;
+                            if (price) filledFields++;
+                            
+                            if (targetAudience > 0) filledFields++;
+                            if (gender > 0) filledFields++;
+                            if (consultationCount > 0) filledFields++;
+                            if (meetingFormat > 0) filledFields++;
+
+                             // Check textarea and specialization input
+                             const comments = document.querySelector('textarea[name=comments]').value;
+                             const specialization = document.getElementById('specialization').value;
+
+                             if (comments) filledFields++;
+                             if (specialization) filledFields++;
+
+                             // Calculate percentage
+                             const percentage = Math.round((filledFields / totalFields) * 100);
+                             document.getElementById('completion-percentage').innerText = `заказ ${percentage}%`;
+                        }
+                    </script>
+
+                </li>
+            </ul>
+        </div>
+     </div>
+</div>
+
+{% include 'mybot/HelpWindow.html' %}
+
+<style>
+    
+    .tutor-column { <!-- Placeholder for completion percentage -->
+        flex-basis: 70%;
+        margin-top: 20px;
+        .tutor-list {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            
+            ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+    
+                li {
+                    margin-bottom: 20px;
+    
+                    label {
+                        font-weight: bold;
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                        display: block;
+                    }
+    
+                    input[type="radio"], input[type="number"], input[type="text"], textarea {
+                        margin-top: 10px;
+                        width: 100%;
+                        padding: 10px;
+                        border: 1px solid #ccc;
+                        border-radius: 5px;
+                        font-size: 14px;
+                    }
+    
+                    input[type="radio"] {
+                        width: auto;
+                        margin-right: 10px;
+                    }
+    
+                    textarea {
+                        resize: vertical;
+                    }
+                }
+            }
+            
+            button {
+                background-color: #e60000;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                border-radius: 5px;
+                cursor: pointer;
+                &:hover {
+                    background-color: #218838;
+                }
+            }
+        }
+    }
+    
+    #completion-percentage {
+        font-weight: bold;
+        color: #ff5722;
+        margin-bottom: 20px;
+    }
+    
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            padding: 10px;
+        }
+    
+        .text-column, .tutor-column {
+            flex-basis: 100%;
+            margin-bottom: 20px;
+        }
+    
+        .tutor-list {
+            padding: 15px;
+        }
+    }
+</style>

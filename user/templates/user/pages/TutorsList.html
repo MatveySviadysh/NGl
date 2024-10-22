@@ -1,0 +1,19 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+{% include 'user/components/Header.html' %}
+<body>
+    <h1>Тьюторы по вашему запросу</h1>
+    <form action="{% url 'tutor-list-serarch' %}" method="GET">
+        <input type="text" name="query" placeholder="Услуга или специалист" value="{{ query }}">
+        <button type="submit">Найти</button>
+    </form>
+    <ul>
+        {% for tutor in tutors %}
+            <li>{{ tutor.full_name }} - {{ tutor.specialization }}</li>
+        {% empty %}
+            <li>Tutor не найдены.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+{% include 'user/components/Fotter.html' %}

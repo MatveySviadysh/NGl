@@ -1,0 +1,91 @@
+.container {
+  display: flex;
+  margin-top: 150px;
+  margin-left: 320px;
+  margin-bottom: 200px;
+}
+
+.text-column {
+  margin-top: 50px;
+  margin-left: 30px;
+  font-size: 20px;
+  font-family: 'Inter', sans-serif;
+  color: black;
+}
+
+.tutor-column {
+  margin-top: 40px;
+  margin-left: 250px;
+}
+
+.form-column {
+  margin-left: 200px;
+  margin-top: 57px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #0056b3; /* Цвет кнопки при наведении */
+}
+.avatar-image {
+  width: 300px;             /* Ширина 400 пикселей */
+  height: 300px;            /* Высота 400 пикселей */
+  border-radius: 50%;       /* Круглые края */
+  object-fit: cover;        /* Заполнение области без искажений */
+}
+
+.text-column {
+  margin-top: 50px;
+  margin-left: 30px;
+  font-size: 20px;
+  font-family: 'Inter', sans-serif;
+  color: black;
+}
+
+.text-column a {
+  color: black;                  /* Черный цвет текста */
+  text-decoration: none;         /* Убираем нижнее подчеркивание */
+  transition: color 0.3s, transform 0.2s; /* Плавный переход для цвета и трансформации */
+  display: inline-block;         /* Позволяет элементам увеличиваться */
+  margin-bottom: 20px;          /* Отступ снизу между ссылками */
+}
+
+.text-column a:hover {
+  color: #D32F2F;                /* Изменение цвета при наведении */
+  transform: scale(1.1);        /* Увеличение при наведении */
+}
+
+.text-column a:active {
+  transform: scale(0.95);       /* Уменьшение при нажатии */
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: red; /* Фоновый цвет кнопки */
+  color: white;          /* Цвет текста */
+  border: none;         /* Без рамки */
+  border-radius: 5px;   /* Закругленные края */
+  cursor: pointer;       /* Указатель при наведении */
+  font-family: 'Inter', sans-serif; /* Шрифт */
+  font-weight: bold;     /* Жирный шрифт */
+  font-size: 15px;       /* Размер шрифта */
+  text-align: center;    /* Центрирование текста */
+  text-decoration: none;  /* Убираем подчеркивание */
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #d95a24; /* Цвет кнопки при наведении */
+}

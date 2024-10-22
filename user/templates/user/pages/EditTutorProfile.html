@@ -1,0 +1,71 @@
+{% load static %}
+{% load widget_tweaks %}
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/Tutor/EditTutorProfile.scss' %}">
+
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">Редактировать профиль</h2>
+    <form method="POST" enctype="multipart/form-data" class="edit-profile-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.full_name.label_tag }}
+            {{ form.full_name|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.phone_number.label_tag }}
+            {{ form.phone_number|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.specialization.label_tag }}
+            <input type="text" id="id_specialization" name="specialization" 
+                   oninput="capitalizeInput(this)" 
+                   value="{{ form.specialization.value|default:'' }}" 
+                   class="form-input">
+            {% if form.specialization.errors %}
+                <div class="error">{{ form.specialization.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.avatar.label_tag }}
+            {{ form.avatar|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.price.label_tag }}
+            {{ form.price|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.services.label_tag }}
+            {{ form.services|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.video.label_tag }}
+            {{ form.video|add_class:"form-input" }}
+        </div>
+        <div class="form-group">
+            {{ form.experience.label_tag }}
+            {{ form.experience|add_class:"form-input" }}
+        </div>
+
+        <button type="submit" class="button">Сохранить изменения</button>
+    </form>
+</div>
+{% endblock %}
+<script>
+function capitalizeInput(input) {
+    // Преобразуем каждое слово в заглавную букву
+    input.value = input.value.replace(/[^а-яА-ЯёЁ\s]/g, '');
+    
+    const words = input.value.split(' ');
+    for (let i = 0; i < words.length; i++) {
+        if (words[i]) {
+            words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+        }
+    }
+    input.value = words.join(' ');
+}
+</script>

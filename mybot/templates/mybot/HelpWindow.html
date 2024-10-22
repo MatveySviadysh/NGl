@@ -1,0 +1,32 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'mybot/scss/ModelWindow.scss' %}">
+<button class="fixed-button" id="myBtn">📩</button>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p class="support-text">Поддержка</p>
+
+        <hr class='line'>
+
+        <div class='main-window-hepl'>
+            <p>Напиши нам</p>
+            <img src="{% static 'mybot/images/message.png' %}"> 
+        </div>
+
+        <form class="form" action="{% url 'button_page' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="file" name="image" accept="image/*" id="file-upload"> 
+                <textarea name="message" id="id_message" required placeholder="Напишите текст">{{ form.message.value|default:'' }}</textarea>
+                {% if form.message.errors %}
+                    <div class="error">{{ form.message.errors }}</div>
+                {% endif %}
+                <button class="button-window" type="submit">Отправить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'mybot/js/ModalWindow.js' %}"></script>

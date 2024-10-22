@@ -1,0 +1,93 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+
+{% include 'user/components/Header.html' %}
+<body>
+    <h1 class="chat-title">Ваши Чаты</h1>
+    <ul class="chat-list">
+        {% for chatroom in chatrooms %}
+            <li class="chat-item">
+                <a href="{% url 'chat_with_tutor' chatroom.id %}" class="chat-link">
+                    Чат с 
+                    {% if chatroom.requester == user %}
+                        {{ chatroom.responder }}
+                    {% else %}
+                        {{ chatroom.requester.username }}
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+
+<style>
+    body {
+        margin-left: 365px;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    .chat-title {
+        margin-top: 100px;
+        font-size: 28px;
+        color: #333;
+        font-weight: bold;
+    }
+    
+    .chat-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 30px;
+        max-width: 500px; /* Set a maximum width for the list */
+        margin-left: auto;
+        margin-right: auto; /* Center the chat list on the page */
+    }
+    
+    .chat-item {
+        max-width: 100%; /* Ensure the item takes the full width of the parent */
+        margin-bottom: 15px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .chat-item:hover {
+        background-color: #f0f0f0;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .chat-link {
+        display: block;
+        padding: 15px 20px;
+        text-decoration: none;
+        color: #333;
+        font-size: 18px;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+    
+    .chat-link:hover {
+        color: #007bff;
+    }
+    
+    @media (max-width: 768px) {
+        body {
+            margin-left: 20px;
+        }
+    
+        .chat-title {
+            font-size: 24px;
+        }
+    
+        .chat-list {
+            max-width: 100%;
+        }
+    
+        .chat-link {
+            font-size: 16px;
+            padding: 12px 15px;
+        }
+    }
+
+</style>

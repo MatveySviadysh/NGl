@@ -1,0 +1,43 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/Header.scss' %}">
+<div class="navbarP">
+    <div class="navbar">
+        <div class="navbar-left">
+            <a class="navbar-logo" href="{% url 'main-page' %}">NGL</a>
+        </div>
+        <div class="navbar-right">
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout-user' %}" class="navbar-link">Выйти</a>
+                {% if user.tutor %}
+                    <a href="{% url 'profile-tutor' user.tutor.full_name %}" class="profile-button">профиль</a> 
+                {% else %}
+                    <a href="{% url 'profile-user' %}" class="profile-button">профиль</a> 
+                {% endif %}
+
+                
+                {% if user.tutor %}
+                    <a class="photo_header" href="{% url 'profile-tutor' user.tutor.full_name %}">
+                        
+                        {% if tutor.avatar %}
+                            <img src="{{ tutor.avatar.url }}" class="avatar-image" alt="Аватар" />
+                        {% else %}
+                            <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар" />
+                        {% endif %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'profile-user' %}">
+                        {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар" />
+                        {% else %}
+                            <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар" />
+                        {% endif %}
+                    </a>
+                {% endif %}
+            {% else %}
+                <a href="{% url 'login_tutor' %}" class="navbar-link" target="_blank">Вход для специалистов</a>
+                <a href="{% url 'login-user' %}" class="navbar-link" target="_blank">Вход для учеников</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'user/scss/User/UserRegister.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+
+<div class="registration-container">
+    <h2 class="title-text">Регистрация</h2>
+    <form method="post" class="registration-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_username">Имя</label>
+            {{ form.username }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_email">Почта</label>
+            {{ form.email }}
+        </div>
+
+        <div class="form-group">
+            <label for="id_password1">Пароль</label>
+            <div class="password-container">
+                {{ form.password1 }} 
+                <button type="button" id="toggle-password-user" onclick="togglePasswordUser()" class="toggle-button">👁️</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="password-container">
+                {{ form.password2 }} 
+                <button type="button" id="toggle-password-confirm" onclick="togglePasswordConfirm()" class="toggle-button">👁️</button>
+            </div>
+        </div>
+        
+        <button type="submit" class="registration-button">Продолжить</button>
+    </form>
+    <div class="footer-link">
+        <a class="login-link" href="{% url 'login-user' %}">Уже есть аккаунт? Вход</a>
+    </div>
+</div>
+
+<script src="{% static 'user/js/ShowPassword.js' %}"></script>
+
+<style>
+.password-container {
+    position: relative;
+}
+
+.toggle-button {
+    position: absolute;
+    right: 10px; /* Space from the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    color: #aaa; /* Default color for the button */
+}
+
+.toggle-button:hover {
+    color: #555; /* Darker color on hover */
+}
+</style>
+
+<script>
+function togglePasswordUser() {
+    const passwordField = document.querySelector('#id_password1'); // Get the password input
+    const toggleButton = document.getElementById('toggle-password-user');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text'; // Show password
+        toggleButton.style.color = '#888'; // Change color to gray
+    } else {
+        passwordField.type = 'password'; // Hide password
+        toggleButton.style.color = ''; // Reset color
+    }
+}
+
+function togglePasswordConfirm() {
+    const passwordField = document.querySelector('#id_password2'); // Get the confirm password input
+    const toggleButton = document.getElementById('toggle-password-confirm');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text'; // Show password
+        toggleButton.style.color = '#888'; // Change color to gray
+    } else {
+        passwordField.type = 'password'; // Hide password
+        toggleButton.style.color = ''; // Reset color
+    }
+}
+</script>

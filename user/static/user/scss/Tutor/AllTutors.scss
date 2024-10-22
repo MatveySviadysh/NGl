@@ -1,0 +1,43 @@
+.tutor-list li {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 320px;
+    margin-right: 430px;
+}
+
+.tutor-avatar img {
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+    margin-right: 20px; 
+}
+
+.tutor-info {
+    flex-grow: 1; 
+}
+
+.separator {
+    width: 2px; /* Ширина линии */
+    background-color: #dee2e6; /* Цвет линии */
+    height: 200px; /* Высота линии */
+    margin: 0 15px; /* Отступы по горизонтали */
+}
+
+
+p{
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+h2{
+    margin-top: 100px;
+    text-align: center;
+    font-size: 30px;
+    margin-right: 70px;
+}

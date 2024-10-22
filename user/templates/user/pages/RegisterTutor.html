@@ -1,0 +1,142 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorRegister.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+<div class="auth-container">
+    <div class="registration-container">
+        <h1 class="title-text">Регистрация</h1>
+        <form method="post" class="registration-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_full_name">ФИО</label>
+                {{ form.full_name }}
+                {% if form.full_name.errors %}
+                    <div class="error">{{ form.full_name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_phone_number">Телефон</label>
+                {{ form.phone_number }}
+                {% if form.phone_number.errors %}
+                    <div class="error">{{ form.phone_number.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_specialization">Специализация</label>
+                <input type="text" id="id_specialization" name="specialization" 
+                       oninput="validateAndCapitalizeInput(this)" 
+                       value="{{ form.specialization.value|default:'' }}">
+                {% if form.specialization.errors %}
+                    <div class="error">{{ form.specialization.errors }}</div>
+                {% endif %}
+            </div>
+            
+            
+
+            <div class="form-group">
+                <label for="id_email">Почта</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error">{{ form.email.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password1">Пароль</label>
+                <div class="password-container">
+                    {{ form.password }} 
+                    <button type="button" id="toggle-password-tutor" onclick="togglePasswordTutor()" class="toggle-button">👁️</button> <!-- Eye icon -->
+                    {% if form.password.errors %}
+                        <div class="error">{{ form.password.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="password-container">
+                    {{ form.password_confirm }} 
+                    <button type="button" id="toggle-password-confirm-tutor" onclick="togglePasswordConfirmTutor()" class="toggle-button">👁️</button> <!-- Eye icon -->
+                    {% if form.password_confirm.errors %}
+                        <div class="error">{{ form.password_confirm.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <button type="submit" class="registration-button">Продолжить</button>
+        </form>
+
+        <div class="footer-link">
+            <a class="login-link" href="{% url 'login_tutor' %}">Уже есть аккаунт? Вход</a>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'user/js/ShowPassword.js' %}"></script>
+
+<script>
+
+    function validateAndCapitalizeInput(input) {
+        // Удаляем все символы, кроме русских букв и пробелов
+        input.value = input.value.replace(/[^а-яА-ЯёЁ\s]/g, '');
+    
+        // Преобразуем каждое слово в заглавную букву
+        const words = input.value.split(' ');
+        for (let i = 0; i < words.length; i++) {
+            if (words[i]) {
+                words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+            }
+        }
+        input.value = words.join(' ');
+    }
+    
+function togglePasswordTutor() {
+    const passwordField = document.querySelector('#id_password'); // Get the password input
+    const toggleButton = document.getElementById('toggle-password-tutor');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text'; // Show password
+        toggleButton.style.color = '#888'; // Change color to gray
+    } else {
+        passwordField.type = 'password'; // Hide password
+        toggleButton.style.color = ''; // Reset color
+    }
+}
+
+// Function to toggle confirmation password visibility for tutor registration
+function togglePasswordConfirmTutor() {
+    const passwordField = document.querySelector('#id_password_confirm'); // Get the confirm password input
+    const toggleButton = document.getElementById('toggle-password-confirm-tutor');
+    
+    if (passwordField.type === 'password') {
+        passwordField.type = 'text'; // Show password
+        toggleButton.style.color = '#888'; // Change color to gray
+    } else {
+        passwordField.type = 'password'; // Hide password
+        toggleButton.style.color = ''; // Reset color
+    }
+}
+</script>
+
+<style>
+.password-container {
+    position: relative;
+}
+
+.toggle-button {
+    position: absolute;
+    right: 10px; /* Space from the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    background-color: transparent; /* Transparent background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    color: #aaa; /* Default color for the button */
+}
+
+.toggle-button:hover {
+    color: #555; /* Darker color on hover */
+}
+</style>

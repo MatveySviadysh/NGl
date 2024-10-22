@@ -1,0 +1,56 @@
+.chinese-course-section2 {
+    display: flex; 
+    align-items: center;
+    margin: 80px 360px; 
+    background-color: #fbfcfe; 
+    border-radius: 15px; 
+    overflow: hidden; 
+    width: 1105px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+}
+
+.course-image2 {
+    position: relative; 
+    width: 50%;
+}
+
+.course-guarantee2 {
+    position: absolute; 
+    top: 20px; 
+    left: 700px; 
+    color: white; 
+    font-weight: bold;
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 32px; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    padding: 20px; 
+}
+
+.course-button2 {
+    position: absolute; 
+    bottom: 70px; 
+    left: -140px; 
+}
+
+.toggle-button {
+    width: 180px;
+    display: inline-block; 
+    background-color: #ff5733;
+    color: white;
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    font-size: 26px; 
+    text-decoration: none; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+
+.toggle-button:hover {
+    background-color: #c70039;
+}
+
+html {
+    scroll-behavior: smooth; 
+}
