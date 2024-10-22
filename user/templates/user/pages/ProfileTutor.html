@@ -23,7 +23,7 @@
                         {% if not user.tutor %}
                             <div class="rectangle">
                                 <div class="text">Чтобы писать специалистам, заполните детали заказа</div>
-                                <button class="button">Заполнить детали заказа</button>
+                                <button class="button" onclick="window.location.href='{% url 'create_order' %}'">Заполнить детали заказа</button>
                             </div>
                         {% endif %}
                     {% endif %}
@@ -85,8 +85,43 @@
                             </p>
                         </li>
                 </ul>
+                <a href="{% url 'add_comment' tutor.id %}" class="btn btn-primary">Оставить комментарий</a>
             </div>
-        </div>
+                <ul>
+                    {% for comment in comments %}
+                        <li>
+                            <strong>{{ comment.user.username }}</strong>: {{ comment.content }} ({{ comment.created_at }})
+                            <br>
+                            <div class="rating">
+                                {% for i in star_range %}
+                                    <span class="star {% if comment.rating >= i %}filled{% endif %}">★</span>
+                                {% endfor %}
+                            </div>
+                            <br>Рейтинг: {{ comment.rating }}
+                        </li>
+                    {% empty %}
+                        <li>Комментарии отсутствуют.</li>
+                    {% endfor %}
+                </ul>
+                
+                <style>
+                    .rating {
+                        display: inline-block;
+                        direction: rtl; /* Ensure stars are filled from left to right */
+                    }
+                    
+                    .star {
+                        font-size: 20px; /* Adjust as needed */
+                        color: #e0e0e0; /* Unfilled star color */
+                        cursor: pointer;
+                        display: inline-block;
+                    }
+                    
+                    .star.filled {
+                        color: orange; /* Filled star color */
+                    }
+                </style>     
+            </div>
     </div>
 
 <style>
