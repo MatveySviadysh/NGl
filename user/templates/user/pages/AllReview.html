@@ -4,7 +4,7 @@
 {% include 'user/components/Header.html' %}
 
 <div class='review-container'>
-    <h2 class='title'>Отзывы о специалистах</h2>
+    <h2 class='title'>Отзывы о сайте</h2>
     {% block content %}
     {% if reviews %}
         <ul>
@@ -48,25 +48,29 @@
         <p>У вас пока нет комментариев.</p>
     {% endif %}
     {% endblock %}
-</div>
-<!-- Pagination Controls -->
-<div class="pagination">
-    <span class="step-links">
-        {% if reviews.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ reviews.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}.
+    <div class="pagination">
+        <span class="step-links">
+            {% if reviews.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ reviews.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                страница {{ reviews.number }} of {{ reviews.paginator.num_pages }}.
+            </span>
+    
+            {% if reviews.has_next %}
+                <a href="?page={{ reviews.next_page_number }}">Следующая</a>
+                <a href="?page={{ reviews.paginator.num_pages }}">прошлая &raquo;</a>
+            {% endif %}
         </span>
-
-        {% if reviews.has_next %}
-            <a href="?page={{ reviews.next_page_number }}">next</a>
-            <a href="?page={{ reviews.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
+    </div>
+    <div>
+        <a href="{% url 'all_review_tutor' %}">Отзывы о специалистах</a>
+    </div>
 </div>
+
+
 
 
 {% include 'mybot/HelpWindow.html' %}
