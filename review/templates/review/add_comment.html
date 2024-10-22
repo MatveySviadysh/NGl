@@ -1,0 +1,6 @@
+<h2>Leave a comment for {{ tutor.full_name }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
