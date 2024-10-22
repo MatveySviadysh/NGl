@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from review.models import Comment
 from chat.models import ChatRoom
 from order.models import UserConsultation
 from subscription.models import Subscription
@@ -184,6 +184,11 @@ def profile_tutor(request, full_name):
         responder=tutor.user,
         defaults={'chat_type': 'personal'}
     )
+
+    comments = Comment.objects.filter(tutor=tutor).order_by('-created_at')
+    comments_count = comments.count()
+
+    star_range = range(1, 6)
     
     return render(request, 'user/pages/ProfileTutor.html', {
         'user': request.user,
@@ -191,6 +196,9 @@ def profile_tutor(request, full_name):
         'is_subscribed': is_subscribed,
         'profile':profile,
         'chatroom':chatroom,
+        'comments': comments,
+        'comments_count':comments_count,
+        'star_range': star_range,
     })
 
 def tutor_logout(request):

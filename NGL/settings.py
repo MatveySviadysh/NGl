@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'chat',
     'subscription',
+    'review',
 ]
 
 MIDDLEWARE = [
