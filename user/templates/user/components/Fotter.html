@@ -34,7 +34,6 @@
       </div>
 
       <div class="column" style="margin-top: 30px;">
-        <div class="link-wrapper"><a href="{% url 'help_page' %}" class="link">Поддержка</a></div>
         {% if user.is_authenticated %}
           <div class="link-wrapper"><a href="{% url 'logout-user' %}" class="link">Выйти</a></div>
         {% else %}
