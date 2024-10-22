@@ -70,3 +70,22 @@
 .text-column a:active {
   transform: scale(0.95);       /* Уменьшение при нажатии */
 }
+
+.button {
+  padding: 10px 20px;
+  background-color: red; /* Фоновый цвет кнопки */
+  color: white;          /* Цвет текста */
+  border: none;         /* Без рамки */
+  border-radius: 5px;   /* Закругленные края */
+  cursor: pointer;       /* Указатель при наведении */
+  font-family: 'Inter', sans-serif; /* Шрифт */
+  font-weight: bold;     /* Жирный шрифт */
+  font-size: 15px;       /* Размер шрифта */
+  text-align: center;    /* Центрирование текста */
+  text-decoration: none;  /* Убираем подчеркивание */
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: #d95a24; /* Цвет кнопки при наведении */
+}

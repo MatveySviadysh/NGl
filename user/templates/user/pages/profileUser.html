@@ -15,27 +15,60 @@
         <a href='{% url 'user_subscriptions' %}'>подписки</a>
     </div>
     
-    <div class="tutor-column">
+    <div class="tutor-column" style="margin-top: 50px;">
         <div class="profile-content">
             <div class="user-info">
-                <p class="username">Имя пользователя: <strong>{{ profile.user.username }}</strong></p>
+                {% if profile.user.username or profile.phone_number %}
+                    <p class="username" style="font-size: 20px;"><strong>{{ profile.user.username }}</strong></p>
+                {% endif %}
+                {% if  profile.phone_number %}
+                    <p>{{ profile.phone_number }}</p>
+                {% endif %}
             </div>
             <div class="description-container">
                 <h2>Описание:</h2>
-                <p class="description-text">{{ profile.description|default:"Нет описания" }}</p>
-            </div>
-            <div>
-                {{profile.phone_number}}
+                <style>
+
+                    .description-text {
+                
+                        width: 100%;                    /* Ширина 100% */
+                
+                        max-width: 100px;              /* Максимальная ширина 100px */
+                
+                        margin-top: 30px;
+                
+                        font-size: 18px;               /* Размер шрифта 18px */
+                
+                        border: 1px solid #ccc;        /* Рамка вокруг текста */
+                
+                        padding: 10px;                 /* Отступы внутри рамки */
+                
+                        border-radius: 5px;            /* Закругленные углы */
+                
+                        background-color: #f9f9f9;     /* Цвет фона */
+                
+                        overflow-wrap: break-word;      /* Перенос слов */
+                
+                    }
+                
+                </style>
+                {% if profile.description %}
+                    <p class="description-text">{{ profile.description }}</p>
+                {% else %}
+                    <a href="{% url 'chenge_user_profile' %}" class="button">Добавить описание</a><br>
+                {% endif %}
             </div>
         </div>
+        
     </div>
+    
 
     <div class="form-column">
         <div class="avatar-container">
             {% if profile.avatar %}
-                <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар" style=" width: 300px;height: 300px;">
+                <img src="{{ profile.avatar.url }}" class="avatar-image" alt="Аватар" style=" width: 300px;height: 300px;margin-left: 100px;">
             {% else %}
-                <img src="{% static 'user/images/default_avatar.jpg' %}" style=" width: 300px;height: 300px;" class="avatar-image" alt="Дефолтный аватар">
+                <img src="{% static 'user/images/default_avatar.jpg' %}" style="width: 300px; height: 300px; margin-left: 100px;" class="avatar-image" alt="Дефолтный аватар">
             {% endif %}
         </div>
     </div>
