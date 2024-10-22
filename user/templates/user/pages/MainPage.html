@@ -118,22 +118,22 @@
                             {% endif %}
                         {% endwith %}
                     </div>
-                    
+                    <div >
+                        {% with "0 1 2 3 4" as numbers %}
+                            {% for i in numbers.split %}
+                                {% if forloop.counter0 < review.rating %}
+                                    🌟
+                                {% else %}
+                                    ✩
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
                     <div class="review-content">
                         <strong class="review-name">
                             {{ review.username }}
                         </strong>
-                        <div class="review-rating">
-                            {% with "0 1 2 3 4" as numbers %}
-                                {% for i in numbers.split %}
-                                    {% if forloop.counter0 < review.rating %}
-                                        🌟
-                                    {% else %}
-                                        ✩
-                                    {% endif %}
-                                {% endfor %}
-                            {% endwith %}
-                        </div>
+                        
                         <p class="review-comment">{{ review.comment }}</p>
                     </div>
                 </div>
@@ -176,6 +176,24 @@
 <script src="{% static 'user/js/Review.js' %}"></script>
 
 <style>
+    .review-comment {
+        max-width: 200px; /* Максимальная ширина 100 пикселей */
+        margin: 10px 0;
+        font-size: 1.1em;
+        text-align: center; /* Выравнивание текста по центру */
+        overflow: hidden; /* Скрытие переполненного текста */
+        text-overflow: ellipsis; /* Многоточие для переполненного текста */
+        white-space: normal; /* Позволяет переносить текст */
+    }
+    .review-card:hover {
+
+        transform: scale(1.05); /* Увеличение на 5% */
+    
+        background-color: rgba(255, 255, 255, 0.9); /* Немного затемненный цвет фона */
+    
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Добавление тени */
+    
+    }
     .imgText {
         display: flex; /* Ensure flex layout for columns */
         justify-content: space-between; /* Space out columns evenly */
