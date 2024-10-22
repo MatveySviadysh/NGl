@@ -85,7 +85,11 @@
                             </p>
                         </li>
                 </ul>
-                <a href="{% url 'add_comment' tutor.id %}" class="btn btn-primary">Оставить комментарий</a>
+                {% if user.is_authenticated %}
+                        {% if not user.tutor %}
+                        <a href="{% url 'add_comment' tutor.id %}" class="btn btn-primary">Оставить комментарий</a>
+                        {% endif %}
+                    {% endif %}
             </div>
                 <ul>
                     {% for comment in comments %}

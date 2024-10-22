@@ -1,3 +1,6 @@
+{% load static %}
+
+{% include 'user/components/Header.html' %}
 
 {% block content %}
 <div class="container">
@@ -6,20 +9,22 @@
     {% if tutors %}
         <ul class="tutor-list">
             {% for tutor in tutors %}
-                <li>
-                    <div class="tutor-info">
-                        <a href="{% url 'profile-tutor' tutor.full_name %}">
-                            <strong>{{ tutor.full_name }}</strong>
-                        </a>
-                        <p>Специализация: {{ tutor.specialization }}</p>
-                        <p>Телефон: {{ tutor.phone_number }}</p>
-                        <p>Email: {{ tutor.email }}</p>
-                        <p>Рейтинг: {{ tutor.rating }}</p>
-                        <p>Цена за консультацию: {{ tutor.price }} руб.</p>
+                <li class="tutor-item">
+                    <a href="{% url 'profile-tutor' tutor.full_name %}" class="tutor-card">  <!-- <a> оборачивает весь блок -->
                         {% if tutor.avatar %}
-                            <img src="{{ tutor.avatar.url }}" alt="{{ tutor.full_name }}'s avatar" />
+                            <img src="{{ tutor.avatar.url }}" alt="{{ tutor.full_name }}'s avatar" class="tutor-avatar" />
+                        {% else %}
+                            <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар" />
                         {% endif %}
-                    </div>
+                        <div class="tutor-info">
+                            <strong class="tutor-name">{{ tutor.full_name }}</strong>
+                            <p class="tutor-specialization">Специализация: {{ tutor.specialization }}</p>
+                            <p class="tutor-contact">Телефон: {{ tutor.phone_number }}</p>
+                            <p class="tutor-email">Email: {{ tutor.email }}</p>
+                            <p class="tutor-rating">Рейтинг: {{ tutor.rating }}</p>
+                            <p class="tutor-price">Цена за консультацию: <strong>{{ tutor.price }} руб.</strong></p>
+                        </div>
+                    </a> <!-- Закрываем <a> здесь -->
                 </li>
             {% endfor %}
         </ul>
@@ -28,3 +33,67 @@
     {% endif %}
 </div>
 {% endblock %}
+
+<style> 
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 100px;
+        font-family: Arial, sans-serif;
+    }
+    
+    .tutor-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .tutor-item {
+        margin: 20px 0;
+    }
+    
+    .tutor-card {
+        display: flex;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        align-items: center;
+        background-color: #f9f9f9;
+        text-decoration: none; /* Убираем подчеркивание ссылок */
+        color: inherit; /* Устанавливаем цвет текста по умолчанию */
+    }
+    
+    .tutor-card:hover {
+        background-color: #e9ecef; /* Цвет фона при наведении для лучшей видимости */
+    }
+    
+    .tutor-avatar, .avatar-image {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+    
+    .tutor-info {
+        flex-grow: 1;
+    }
+    
+    .tutor-name {
+        font-size: 1.5em;
+        color: #333;
+    }
+    
+    .tutor-specialization,
+    .tutor-contact,
+    .tutor-email,
+    .tutor-rating,
+    .tutor-price {
+        margin: 5px 0;
+        color: #555;
+    }
+    
+    .tutor-price strong {
+        color: #d9534f; /* Цвет для обозначения цены */
+    }
+</style>
+
+{% include 'user/components/Fotter.html' %}
