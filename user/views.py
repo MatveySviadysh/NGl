@@ -284,3 +284,21 @@ def all_service(request):
 
 def help_page(request):
     return render(request, 'user/pages/HelpPage.html')
+
+def foregin_password(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            new_password = form.cleaned_data['new_password']
+            try:
+                user = User.objects.get(username=username)  # Получаем пользователя по имени
+                user.set_password(new_password)  # Устанавливаем новый пароль
+                user.save()
+                update_session_auth_hash(request, user)  # Обновляем сессию пользователя
+                return redirect('login-user')  # Перенаправляем на нужный URL
+            except User.DoesNotExist:
+                form.add_error('username', 'Пользователь не найден.')  # Обработка ошибки, если пользователь не найден
+    else:
+        form = PasswordResetForm()
+    return render(request, 'user/pages/ForeginPassword.html', {'form': form})
