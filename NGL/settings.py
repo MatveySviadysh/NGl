@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'chat',
     'subscription',
     'review',
+    'captcha',
 ]
 
 MIDDLEWARE = [

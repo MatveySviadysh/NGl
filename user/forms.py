@@ -2,8 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from .models import Tutor, Review,UserProfile
-
-
+from captcha.fields import CaptchaField # type: ignore
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -91,3 +90,17 @@ class TutorProfileUpdateForm(forms.ModelForm):
             'video',
             'experience',
         ]
+
+class PasswordResetForm(forms.Form):
+    username = forms.CharField(label="Имя пользователя")
+    new_password = forms.CharField(widget=forms.PasswordInput(), label="Новый пароль")
+    new_password_confirm = forms.CharField(widget=forms.PasswordInput(), label="Повторите новый пароль")
+    captcha = CaptchaField()
+
+    def clean(self):
+        cleaned_data = super().clean()
+        new_password = cleaned_data.get("new_password")
+        new_password_confirm = cleaned_data.get("new_password_confirm")
+        if new_password != new_password_confirm:
+            raise forms.ValidationError("Новые пароли не совпадают.")
+        return cleaned_data
