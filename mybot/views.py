@@ -55,3 +55,13 @@ class UserMessagesView(View):
     def get(self, request):
         messages = SupportMessage.objects.filter(name=request.user.username)
         return render(request, 'mybot/user_messages.html', {'messages': messages})
+
+def delete_all_messages(request):
+    SupportMessage.objects.filter(name=request.user.username).delete()
+    return redirect('user_messages')
+
+def delete_message(request, message_id):
+    message = SupportMessage.objects.filter(id=message_id, name=request.user.username).first()
+    if message:
+        message.delete()
+    return redirect('user_messages')

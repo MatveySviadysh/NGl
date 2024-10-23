@@ -1,10 +1,257 @@
-<h2>Ваши сообщения</h2>
-<ul>
-    {% for message in messages %}
-        <li>
-            <strong>Сообщение:</strong> {{ message.message }}<br>
-            <strong>Ответ:</strong> {{ message.response|default:"Нет ответа" }}<br>
-            <strong>Дата создания:</strong> {{ message.created_at }}
-        </li>
-    {% endfor %}
-</ul>
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/scss/main_page/ReviewContainer.scss' %}">
+
+{% include 'user/components/Header.html' %}
+
+<div class="container">
+    <h2>Ваши сообщения</h2>
+    <ul>
+        {% for message in messages %}
+            <li>
+                <strong>Сообщение:</strong> {{ message.message }}<br>
+                <div class="message-actions">
+                    {% if message.response %}
+                        <span class="notification-dot"></span>
+                        <a href="#" class="show-dialog" data-question="{{ message.message }}" data-response="{{ message.response }}" data-image="{{ message.image.url }}">
+                            Показать ответ
+                        </a>
+                    {% else %}
+                        <span class="waiting-text">Ожидайте ответ</span>
+                    {% endif %}
+                    <form action="{% url 'delete_message' message.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button">
+                            <a > Удалить</a>
+                        </button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    <form action="{% url 'delete_all_messages' %}" method="post">
+        {% csrf_token %}
+        {% if messages %}
+            <button type="submit" class="delete-all-button">Удалить все вопросы</button>
+        {% endif %}
+    </form>
+</div>
+
+<div id="dialog-modal" style="display:none;">
+    <div class="message-container">
+        <h3>Вопрос:</h3>
+        <p id="modal-question" class="question-text"></p>
+    </div>
+    <div class="response-container">
+        <h3>Ответ:</h3>
+        <p id="modal-response" class="response-text"></p>
+    </div>
+    <img id="modal-image" src="" alt="Изображение" style="max-width: 100px; height: 100px; display: none;">
+    <button onclick="closeDialog()">Закрыть</button>
+</div>
+
+<div id="overlay" style="display:none;" onclick="closeDialog()"></div>
+
+<script>
+    let hasViewedResponse = false;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var dialogLinks = document.querySelectorAll('.show-dialog');
+        dialogLinks.forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var question = this.getAttribute('data-question');
+                var response = this.getAttribute('data-response');
+                var imageSrc = this.getAttribute('data-image');
+
+                document.getElementById('modal-question').textContent = question;
+                document.getElementById('modal-response').textContent = response;
+                var modalImage = document.getElementById('modal-image');
+
+                if (imageSrc) {
+                    modalImage.src = imageSrc;
+                    modalImage.style.display = 'block';
+                } else {
+                    modalImage.style.display = 'none';
+                }
+
+                hasViewedResponse = false;
+                this.previousElementSibling.style.display = 'none';
+                document.getElementById('dialog-modal').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            });
+        });
+    });
+
+    function closeDialog() {
+        document.getElementById('dialog-modal').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+</script>
+
+<style>
+    .message-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 5px;
+    }
+
+    body {
+        margin: 220px 445px 0 370px;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .container {
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    li:hover {
+        background-color: #e0e0e0;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    a.show-dialog {
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    a.show-dialog:hover {
+        color: #0056b3;
+    }
+
+    .notification-dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: blue;
+        margin-right: 5px;
+        animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    #dialog-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 1000;
+        width: 600px;
+        height: auto;
+        overflow-y: auto;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .message-container {
+        background-color: #d1e7dd;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .response-container {
+        background-color: #f8d7da;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .question-text {
+        color: #0b5ed7;
+        font-weight: bold;
+    }
+
+    .response-text {
+        color: #721c24;
+    }
+
+    #modal-image {
+        display: block;
+        margin: 10px auto;
+    }
+
+    .delete-button, .delete-all-button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .delete-button:hover, .delete-all-button:hover {
+        background-color: #c82333;
+    }
+
+    .icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+</style>
