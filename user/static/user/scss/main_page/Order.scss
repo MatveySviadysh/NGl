@@ -6,7 +6,9 @@
     overflow: hidden; 
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     margin-top: 100px;
-    margin-right: 60px; 
+    margin-left: 110px; 
+    width: 900px;
+    height: 300px;
 }
 
 .course-content {
@@ -14,9 +16,12 @@
 }
 
 .course-guarantee {
+    position: absolute;
     font-weight: bold;
     font-family: 'Inter', sans-serif;
-    font-size: 52px; 
+    font-size: 40px; 
+    margin-top: 20px;
+    margin-left: 50px;
 }
 
 .course-description {
@@ -25,11 +30,12 @@
 }
 
 .course-button {
+    position: absolute;
     font-weight: bold;
     font-family: 'Inter', sans-serif;
     font-size: 32px; 
     margin-top: 150px;
-    margin-left: 120px; 
+    margin-left: 110px; 
 }
 
 .submit-application-btn {
@@ -46,6 +52,7 @@
 }
 
 .course-image {
+    margin-left: 300px;
     flex-shrink: 0; 
 }
 

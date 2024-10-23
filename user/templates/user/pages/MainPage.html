@@ -35,11 +35,10 @@
                 {% endfor %}
             </div>
         </div>
-
         {% if not user.tutor %}
             <div class="chinese-course-section">
                 <div class="course-content">
-                    <a class="course-guarantee">количество заявок:{{count_orders}}</a>
+                    <a class="course-guarantee">Количество заявок:{{count_orders}}</a>
                     
                     <div class="course-button">
                         <a href="{% url 'create_order' %}" class="submit-application-btn">
