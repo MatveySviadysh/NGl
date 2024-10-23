@@ -19,15 +19,16 @@
         </form>
         
         <div class="container-images">
-            <div class="images">
-                <img src="{% static 'user/images/study_images/study1.jpg' %}" alt="Изображение 1">
-                <img src="{% static 'user/images/study_images/study2.jpg' %}" alt="Изображение 2">
-                <img src="{% static 'user/images/study_images/study3.jpg' %}" alt="Изображение 3">
-                <img src="{% static 'user/images/study_images/study4.jpg' %}" alt="Изображение 4">
-            </div>
             <div class="specializations-container">
                 {% for specialization in popular_specializations %}
                     <div class="specialization-item">
+                        <a href="{% url 'tutor_list' specialization.specialization %}">
+                            <img src="{% static 'user/images/study_images/study' %}{{ forloop.counter }}.jpg" 
+
+                         alt="Изображение {{ forloop.counter }}" 
+
+                         style="width: 240px; height: 240px; border-radius: 10px;">
+                        </a>
                         <a href="{% url 'tutor_list' specialization.specialization %}">{{ specialization.specialization }}</a>
                     </div>
                 {% empty %}
@@ -35,6 +36,7 @@
                 {% endfor %}
             </div>
         </div>
+        
             <div class="chinese-course-section">
                 <div class="course-content">
                     <a class="course-guarantee">количество заявок:{{count_orders}}</a>
