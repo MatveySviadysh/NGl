@@ -1,7 +1,9 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .models import ChatRoom, Message
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='login-user')
 def chat_with_tutor(request, chatroom_id):
     chatroom = get_object_or_404(ChatRoom, id=chatroom_id)
     messages = chatroom.messages.all()
