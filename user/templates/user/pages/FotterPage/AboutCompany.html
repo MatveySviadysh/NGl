@@ -1,1 +1,169 @@
-о конпании
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>О нас</h1>
+        <p>Добро пожаловать на наш сайт! 🚀 Здесь вы можете узнать о нашей команде разработчиков и нашем проекте.</p>
+        <p>Наша команда состоит из трех талантливых разработчиков:</p>
+
+        <div class="developer">
+            <h2>Matvey</h2>
+            <a href="https://t.me/blabla262" target="_blank" class="link" rel="noopener noreferrer" class="social-icon">
+                Telegram
+            </a>
+            <a href="https://github.com/MatveySviadysh" class="link">GitHub</a>
+        </div>
+        
+        <div class="developer">
+            <h2>Egor</h2>
+            <a href="https://t.me/nandExSSS" target="_blank" class="link" rel="noopener noreferrer" class="social-icon">
+                Telegram
+            </a>
+            <a href="https://github.com/EgorMorozSSS" class="link">GitHub</a>
+        </div>
+        
+        <div class="developer">
+            <h2>Sergey</h2>
+            <a href="https://t.me/SGNwow" target="_blank" class="link" rel="noopener noreferrer" class="social-icon">
+                Telegram
+            </a>
+            <a href="https://github.com/SGNwOw" class="link">GitHub</a>
+        </div>
+
+        <div class="project-link">
+            <h2>Ссылка на наш проект:</h2>
+            <a href="https://github.com/MatveySviadysh/NGl" class="link">Проект на GitHub</a>
+        </div>
+
+        <footer>
+            <p>Спасибо, что посетили наш сайт! Надеемся, вам понравится наше творчество! 🎉</p>
+        </footer>
+    </div>
+</body>
+</html>
+
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    
+    .container {
+        text-align: center;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 600px;
+        animation: fadeIn 0.8s ease-in-out;
+        position: relative;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .container:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+        animation: slideIn 0.5s ease;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    .developer {
+        background-color: #e0f7fa;
+        border: 1px solid #b2ebf2;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+        transition: background-color 0.3s, transform 0.3s;
+        position: relative;
+        overflow: hidden;
+        animation: popIn 0.5s ease forwards;
+        opacity: 0;
+    }
+
+    @keyframes popIn {
+        from {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .developer:hover {
+        background-color: #b2ebf2;
+        transform: translateY(-5px);
+    }
+    
+    .project-link {
+        background-color: #ffe082;
+        border: 1px solid #ffe57f;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 20px 0;
+        transition: transform 0.3s;
+    }
+    
+    .project-link:hover {
+        transform: translateY(-3px);
+    }
+    
+    .link {
+        display: inline-block;
+        margin: 0 10px;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+        transition: color 0.3s, transform 0.3s;
+    }
+    
+    .link:hover {
+        color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    footer {
+        margin-top: 20px;
+        font-style: italic;
+        color: #777;
+        animation: fadeIn 0.8s ease-in-out;
+    }
+</style>
