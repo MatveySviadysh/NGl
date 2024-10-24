@@ -1,0 +1,121 @@
+/* user/scss/User/Search.scss */
+
+/* Общие настройки */
+/* Общие настройки */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    margin-top: 200px; /* Добавлено: отступ сверху */
+}
+
+/* Остальной код остается без изменений */
+
+
+h1 {
+    margin-left: 860px ;
+    margin-top: 30px;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+/* Стиль формы поиска */
+form {
+    margin-left: 540px ;
+}
+
+.search-bar {
+    width: 50%;
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: 2px solid #ccc;
+    font-size: 1.2rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.search-bar:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.search-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Стили карточки тьютора */
+ul {
+    max-width: 1500px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left:180px;
+}
+
+.tutor-card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    transition: all 0.3s ease-in-out;
+    width: 300px;
+}
+
+.tutor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Аватарка */
+.tutor-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+/* Информация о тьюторе */
+.tutor-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.tutor-info h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #333;
+}
+
+.tutor-info p {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Пустой список */
+ul li:empty {
+    font-size: 1.2rem;
+    color: #777;
+    text-align: center;
+}
