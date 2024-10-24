@@ -14,6 +14,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.http import JsonResponse
 import random
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 @login_required
 def chenge_user_profile(request):
@@ -242,8 +243,13 @@ def change_password_user(request):
     return render(request, 'user/pages/ChangePassword.html', {'form': form})
 
 def tutor_list_serarch(request):
-    query = request.GET.get('query', '')
-    tutors = Tutor.objects.filter(specialization__icontains=query) if query else []
+    query = request.GET.get('query', '').strip()
+    if query:
+        tutors = Tutor.objects.filter(
+            Q(specialization__icontains=query) | Q(full_name__icontains=query)
+        )
+    else:
+        tutors = []
     return render(request, 'user/pages/TutorsList.html', {
         'tutors': tutors,
         'query': query,

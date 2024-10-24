@@ -13,10 +13,22 @@
         <h1 class="header-title">Каждый шаг близит к цели</h1>
         <p class = "count-users">{{ user_count }} клиента доверились нам</p>
 
-        <form action="{% url 'tutor-list-serarch' %}" method="GET">
-            <input class="search-bar" type="text" name="query" placeholder="Услуга или специалист" value="{{ query }}">
+        <form action="{% url 'tutor-list-serarch' %}" method="GET" onsubmit="return capitalizeFirstLetter()">
+            <input class="search-bar" type="text" id="query" name="query" placeholder="Введите услугу или специалиста" value="{{ query }}" required>
             <button class="search-button" type="submit">Найти</button>
         </form>
+        
+        <script>
+            function capitalizeFirstLetter() {
+                var inputField = document.getElementById("query");
+                var value = inputField.value;
+                if (value.length > 0) {
+                    value = value.charAt(0).toUpperCase() + value.slice(1);
+                    inputField.value = value;
+                }
+                return true;
+            }
+        </script>
         
         <div class="container-images">
             <div class="specializations-container">
