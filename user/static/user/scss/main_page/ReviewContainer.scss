@@ -1,10 +1,10 @@
 .chinese-course-section2 { 
     align-items: center;
-    margin: 80px 550px; 
+    margin: 80px 470px; 
     background-color: #fbfcfe; 
-    border-radius: 15px; 
+    border-radius: 50px; 
     overflow: hidden; 
-    width: 665px;
+    width: 900px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
 }
 
@@ -13,36 +13,48 @@
     width: 50%;
 }
 
+.course-text2{
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    position: absolute; 
+    width: 420px;
+    top: 100px; 
+    left: 372px; 
+    color: rgba(0, 0, 0, 0.5); /* Белый цвет с 50% прозрачностью */
+}
+
 .course-guarantee2 {
     position: absolute; 
+    width: 500px;
     top: 20px; 
     left: 350px; 
-    color: white; 
+    color: rgb(0, 0, 0); 
     font-weight: bold;
     border-radius: 10px;
     font-family: 'Inter', sans-serif;
     font-size: 32px; 
-    background-color: rgba(0, 0, 0, 0.5); 
     padding: 20px; 
 }
 
 .course-button2 {
     position: absolute; 
-    bottom: 70px; 
-    left: -490px; 
+    bottom: 30px; 
+    left: -440px; 
 }
 
 .toggle-button {
-    width: 180px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
     display: inline-block; 
+    width: 250px;
     background-color: FF0000;
     color: white;
     border: none; 
     padding: 10px 20px; 
-    border-radius: 5px; 
-    font-size: 26px; 
+    border-radius: 50px; 
+    font-size: 32px; 
     text-decoration: none; 
-    cursor: pointer; 
     transition: background-color 0.3s ease; 
 }
 
