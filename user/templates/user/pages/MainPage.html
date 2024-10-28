@@ -49,20 +49,18 @@
             </div>
         </div>
         
-            <div class="chinese-course-section">
-                <div class="course-content">
-                    <a class="course-guarantee">количество заявок:{{count_orders}}</a>
-                    <div class="course-text"> Оставьте свою заявку что б найти подходящего вам специалиста! Пройдите легкую форму заполнения и ищите уже нужного специалиста.</div>
-                    <div class="course-button">
-                        <a href="{% url 'create_order' %}" class="submit-application-btn">
-                            Оставить заявку
-                        </a>
-                    </div>
-                </div>
-                <div class="course-image">
-                    <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины">
-                </div>
+        <div class="chinese-course-section">
+            <a class="course-guarantee">количество заявок: {{count_orders}}</a>
+            <div class="course-text">Оставьте свою заявку, чтобы найти подходящего вам специалиста! Пройдите легкую форму заполнения и ищите уже нужного специалиста.</div>
+            <div class="course-button">
+                <a href="{% url 'create_order' %}" class="submit-application-btn">
+                    Оставить заявку
+                </a>
             </div>
+            <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины" style="z-index: 1000;">
+        </div>
+        
+        
         <p class="profi">Наши профи</p>
         <div>
             <div class="text-column">

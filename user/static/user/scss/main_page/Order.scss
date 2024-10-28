@@ -70,7 +70,6 @@
 }
 
 .course-photo {
-    width: 100%; 
-    height: auto; 
     transform: scaleX(-1);
+    clip-path: inset(0 0 0 150px); /* Обрезает 100px справа */
 }
