@@ -49,20 +49,18 @@
             </div>
         </div>
         
-            <div class="chinese-course-section">
-                <div class="course-content">
-                    <a class="course-guarantee">количество заявок:{{count_orders}}</a>
-                    
-                    <div class="course-button">
-                        <a href="{% url 'create_order' %}" class="submit-application-btn">
-                            Оставить заявку
-                        </a>
-                    </div>
-                </div>
-                <div class="course-image">
-                    <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины">
-                </div>
+        <div class="chinese-course-section">
+            <a class="course-guarantee">количество заявок: {{count_orders}}</a>
+            <div class="course-text">Оставьте свою заявку, чтобы найти подходящего вам специалиста! Пройдите легкую форму заполнения и ищите уже нужного специалиста.</div>
+            <div class="course-button">
+                <a href="{% url 'create_order' %}" class="submit-application-btn">
+                    Оставить заявку
+                </a>
             </div>
+            <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины" style="z-index: 1000;">
+        </div>
+        
+        
         <p class="profi">Наши профи</p>
         <div>
             <div class="text-column">
@@ -109,6 +107,7 @@
             <div class="course-image2">
                 <img src="{% static 'user/images/review_woman2.jpg' %}" class="course-photo2" alt="Изображение женщины">
                 <h3 class="course-guarantee2">Количество отзывов: 34</h3>
+                <div class="course-text2">Создайте отзыв о своих впечатлениях! Напишите все самое важное о нас. Надеюсь, что наше сотрудничество продолжится и в будущем, принося все больше знаний!</div>
                 <div class="course-button2">
                     <a href="#reviewSection" class="toggle-button">Создать отзыв</a>
                 </div>

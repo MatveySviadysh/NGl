@@ -2,11 +2,13 @@
     position: absolute;
     display: flex; 
     background-color:#fbfcfe;
-    border-radius: 10px; 
+    border-radius: 50px; 
     overflow: hidden; 
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     margin-top: 100px;
-    margin-right: 60px; 
+    margin-left: 110px; 
+    width: 900px;
+    height: 300px;
 }
 
 .course-content {
@@ -14,9 +16,12 @@
 }
 
 .course-guarantee {
+    position: absolute;
     font-weight: bold;
     font-family: 'Inter', sans-serif;
-    font-size: 52px; 
+    font-size: 40px; 
+    margin-top: 20px;
+    margin-left: 330px;
 }
 
 .course-description {
@@ -25,31 +30,46 @@
 }
 
 .course-button {
+    position: absolute;
     font-weight: bold;
     font-family: 'Inter', sans-serif;
     font-size: 32px; 
-    margin-top: 150px;
-    margin-left: 120px; 
+    margin-top: 200px;
+    margin-left: 400px; 
 }
 
+.course-text {
+    position: absolute;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.5); /* Белый цвет с 50% прозрачностью */
+    margin-top: 80px;
+    margin-left: 330px; 
+    width: 500px; /* Установить нужную ширину */
+    height: 100px; /* Установить нужную высоту */
+}
+
+
 .submit-application-btn {
-    background-color: #4CAF50; 
+    background-color: FF0000; 
     color: white; 
     padding: 10px 20px; 
     text-decoration: none; 
-    border-radius: 5px; 
+    border-radius: 50px; 
     transition: background-color 0.3s ease; 
 }
 
 .submit-application-btn:hover {
-    background-color: #45a049; 
+    background-color: #d10000; 
 }
 
 .course-image {
+    margin-right: 500px;
     flex-shrink: 0; 
 }
 
 .course-photo {
-    width: 100%; 
-    height: auto; 
+    transform: scaleX(-1);
+    clip-path: inset(0 0 0 150px); /* Обрезает 100px справа */
 }
