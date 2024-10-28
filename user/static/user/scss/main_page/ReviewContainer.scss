@@ -56,10 +56,12 @@
     font-size: 32px; 
     text-decoration: none; 
     transition: background-color 0.3s ease; 
+    user-select: none; /* Запрещаем выделение текста */
+    
 }
 
 .toggle-button:hover {
-    background-color: #c70039;
+    background-color: #d10000;
 }
 
 html {
