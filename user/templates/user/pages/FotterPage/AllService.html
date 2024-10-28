@@ -1,1 +1,47 @@
-все услуги 
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/MainPage.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/Review.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/Order.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/ReviewContainer.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/AllService.scss' %}">
+
+{% include 'user/components/Header.html' %}
+
+    <div class="container-images">
+        <div class="specializations-container">
+            <div class="popular-specializations-box">
+                <h3>Популярные специализации</h3>
+                <ul>
+                    {% for popular_spec in popular_specializations %}
+                        <li class="popular-specialization-item">
+                            <a href="{% url 'tutor_list' popular_spec.specialization %}">
+                                {{ popular_spec.specialization }} ({{ popular_spec.count }})
+                            </a>
+                        </li>
+                    {% empty %}
+                        <p>Популярных специализаций не найдено.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Все специализации -->
+            <div class="all-specializations">
+                <h2>Все специализации</h2>
+                <ul>
+                    {% for specialization in all_specializations %}
+                        <li class="specialization-item">
+                            <a href="{% url 'tutor_list' specialization %}">{{ specialization }}</a>
+                        </li>
+                    {% empty %}
+                        <p>Специализаций не найдено.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% include 'mybot/HelpWindow.html' %}
+    {% include 'user/components/Fotter.html' %}
+
+<script src="{% static 'user/js/Review.js' %}"></script>
