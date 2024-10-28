@@ -105,7 +105,6 @@
 
     {% include 'mybot/HelpWindow.html' %}
 
-    {% if user.is_authenticated %}
         <div class="chinese-course-section2">
             <div class="course-image2">
                 <img src="{% static 'user/images/review_woman2.jpg' %}" class="course-photo2" alt="Изображение женщины">
@@ -115,8 +114,6 @@
                 </div>
             </div>
         </div>
-    {% endif %}
-
 
     <div class="reviews-container">
         <h1 class = 'title-review'>Отзывы</h1>
