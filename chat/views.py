@@ -25,7 +25,7 @@ def chat_with_tutor(request, chatroom_id):
 
 def tutor_chat_list(request):
     if not request.user.is_authenticated:
-        return redirect('login')
+        return redirect('login-user')
     chatrooms = ChatRoom.objects.filter(responder=request.user)
     return render(request, 'chat/pages/TutorChatList.html', {
         'chatrooms': chatrooms,

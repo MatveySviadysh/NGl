@@ -1,11 +1,16 @@
 import pytest # type: ignore
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from user.models import Tutor 
+from user.models import Tutor
 from mybot.models import SupportMessage
 from user.forms import TutorProfileUpdateForm
-from user.models import UserProfile, Review 
+from user.models import UserProfile, Review
 from django.core.paginator import UnorderedObjectListWarning
+from chat.models import ChatRoom, Message
+from mybot.models import SupportMessage
+from mybot.forms import SupportMessageForm
+from review.models import Comment
+from subscription.models import Subscription
 
 
 User = get_user_model()
@@ -789,6 +794,240 @@ def test_foregin_password_empty_form(client):
     form = response.context['form']
     assert 'username' in form.errors
     assert 'new_password' in form.errors
+
+User = get_user_model()
+
+@pytest.mark.django_db
+class TestChatViews:
+    @pytest.fixture
+    def user(self):
+        return User.objects.create_user(username='testuser', password='password123')
+
+    @pytest.fixture
+    def tutor(self):
+        return User.objects.create_user(username='testtutor', password='password123')
+
+    @pytest.fixture
+    def chatroom(self, user, tutor):
+        return ChatRoom.objects.create(requester=user, responder=tutor)
+
+    @pytest.fixture
+    def initial_message(self, user, tutor, chatroom):
+        return Message.objects.create(sender=user, recipient=tutor, chatroom=chatroom, content='Hello!')
+
+    # Тесты для chat_with_tutor
+    def test_chat_with_tutor_get(self, client, user, chatroom, initial_message):
+        client.login(username='testuser', password='password123')
+        response = client.get(reverse('chat_with_tutor', args=[chatroom.id]))
+
+        assert response.status_code == 200
+        assert 'Hello!' in response.content.decode()  # Проверяем, что сообщение отображается в чате
+        assert 'chat/pages/Chat.html' in [t.name for t in response.templates]
+
+    def test_chat_with_tutor_post(self, client, user, chatroom):
+        client.login(username='testuser', password='password123')
+        response = client.post(reverse('chat_with_tutor', args=[chatroom.id]), {'content': 'New message'})
+
+        assert response.status_code == 200  # Ожидаем 200, так как остались на той же странице
+        assert Message.objects.filter(content='New message').exists()  # Проверяем создание нового сообщения
+
+    def test_chatroom_not_found(self, client, user):
+        client.login(username='testuser', password='password123')
+        response = client.get(reverse('chat_with_tutor', args=[999]))  # Неверный ID чата
+        assert response.status_code == 404  # Ожидаем 404, поскольку чат не существует
+
+    def test_user_not_authenticated_chat_with_tutor(self, client, chatroom):
+        response = client.get(reverse('chat_with_tutor', args=[chatroom.id]))
+        assert response.status_code == 302  # Ожидаем перенаправление
+        assert response.url.startswith(reverse('login-user'))
+
+    # Тесты для tutor_chat_list
+    def test_tutor_chat_list_authenticated(self, client, tutor, chatroom):
+        client.login(username='testtutor', password='password123')
+        response = client.get(reverse('tutor_chat_list'))
+
+        assert response.status_code == 200
+        assert 'chat/pages/TutorChatList.html' in [t.name for t in response.templates]
+        assert chatroom in response.context['chatrooms']  # Проверяем, что чат отображается
+
+    def test_tutor_chat_list_not_authenticated(self, client):
+        response = client.get(reverse('tutor_chat_list'))
+
+        assert response.status_code == 302  # Ожидаем перенаправление
+        assert response.url.startswith(reverse('login-user'))
+
+    # Тесты для user_chats
+    def test_user_chats_authenticated(self, client, user, tutor, chatroom):
+        client.login(username='testuser', password='password123')
+        response = client.get(reverse('user_chats'))
+
+        assert response.status_code == 200
+        assert 'chat/pages/UserChats.html' in [t.name for t in response.templates]
+        assert chatroom in response.context['chatrooms']  # Проверяем, что чат отображается
+
+    def test_user_chats_not_authenticated(self, client):
+        response = client.get(reverse('user_chats'))
+
+        assert response.status_code == 302  # Ожидаем перенаправление
+        assert response.url == reverse('login-user')  # Проверяем, что перенаправляет на страницу входа
+
+User = get_user_model()
+
+@pytest.mark.django_db
+class TestHelpPageViews:
+    @pytest.fixture
+    def user(self):
+        return User.objects.create_user(username='testuser', email='test@example.com', password='password123')
+
+    @pytest.fixture
+    def support_message(self, user):
+        return SupportMessage.objects.create(name=user.username, email=user.email, message='Test message')
+
+    def test_help_page(self, client):
+        response = client.get(reverse('help-page'))
+        assert response.status_code == 200
+        assert 'mybot/HelpPage.html' in [t.name for t in response.templates]
+
+    def test_button_page_get(self, client):
+        response = client.get(reverse('button_page'))
+        assert response.status_code == 200
+        assert isinstance(response.context['form'], SupportMessageForm)
+        assert 'mybot/button.html' in [t.name for t in response.templates]
+
+    def test_button_page_post_authenticated(self, client, user):
+        client.login(username='testuser', password='password123')
+        response = client.post(reverse('button_page'), {'message': 'Test message'})
+        assert response.status_code == 302
+        assert SupportMessage.objects.filter(name='testuser', message='Test message').exists()
+
+    def test_button_page_post_unauthenticated(self, client):
+        response = client.post(reverse('button_page'), {'message': 'Test message'})
+        assert response.status_code == 302
+        assert response.url == reverse('login-user')
+
+    def test_support_message_detail_get(self, client, user, support_message):
+        client.login(username='testuser', password='password123')
+        response = client.get(reverse('support_message_detail', args=[support_message.id]))
+
+        assert response.status_code == 200
+        assert 'mybot/support_message_detail.html' in [t.name for t in response.templates]
+        assert response.context['message'] == support_message
+
+    def test_user_messages_authenticated(self, client, user):
+        client.login(username='testuser', password='password123')
+        message1 = SupportMessage.objects.create(name='testuser', email='test@example.com', message='Message 1')
+        message2 = SupportMessage.objects.create(name='testuser', email='test@example.com', message='Message 2')
+
+        response = client.get(reverse('user_messages'))
+        assert response.status_code == 200
+        assert 'mybot/user_messages.html' in [t.name for t in response.templates]
+        assert message1 in response.context['messages']
+        assert message2 in response.context['messages']
+
+    def test_delete_all_messages(self, client, user):
+        client.login(username='testuser', password='password123')
+        SupportMessage.objects.create(name='testuser', email='test@example.com', message='Message 1')
+
+        response = client.post(reverse('delete_all_messages'))
+        assert response.status_code == 302
+        assert not SupportMessage.objects.filter(name='testuser').exists()
+
+    def test_delete_message(self, client, user, support_message):
+        client.login(username='testuser', password='password123')
+
+        response = client.post(reverse('delete_message', args=[support_message.id]))
+        assert response.status_code == 302
+        assert not SupportMessage.objects.filter(id=support_message.id).exists()
+
+User = get_user_model()
+
+@pytest.mark.django_db
+class TestReviewViews:
+    @pytest.fixture
+    def user(self):
+        return User.objects.create_user(username='testuser', password='password123')
+
+    @pytest.fixture
+    def tutor(self):
+        return Tutor.objects.create(full_name='Test Tutor', specialization='Math')
+
+    @pytest.fixture
+    def comment_data(self):
+        return {
+            'content': 'This is a test comment.',
+            'rating': 5 
+        }
+
+    def test_add_comment_authenticated(self, client, user, tutor, comment_data):
+        client.login(username='testuser', password='password123')
+        response = client.post(reverse('add_comment', args=[tutor.id]), data=comment_data)
+
+        assert response.status_code == 302  # Ожидаем редирект после успешного добавления
+        assert Comment.objects.count() == 1  # Проверяем, что комментарий был добавлен
+        comment = Comment.objects.first()
+        assert comment.content == 'This is a test comment.'  # Проверяем содержимое комментария
+        assert comment.tutor == tutor  # Проверяем, что комментарий принадлежит правильному репетитору
+        assert comment.user == user  # Проверяем, что комментарий принадлежит правильному пользователю
+
+User = get_user_model()
+
+@pytest.mark.django_db
+class TestSubscriptionViews:
+    @pytest.fixture
+    def user(self):
+        return User.objects.create_user(username='testuser', password='password123')
+
+    @pytest.fixture
+    def tutor(self):
+        return Tutor.objects.create(full_name='Test Tutor', specialization='Math')
+
+    def test_subscribe_authenticated(self, client, user, tutor):
+        client.login(username='testuser', password='password123')
+        response = client.post(reverse('subscribe', args=[tutor.id]))
+
+        assert response.status_code == 302  # Ожидаем перенаправление
+        assert Subscription.objects.filter(user=user, tutor=tutor).exists()  # Проверяем, что подписка создана
+        assert response.url == reverse('profile-tutor', args=[tutor.full_name])  # Проверяем правильное перенаправление
+
+    def test_subscribe_not_authenticated(self, client, tutor):
+        response = client.post(reverse('subscribe', args=[tutor.id]))
+        
+        assert response.status_code == 302  # Ожидаем перенаправление
+        assert response.url.startswith(reverse('login-user'))  # Проверяем, что перенаправляет на страницу входа
+
+    def test_unsubscribe_authenticated(self, client, user, tutor):
+        # Сначала создаем подписку
+        Subscription.objects.create(user=user, tutor=tutor)
+        
+        client.login(username='testuser', password='password123')
+        response = client.post(reverse('unsubscribe', args=[tutor.id]))
+
+        assert response.status_code == 302  # Ожидаем перенаправление
+        assert not Subscription.objects.filter(user=user, tutor=tutor).exists()  # Проверяем, что подписка удалена
+        assert response.url == reverse('profile-tutor', args=[tutor.full_name])  # Проверяем правильное перенаправление
+
+    def test_unsubscribe_not_authenticated(self, client, tutor):
+        response = client.post(reverse('unsubscribe', args=[tutor.id]))
+        
+        assert response.status_code == 302  # Ожидаем перенаправление
+        assert response.url.startswith(reverse('login-user'))  # Проверяем, что перенаправляет на страницу входа
+
+    def test_user_subscriptions_authenticated(self, client, user, tutor):
+        # Создаем подписку
+        subscription = Subscription.objects.create(user=user, tutor=tutor)
+        
+        client.login(username='testuser', password='password123')
+        response = client.get(reverse('user_subscriptions'))
+
+        assert response.status_code == 200
+        assert 'subscription/UserSubscriptions.html' in [t.name for t in response.templates]
+        assert subscription in response.context['subscriptions']  # Проверяем, что подписка отображается
+
+    def test_user_subscriptions_not_authenticated(self, client):
+        response = client.get(reverse('user_subscriptions'))
+        
+        assert response.status_code == 302  # Ожидаем перенаправление
+        assert response.url.startswith(reverse('login-user'))  # Проверяем, что перенаправляет на страницу входа
 
 
 
