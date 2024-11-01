@@ -1,11 +1,10 @@
-.chinese-course-section2 {
-    display: flex; 
+.chinese-course-section2 { 
     align-items: center;
-    margin: 80px 360px; 
+    margin: 80px 470px; 
     background-color: #fbfcfe; 
-    border-radius: 15px; 
+    border-radius: 50px; 
     overflow: hidden; 
-    width: 1105px;
+    width: 900px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
 }
 
@@ -14,41 +13,54 @@
     width: 50%;
 }
 
+.course-text2{
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    position: absolute; 
+    width: 420px;
+    top: 100px; 
+    left: 372px; 
+    color: rgba(0, 0, 0, 0.5); /* Белый цвет с 50% прозрачностью */
+}
+
 .course-guarantee2 {
     position: absolute; 
+    width: 500px;
     top: 20px; 
-    left: 700px; 
-    color: white; 
+    left: 350px; 
+    color: rgb(0, 0, 0); 
     font-weight: bold;
     border-radius: 10px;
     font-family: 'Inter', sans-serif;
     font-size: 32px; 
-    background-color: rgba(0, 0, 0, 0.5); 
     padding: 20px; 
 }
 
 .course-button2 {
     position: absolute; 
-    bottom: 70px; 
-    left: -140px; 
+    bottom: 30px; 
+    left: -440px; 
 }
 
 .toggle-button {
-    width: 180px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
     display: inline-block; 
-    background-color: #ff5733;
+    width: 250px;
+    background-color: FF0000;
     color: white;
     border: none; 
     padding: 10px 20px; 
-    border-radius: 5px; 
-    font-size: 26px; 
+    border-radius: 50px; 
+    font-size: 32px; 
     text-decoration: none; 
-    cursor: pointer; 
     transition: background-color 0.3s ease; 
+    user-select: none; /* Запрещаем выделение текста */
 }
 
 .toggle-button:hover {
-    background-color: #c70039;
+    background-color: #d10000;
 }
 
 html {

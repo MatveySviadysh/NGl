@@ -1,5 +1,7 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('cabinet/user/register/', register, name='register-user'),
@@ -22,5 +24,7 @@ urlpatterns = [
     path('about_company/', about_company, name='about_company'),
     path('all_service/', all_service, name='all_service'),
     path('help/', help_page, name='help_page'),
-]
+    path('captcha/', include('captcha.urls')),
+    path('foregin_password/',foregin_password,name = 'foregin_password')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

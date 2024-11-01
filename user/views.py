@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-
+from review.models import Comment
 from chat.models import ChatRoom
 from order.models import UserConsultation
 from subscription.models import Subscription
@@ -14,6 +14,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.http import JsonResponse
 import random
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 @login_required
 def chenge_user_profile(request):
@@ -170,28 +171,49 @@ def edit_tutor_profile(request):
     return render(request, 'user/pages/EditTutorProfile.html', {'form': form})
 
 def profile_tutor(request, full_name):
-    profile = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
+    # Найдем репетитора по полному имени
     tutor = Tutor.objects.filter(full_name=full_name).first()
-    if tutor is None:
-        print("Tutor not found for full_name:", full_name)
-    elif tutor.user is None:
-        print("Tutor found but associated user is None.")
 
-    is_subscribed = Subscription.objects.filter(user=request.user, tutor=tutor).exists() if request.user.is_authenticated else False
-    
-    chatroom, created = ChatRoom.objects.get_or_create(
-        requester=request.user,
-        responder=tutor.user,
-        defaults={'chat_type': 'personal'}
-    )
-    
+    if tutor is None:
+        print("Репетитор не найден для полного имени:", full_name)
+        return render(request, 'user/pages/ProfileTutor.html', {'error': 'Репетитор не найден.'})
+
+    # Получаем профиль, если пользователь аутентифицирован
+    profile = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
+
+    # Проверяем подписку только для аутентифицированных пользователей
+    is_subscribed = False
+    chatroom = None
+
+    if request.user.is_authenticated:
+        # Проверяем, подписан ли пользователь на репетитора
+        is_subscribed = Subscription.objects.filter(user=request.user, tutor=tutor).exists()
+
+        # Проверяем, есть ли ассоциированный пользователь у репетитора
+        if tutor.user is not None:
+            chatroom, created = ChatRoom.objects.get_or_create(
+                requester=request.user,
+                responder=tutor.user,
+                defaults={'chat_type': 'personal'}
+            )
+        else:
+            print("Репетитор найден, но ассоциированный пользователь отсутствует.")
+
+    comments = Comment.objects.filter(tutor=tutor).order_by('-created_at')
+    comments_count = comments.count()
+    star_range = range(1, 6)
+
     return render(request, 'user/pages/ProfileTutor.html', {
         'user': request.user,
         'tutor': tutor,
         'is_subscribed': is_subscribed,
-        'profile':profile,
-        'chatroom':chatroom,
+        'profile': profile,
+        'chatroom': chatroom,
+        'comments': comments,
+        'comments_count': comments_count,
+        'star_range': star_range,
     })
+
 
 def tutor_logout(request):
     if request.method == 'POST':
@@ -221,8 +243,13 @@ def change_password_user(request):
     return render(request, 'user/pages/ChangePassword.html', {'form': form})
 
 def tutor_list_serarch(request):
-    query = request.GET.get('query', '')
-    tutors = Tutor.objects.filter(specialization__icontains=query) if query else []
+    query = request.GET.get('query', '').strip()
+    if query:
+        tutors = Tutor.objects.filter(
+            Q(specialization__icontains=query) | Q(full_name__icontains=query)
+        )
+    else:
+        tutors = []
     return render(request, 'user/pages/TutorsList.html', {
         'tutors': tutors,
         'query': query,
@@ -272,7 +299,38 @@ def about_company(request):
     return render(request, 'user/pages/FotterPage/AboutCompany.html')
 
 def all_service(request):
-    return render(request, 'user/pages/FotterPage/AllService.html')
+    all_specializations = Tutor.objects.values_list('specialization', flat=True).distinct()
+    
+    popular_specializations = (
+        Tutor.objects
+        .values('specialization')
+        .annotate(count=Count('id'))
+        .order_by('-count')[:4]
+    )
+
+    return render(request, 'user/pages/FotterPage/AllService.html', {
+        'all_specializations': all_specializations,
+        'popular_specializations': popular_specializations,
+    })
+
 
 def help_page(request):
     return render(request, 'user/pages/HelpPage.html')
+
+def foregin_password(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            new_password = form.cleaned_data['new_password']
+            try:
+                user = User.objects.get(username=username) 
+                user.set_password(new_password) 
+                user.save()
+                update_session_auth_hash(request, user)  
+                return redirect('login-user')  
+            except User.DoesNotExist:
+                form.add_error('username', 'Пользователь не найден.')  
+    else:
+        form = PasswordResetForm()
+    return render(request, 'user/pages/ForeginPassword.html', {'form': form})

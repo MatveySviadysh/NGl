@@ -1,4 +1,7 @@
 {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Репетиторы предмета</title>  
     <link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
     <link rel="stylesheet" href="{% static 'user/scss/Tutor/TutorList.scss' %}">
     {% include 'user/components/Header.html' %}
@@ -8,7 +11,7 @@
                 заказ
             </a></p>
             <a href="{% url 'help_page' %}" style="text-decoration: none; color: black;"><p>пожержка</p></a>
-            <p>Специалисты {{ tutor_count }}</p>
+            <p>Специалисты ( {{ tutor_count }} )</p>
         </div>
         <div class="tutor-column">
             <div class="rectangle">

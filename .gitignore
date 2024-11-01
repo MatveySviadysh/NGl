@@ -16,6 +16,7 @@ media/
 
 # Virtual environment
 venv/
+.venv
 .env
 
 # Ignore local settings
@@ -26,3 +27,5 @@ local_settings.py
 .vscode/
 
 avatars/Screenshot_from_*
+support_images/
+

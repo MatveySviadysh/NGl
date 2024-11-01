@@ -1,0 +1,155 @@
+.specializations-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+    position: relative;
+
+    .popular-specializations-box {
+        position: sticky;
+        top: 20px;
+        width: 220px;
+        padding: 20px;
+        background-color: #f4f6f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        align-self: flex-start;
+
+        h3 {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            .popular-specialization-item {
+                margin-bottom: 10px;
+
+                a {
+                    color: #3498db;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: color 0.3s ease;
+
+                    &:hover {
+                        color: #1f78b4;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .all-specializations {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            max-width: 1200px;
+            gap: 20px;
+        }
+
+        .specialization-item {
+            flex: 1 1 250px;
+            max-width: 250px;
+            display: flex;
+            justify-content: center;
+
+            a {
+                display: block;
+                padding: 20px;
+                background-color: #f4f6f9;
+                color: #3498db;
+                text-decoration: none;
+                border-radius: 12px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                font-weight: 500;
+                font-size: 1.1em;
+                text-align: center;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    color: #1f78b4;
+                    text-decoration: none !important;
+                    background-color: #e3f2fd;
+                    transform: scale(1.05);
+                    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+                }
+            }
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #e74c3c;
+            text-align: center;
+            margin: 20px 0;
+        }
+    }
+
+    
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+    .specializations-container {
+        flex-direction: column;
+
+        .popular-specializations-box {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+
+    .all-specializations ul {
+        gap: 10px;
+    }
+
+    .all-specializations .specialization-item {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    .all-specializations .specialization-item {
+        flex: 1 1 100%;
+    }
+}
+
+html, body {
+    height: 100%; /* Задаем высоту для html и body */
+    margin: 0; /* Убираем отступы */
+}
+
+body {
+    display: flex; /* Используем flexbox */
+    flex-direction: column; /* Вертикальное размещение элементов */
+}
+
+.container-images {
+    flex-grow: 1; /* Позволяем этому контейнеру занимать всё доступное пространство */
+}
+
+.user/components/Fotter.html {
+    margin-top: auto; /* Перемещаем футер вниз */
+}
+    
+
+

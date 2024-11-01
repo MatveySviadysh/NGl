@@ -1,0 +1,98 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/scss/AllReview.scss' %}">
+<link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
+{% include 'user/components/Header.html' %}
+
+<div class='review-container'>
+    <h2 class='title'>Отзывы о специалистах</h2>
+    
+    {% block content %}
+    {% if page_obj %}
+        <ul>
+            {% for comment in page_obj %}
+            <div class="review-card">
+                <div class="avatar-container">
+                    {% with comment.user.userprofile as profile %}
+                        {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" class="avatar-img" alt="Аватар">
+                        {% else %}
+                            <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-img" alt="Дефолтный аватар">
+                        {% endif %}
+                    {% endwith %}
+                </div>
+
+                <div class="review-content">
+
+                    <div class="review-rating">
+                        {% for i in star_range %}
+                            {% if i <= comment.rating %}
+                                <span class="filled-star">⭐</span>
+                            {% else %}
+                                <span class="empty-star">✩</span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+                    <div>{{ comment.created_at|date:"Y-m-d" }}</div>
+                    <p class="review-comment">{{ comment.content }}</p>
+                </div>
+            </div>
+            {% empty %}
+                <li>Комментарии отсутствуют.</li>
+            {% endfor %}
+        </ul>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; Первая</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                {% endif %}
+
+                <span class="current">
+                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <p>У вас пока нет комментариев.</p>
+    {% endif %}
+    {% endblock %}
+    <div>
+        <a href="{% url 'all_review' %}" class="styled-link">Отзывы о сайте</a>
+    </div>
+</div>
+
+
+<style>
+    .styled-link {
+        margin-top:60px;
+        display: inline-block;        /* Make it a block element */
+        padding: 10px 20px;         /* Add padding for size */
+        background-color: #007BFF;  /* Background color */
+        color: white;                /* Text color */
+        border-radius: 5px;         /* Rounded corners */
+        text-decoration: none;       /* Remove underline */
+        transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+    }
+    
+    .styled-link:hover {
+        background-color: #eee;  /* Darker shade on hover */
+        transform: scale(1.05);      /* Slightly increase size on hover */
+    }
+    
+    .styled-link:active {
+        background-color: #004494;   /* Even darker shade when clicked */
+    }
+    
+</style>
+
+{% include 'mybot/HelpWindow.html' %}
+{% include 'user/components/Fotter.html' %}
+
+<script src="{% static 'user/js/Review.js' %}"></script>

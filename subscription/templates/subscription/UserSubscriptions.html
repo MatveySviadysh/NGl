@@ -1,23 +1,37 @@
-{% block content %}
-<h1>Мои подписки</h1>
+{% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ваши подписки</title>  
+<link rel="stylesheet" href="{% static 'subscription/scss/UserSubscriptions.scss' %}">
+
+{% include 'user/components/Header.html' %}
+
+<h1 class="page-title">Мои подписки</h1>
 
 {% if subscriptions %}
-    <ul>
-    {% for subscription in subscriptions %}
-        <li>
-            <a href="{% url 'profile-tutor' subscription.tutor.full_name %}">
-                {{ subscription.tutor.full_name }} - {{ subscription.tutor.specialization }}
-            </a>
-            <form action="{% url 'unsubscribe' subscription.tutor.id %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit">Отписаться</button>
-            </form>
-        </li>
-    {% endfor %}
+    <ul class="subscription-list">
+        {% for subscription in subscriptions %}
+            <li class="subscription-item">
+                <a href="{% url 'profile-tutor' subscription.tutor.full_name %}" class="tutor-link">
+                    {% if subscription.tutor.avatar %}
+                        <img src="{{ subscription.tutor.avatar.url }}" alt="{{ subscription.tutor.full_name }}'s avatar" class="tutor-avatar">
+                    {% else %}
+                        <img src="{% static 'user/images/default_avatar.jpg' %}" alt="Default avatar" class="tutor-avatar">
+                    {% endif %}
+                    <span>{{ subscription.tutor.full_name }} - {{ subscription.tutor.specialization }}</span>
+                </a>
+                <form action="{% url 'unsubscribe' subscription.tutor.id %}" method="post" class="unsubscribe-form">
+                    {% csrf_token %}
+                    <button type="submit" class="unsubscribe-button">Отписаться</button>
+                </form>
+            </li>
+        {% endfor %}
     </ul>
 {% else %}
-    <p>У вас нет подписок.</p>
+    <p class="no-subscriptions">У вас нет подписок.</p>
 {% endif %}
 
-<a href="{% url 'main-page' %}">Вернуться на главную</a>
-{% endblock %}
+
+<a href="{% url 'main-page' %}" class="back-link">← Вернуться на главную</a>
+
+{% include 'user/components/Fotter.html' %}

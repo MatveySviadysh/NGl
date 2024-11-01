@@ -9,7 +9,7 @@ def answer(request):
     user_consultation = UserConsultation.objects.last()
     tutors = Tutor.objects.filter(
         specialization__icontains=user_consultation.specialization,
-    )[:10]
+    ).order_by('price')
     context = {
         'tutors': tutors,
         'user_consultation': user_consultation,

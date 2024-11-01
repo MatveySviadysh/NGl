@@ -1,0 +1,82 @@
+.page-title {
+    margin-right: 80px;
+    margin-top: 200px;
+    margin-bottom: 70px;
+    text-align: center;
+    color: #333;
+}
+
+.subscription-list {
+    
+    margin-left:  360px;
+    margin-right: 420px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.subscription-item {
+    background: #fff;
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tutor-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #383e44;
+    font-weight: bold;
+    flex-grow: 1; /* Позволяет ссылке занимать оставшееся пространство */
+}
+
+.tutor-avatar {
+    width: 50px; /* Размер аватара */
+    height: 50px; /* Размер аватара */
+    border-radius: 50%; /* Закругленные края для круглого аватара */
+    margin-right: 15px; /* Отступ справа от изображения */
+}
+
+.unsubscribe-form {
+    margin: 0;
+}
+
+.unsubscribe-button {
+    background-color: #ff4757;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.unsubscribe-button:hover {
+    background-color: #e84118;
+}
+
+.no-subscriptions {
+    text-align: center;
+    color: #777;
+    margin-top: 20px;
+}
+
+.back-link {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    margin-right: 80px;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #3b3e41;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}

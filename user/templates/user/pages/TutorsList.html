@@ -1,19 +1,50 @@
 {% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Список репетиторов</title>  
+<link rel="stylesheet" href="{% static 'user/scss/User/Search.scss' %}">
 <link rel="stylesheet" href="{% static 'user/scss/main_page/FontMain.scss' %}">
 {% include 'user/components/Header.html' %}
 <body>
-    <h1>Тьюторы по вашему запросу</h1>
-    <form action="{% url 'tutor-list-serarch' %}" method="GET">
-        <input type="text" name="query" placeholder="Услуга или специалист" value="{{ query }}">
-        <button type="submit">Найти</button>
+    <h1>Поиск</h1>
+    <form action="{% url 'tutor-list-serarch' %}" method="GET" onsubmit="return capitalizeFirstLetter()">
+        <input class="search-bar" type="text" id="query" name="query" placeholder="Введите услугу или специалиста" value="{{ query }}" required>
+        <button class="search-button" type="submit">Найти</button>
     </form>
+    
+    <script>
+        function capitalizeFirstLetter() {
+            var inputField = document.getElementById("query");
+            var value = inputField.value;
+            if (value.length > 0) {
+                value = value.charAt(0).toUpperCase() + value.slice(1);
+                inputField.value = value;
+            }
+            return true;
+        }
+    </script>
+
     <ul>
         {% for tutor in tutors %}
-            <li>{{ tutor.full_name }} - {{ tutor.specialization }}</li>
+            <li class="tutor-card">
+                <a href="{% url 'profile-tutor' tutor.full_name %}">
+                    {% if tutor.avatar %}
+                        <img src="{{ tutor.avatar.url }}" alt="{{ tutor.full_name }}'s avatar" />
+                    {% else %}
+                        <img src="{% static 'user/images/default_avatar.jpg' %}" alt="Default avatar" />
+                    {% endif %}
+                    <div class="tutor-info">
+                        <h2>{{ tutor.full_name }}</h2>
+                        <p>{{ tutor.specialization }}</p>
+                    </div>
+                </a>
+            </li>
         {% empty %}
-            <li>Tutor не найдены.</li>
+            <li class="no-results">Ничего не найдено</li>
         {% endfor %}
     </ul>
+    
+
 </body>
 
 {% include 'user/components/Fotter.html' %}
