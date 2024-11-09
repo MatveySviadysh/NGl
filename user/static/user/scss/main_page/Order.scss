@@ -43,11 +43,11 @@
     font-weight: bold;
     font-family: 'Inter', sans-serif;
     font-size: 18px;
-    color: rgba(0, 0, 0, 0.5); /* Белый цвет с 50% прозрачностью */
+    color: rgba(0, 0, 0, 0.5);
     margin-top: 80px;
     margin-left: 330px; 
-    width: 500px; /* Установить нужную ширину */
-    height: 100px; /* Установить нужную высоту */
+    width: 500px;
+    height: 100px;
 }
 
 
@@ -71,5 +71,5 @@
 
 .course-photo {
     transform: scaleX(-1);
-    clip-path: inset(0 0 0 150px); /* Обрезает 100px справа */
+    clip-path: inset(0 0 0 150px);
 }

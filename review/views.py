@@ -23,7 +23,7 @@ def add_comment(request, tutor_id):
 
 def ALLReviewTutor(request):
     all_reviews = Comment.objects.all()
-    paginator = Paginator(all_reviews, 10)  # 10 reviews per page
-    page_number = request.GET.get('page')  # Get the page number from the request
+    paginator = Paginator(all_reviews, 10)
+    page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     return render(request, 'review/ALLReviewTutor.html',{'all_reviews':all_reviews ,'page_obj': page_obj})

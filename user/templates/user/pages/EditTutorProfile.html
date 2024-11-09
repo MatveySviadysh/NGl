@@ -57,7 +57,6 @@
 {% endblock %}
 <script>
 function capitalizeInput(input) {
-    // Преобразуем каждое слово в заглавную букву
     input.value = input.value.replace(/[^а-яА-ЯёЁ\s]/g, '');
     
     const words = input.value.split(' ');

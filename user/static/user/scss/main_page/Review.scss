@@ -99,15 +99,15 @@
 }
 .reviews-container {
     width: 62%;
-    margin: 0 auto; /* Центрирование блока */
+    margin: 0 auto;
     padding: 20px;
     border-radius: 8px;
 }
 
 .reviews-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
-    gap: 20px; /* Промежуток между карточками */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
 .review-card {
@@ -123,9 +123,9 @@
 .avatar {
     width: 70px;
     height: 70px;
-    border-radius: 50%; /* Круглая форма */
+    border-radius: 50%;
     overflow: hidden;
-    margin-bottom: 15px; /* Отступ снизу */
+    margin-bottom: 15px;
 }
 
 .avatar img {
@@ -134,18 +134,15 @@
 }
 
 .review-rating {
-    background-color: #ffdd57; /* Цвет фона для рейтинга */
+    background-color: #ffdd57;
     padding: 5px 10px;
     border-radius: 5px;
     font-weight: bold;
-    margin: 10px 0; /* Отступ сверху и снизу */
+    margin: 10px 0;
 }
 
-
-
-
 .review-date {
-    color: #777; /* Серый цвет для даты */
-    font-size: 0.9em; /* Уменьшенный шрифт для даты */
-    text-align: center; /* Выравнивание по центру */
+    color: #777;
+    font-size: 0.9em;
+    text-align: center;
 }

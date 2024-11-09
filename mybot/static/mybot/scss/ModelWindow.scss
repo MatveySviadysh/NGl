@@ -5,10 +5,10 @@
     z-index: 1;
     left: 0;
     top: 0;
-    width: 90%; /* Make it responsive */
-    max-width: 400px; /* Maximum width */
-    height: auto; /* Auto height */
-    overflow: auto; /* Allow scrolling if needed */
+    width: 90%;
+    max-width: 400px;
+    height: auto;
+    overflow: auto;
 }
 
 .modal-content {
@@ -20,7 +20,7 @@
     transition: transform 0.3s ease;
 
     &:hover {
-        transform: scale(1.05); /* Hover effect */
+        transform: scale(1.05);
     }
 }
 
@@ -32,7 +32,7 @@
 
     &:hover,
     &:focus {
-        color: #f00; /* Color on hover */
+        color: #f00;
         text-decoration: none;
         cursor: pointer;
     }
@@ -66,8 +66,8 @@
 }
 
 .button-window {
-    background-color: #FF0000; /* Red color */
-    color: white; /* White text */
+    background-color: #FF0000;
+    color: white;
     font-size: 16px;
     padding: 10px 20px;
     border: none;
@@ -78,30 +78,30 @@
 }
 
 .button-window:hover {
-    background-color: #CC0000; /* Darker red on hover */
+    background-color: #CC0000;
 }
 
 .button-window:active {
-   transform: scale(0.95); /* Scale down on click */
+   transform: scale(0.95);
 }
 
 .form {
    display: flex; 
    flex-direction: column; 
-   margin-top: 20px; /* Reduced margin for better fit */
+   margin-top: 20px;
 }
 
 .form-group {
    display: flex; 
    flex-direction: column; 
-   gap: 10px; /* Space between elements */
+   gap: 10px;
 }
 
 textarea {
-   width: calc(100% - 20px); /* Full width minus padding */
-   margin-right: 10px; /* Right margin for spacing */
-   resize: vertical; /* Allow vertical resizing only */
-   padding: 10px; /* Padding inside textarea */
+   width: calc(100% - 20px);
+   margin-right: 10px;
+   resize: vertical;
+   padding: 10px;
 }
 
 .support-text {

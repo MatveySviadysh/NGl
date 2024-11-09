@@ -171,25 +171,15 @@ def edit_tutor_profile(request):
     return render(request, 'user/pages/EditTutorProfile.html', {'form': form})
 
 def profile_tutor(request, full_name):
-    # Найдем репетитора по полному имени
     tutor = Tutor.objects.filter(full_name=full_name).first()
-
     if tutor is None:
         print("Репетитор не найден для полного имени:", full_name)
         return render(request, 'user/pages/ProfileTutor.html', {'error': 'Репетитор не найден.'})
-
-    # Получаем профиль, если пользователь аутентифицирован
     profile = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
-
-    # Проверяем подписку только для аутентифицированных пользователей
     is_subscribed = False
     chatroom = None
-
     if request.user.is_authenticated:
-        # Проверяем, подписан ли пользователь на репетитора
         is_subscribed = Subscription.objects.filter(user=request.user, tutor=tutor).exists()
-
-        # Проверяем, есть ли ассоциированный пользователь у репетитора
         if tutor.user is not None:
             chatroom, created = ChatRoom.objects.get_or_create(
                 requester=request.user,
@@ -311,13 +301,13 @@ def foregin_password(request):
             username = form.cleaned_data['username']
             new_password = form.cleaned_data['new_password']
             try:
-                user = User.objects.get(username=username)  # Получаем пользователя по имени
-                user.set_password(new_password)  # Устанавливаем новый пароль
+                user = User.objects.get(username=username)
+                user.set_password(new_password)
                 user.save()
-                update_session_auth_hash(request, user)  # Обновляем сессию пользователя
-                return redirect('login-user')  # Перенаправляем на нужный URL
+                update_session_auth_hash(request, user)
+                return redirect('login-user')
             except User.DoesNotExist:
-                form.add_error('username', 'Пользователь не найден.')  # Обработка ошибки, если пользователь не найден
+                form.add_error('username', 'Пользователь не найден.')
     else:
         form = PasswordResetForm()
     return render(request, 'user/pages/ForeginPassword.html', {'form': form})
