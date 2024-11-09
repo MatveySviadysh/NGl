@@ -702,6 +702,7 @@ def test_about_company_view(client):
 
 User = get_user_model()
 
+
 @pytest.mark.django_db
 def test_tutor_list_view(client, create_tutors):
     client.login(username='tutor1', password='qwe1234QWER')
