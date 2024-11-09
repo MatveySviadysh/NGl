@@ -289,7 +289,20 @@ def about_company(request):
     return render(request, 'user/pages/FotterPage/AboutCompany.html')
 
 def all_service(request):
-    return render(request, 'user/pages/FotterPage/AllService.html')
+    all_specializations = Tutor.objects.values_list('specialization', flat=True).distinct()
+    
+    popular_specializations = (
+        Tutor.objects
+        .values('specialization')
+        .annotate(count=Count('id'))
+        .order_by('-count')[:4]
+    )
+
+    return render(request, 'user/pages/FotterPage/AllService.html', {
+        'all_specializations': all_specializations,
+        'popular_specializations': popular_specializations,
+    })
+
 
 def help_page(request):
     return render(request, 'user/pages/HelpPage.html')
