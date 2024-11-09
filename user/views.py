@@ -301,13 +301,13 @@ def foregin_password(request):
             username = form.cleaned_data['username']
             new_password = form.cleaned_data['new_password']
             try:
-                user = User.objects.get(username=username)
-                user.set_password(new_password)
+                user = User.objects.get(username=username) 
+                user.set_password(new_password) 
                 user.save()
-                update_session_auth_hash(request, user)
-                return redirect('login-user')
+                update_session_auth_hash(request, user)  
+                return redirect('login-user')  
             except User.DoesNotExist:
-                form.add_error('username', 'Пользователь не найден.')
+                form.add_error('username', 'Пользователь не найден.')  
     else:
         form = PasswordResetForm()
     return render(request, 'user/pages/ForeginPassword.html', {'form': form})
