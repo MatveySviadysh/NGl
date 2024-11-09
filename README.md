@@ -1,7 +1,6 @@
-# 📦 Название проекта
+# 📦 **NGL** 🚀 
 
-**NGL** 🚀  
-**Описание**: NGL — платформа для поиска нужных вам специалистов онлайн. 🌐
+NGL — платформа для поиска нужных вам специалистов онлайн. 🌐
 
 ## 🔧 Установка
 
@@ -20,6 +19,11 @@
     python3 manage.py migrate
     python3 manage.py runserver
     ```
+    ```bash 
+    sudo docker-compose build
+    sudo docker-compose up
+    sudo docker-compose exec web python manage.py migrate
+    ```
 ---
 
 ### 📋 Содержание:
@@ -32,3 +36,4 @@
 ---
 
 ✨ Спасибо за использование NGL! Если у вас есть вопросы, пишите! 📬
+

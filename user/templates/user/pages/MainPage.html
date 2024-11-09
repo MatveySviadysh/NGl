@@ -190,48 +190,44 @@
 
 <style>
     .review-comment {
-        max-width: 200px; /* Максимальная ширина 100 пикселей */
+        max-width: 200px;
         margin: 10px 0;
         font-size: 1.1em;
-        text-align: center; /* Выравнивание текста по центру */
-        overflow: hidden; /* Скрытие переполненного текста */
-        text-overflow: ellipsis; /* Многоточие для переполненного текста */
-        white-space: normal; /* Позволяет переносить текст */
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
     }
     .review-card:hover {
-
-        transform: scale(1.05); /* Увеличение на 5% */
-    
-        background-color: rgba(255, 255, 255, 0.9); /* Немного затемненный цвет фона */
-    
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Добавление тени */
-    
+        transform: scale(1.05);
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
     .imgText {
-        display: flex; /* Ensure flex layout for columns */
-        justify-content: space-between; /* Space out columns evenly */
-        margin: 2rem 0; /* Space above and below the section */
+        display: flex;
+        justify-content: space-between;
+        margin: 2rem 0;
     }
 
     .column2 {
-        flex: 1; /* Distribute columns evenly */
-        margin: 0 1rem; /* Add some space between columns */
-        padding: 0; /* Remove padding inside the column */
-        transition: box-shadow 0.3s; /* Smooth transition for hover effect */
+        flex: 1;
+        margin: 0 1rem;
+        padding: 0;
+        transition: box-shadow 0.3s;
         border-radius: 8px;
     }
 
     .title_column {
-        font-size: 1.5rem; /* Title font size */
-        font-weight: bold; /* Bold font for titles */
+        font-size: 1.5rem;
+        font-weight: bold;
     }
     @media (max-width: 768px) {
         .imgText {
-            flex-direction: column; /* Stack columns on small screens */
+            flex-direction: column;
         }
 
         .column2 {
-            margin: 1rem 0; /* Add vertical space between stacked columns */
+            margin: 1rem 0;
         }
     }
 </style>

@@ -1,10 +1,10 @@
 .form-container {
-    margin: 200px auto; /* Centering the container */
-    width: 400px; /* Width of the container */
-    padding: 20px; /* Inner padding */
-    background-color: #fff; /* White background */
-    border-radius: 16px; /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin: 200px auto;
+    width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-title {
@@ -14,14 +14,14 @@
 }
 
 .form-group {
-    margin-bottom: 15px; /* Space between fields */
+    margin-bottom: 15px;
 }
 
 .form-input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 8px; /* Rounded corners for inputs */
+    border-radius: 8px;
     font-size: 16px;
     font-family: 'Inter', sans-serif;
 }
@@ -31,15 +31,15 @@
     background-color: red;
     color: white;
     border: none;
-    border-radius: 8px; /* Rounded corners for button */
+    border-radius: 8px;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
     font-weight: bold;
     font-size: 15px;
-    transition: background-color 0.3s ease; /* Smooth transition */
+    transition: background-color 0.3s ease;
     width: 100%;
 }
 
 .button:hover {
-    background-color: #D32F2F; /* Darker shade on hover */
+    background-color: #D32F2F;
 }

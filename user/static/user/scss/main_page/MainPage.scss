@@ -25,7 +25,7 @@
   font-size: 35px;
   padding: 10px; 
   margin-right: 9px;
-  transition: background-color 0.3s; /* Плавный переход */
+  transition: background-color 0.3s;
 }
 
 .search-bar::placeholder {
@@ -35,7 +35,7 @@
 }
 
 .search-bar:hover {
-  background-color: #C0C0C0; /* Цвет при наведении */
+  background-color: #C0C0C0;
 }
 
 .search-button {
@@ -48,12 +48,12 @@
   height: 80px;
   width: 220px;
   border-radius: 17px;
-  transition: background-color 0.3s, transform 0.3s; /* Плавный переход */
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .search-button:hover {
-  background-color: darkred; /* Цвет при наведении */
-  transform: scale(1.05); /* Немного увеличиваем кнопку */
+  background-color: darkred;
+  transform: scale(1.05);
 }
 
 .profi{
