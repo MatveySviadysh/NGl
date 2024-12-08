@@ -60,7 +60,7 @@
                     Оставить заявку
                 </a>
             </div>
-            <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины" style="z-index: 1000;">
+            <img src="{% static 'user/images/woman_photo(3)-Photoroom.png' %}" class="course-photo" alt="Изображение женщины"  ">
         </div>
         
         
@@ -109,7 +109,7 @@
         <div class="chinese-course-section2">
             <div class="course-image2">
                 <img src="{% static 'user/images/review_woman2.jpg' %}" class="course-photo2" alt="Изображение женщины">
-                <h3 class="course-guarantee2">Количество отзывов: 34</h3>
+                <h3 class="course-guarantee2">Количество отзывов: {{ coutn_reviews }}</h3>
                 <div class="course-text2">Создайте отзыв о своих впечатлениях! Напишите все самое важное о нас. Надеюсь, что наше сотрудничество продолжится и в будущем, принося все больше знаний!</div>
                 <div class="course-button2">
                     <a href="#reviewSection" class="toggle-button">Создать отзыв</a>

@@ -81,6 +81,7 @@ def tutor_list(request, specialization):
 
 
 def main_page(request):
+    coutn_reviews = Review.objects.all().count()
     count_orders = UserConsultation.objects.all().count()
     if request.user.is_authenticated and hasattr(request.user, 'tutor'):
         tutor = request.user.tutor
@@ -111,6 +112,7 @@ def main_page(request):
         'profile': profile, 
         'tutor':tutor,
         'count_orders':count_orders,
+        'coutn_reviews': coutn_reviews,
     })
 
 def register_tutor(request):
