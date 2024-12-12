@@ -78,11 +78,29 @@
                                 <p><strong>Опыт:</strong> {{ tutor.experience }} лет</p>
                                 <p><strong>Цена за занятие:</strong> {{ tutor.price }} ₽</p>
                                 <p><strong>Услуги:</strong> {{ tutor.services }}</p>
+                                {% if tutor.video %}
+                                    <video width="320" height="240" controls>
+                                        <source src="{{ tutor.video.url }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                {% else %}
+                                    <p>No video uploaded.</p>
+                                {% endif %}
                                 {% if tutor.verified %}
                                     <p><strong>Статус:</strong> Подтверждено</p>
                                 {% else %}
                                     <p><strong>Статус:</strong> Не подтверждено</p>
                                 {% endif %}
+                                <p>
+                                    <strong>
+                                        {% if tutor.verified %}
+                                            ✅ Пользователь прошел верификацию
+                                        {% else %}
+                                            ❌ Пользователь не прошел верификацию
+                                        {% endif %}
+                                    </strong>
+                                </p>
+                                
                             </div>
                             <div class="discount">
                                 <span>–25%</span> На первое занятие

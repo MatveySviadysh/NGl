@@ -4,3 +4,51 @@
     {{ form.as_p }}
     <button type="submit">Submit</button>
 </form>
+<style>
+    /* Основные настройки для формы */
+form {
+    max-width: 600px; /* Ширина формы */
+    margin: 0 auto; /* Центрирование формы */
+    padding: 20px; /* Поля внутри формы */
+    border: 1px solid #ccc; /* Граница формы */
+    border-radius: 8px; /* Закругление углов */
+    background-color: #f9f9f9; /* Цвет фона формы */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+/* Заголовок формы */
+h2 {
+    text-align: center; /* Центрирование заголовка */
+    color: #333; /* Цвет текста заголовка */
+    margin-bottom: 20px; /* Отступ снизу */
+}
+
+/* Стили для полей формы */
+form input[type="text"],
+form textarea {
+    width: 100%; /* Ширина полей 100% */
+    padding: 10px; /* Поля внутри полей */
+    margin-bottom: 15px; /* Отступ снизу */
+    border: 1px solid #ccc; /* Граница полей */
+    border-radius: 4px; /* Закругление углов полей */
+    font-size: 16px; /* Размер шрифта */
+}
+
+/* Стили для кнопки отправки */
+button[type="submit"] {
+    background-color: #4CAF50; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    padding: 10px 15px; /* Поля внутри кнопки */
+    border: none; /* Без границы */
+    border-radius: 4px; /* Закругление углов кнопки */
+    font-size: 16px; /* Размер шрифта кнопки */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s; /* Плавный переход цвета */
+}
+
+/* Эффект наведения на кнопку */
+button[type="submit"]:hover {
+    background-color: #45a049; /* Цвет фона кнопки при наведении */
+}
+
+</style>

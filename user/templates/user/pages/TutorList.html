@@ -23,7 +23,11 @@
                     {% for tutor in tutors %}
                         <li class="tutor-item">
                             <div class="tutor-header">
-                                <img src="{{ tutor.image_url }}" alt="Фото {{ tutor.full_name }}">
+                                {% if tutor.avatar %}
+                                        <img src="{{ tutor.avatar.url }}" class="avatar-image" alt="Аватар">
+                                    {% else %}
+                                        <img src="{% static 'user/images/default_avatar.jpg' %}" class="avatar-image" alt="Дефолтный аватар">
+                                    {% endif %}
                                 <div class="tutor-info">
                                     <a href="{% url 'profile-tutor' tutor.full_name %}">
                                         <strong>{{ tutor.full_name }}</strong>
@@ -38,11 +42,15 @@
                                 <p><strong>Опыт:</strong> {{ tutor.experience }} лет</p>
                                 <p><strong>Цена за занятие:</strong> {{ tutor.price }} ₽</p>
                                 <p><strong>Услуги:</strong> {{ tutor.services }}</p>
-                                {% if tutor.verified %}
-                                    <p><strong>Статус:</strong> Подтверждено</p>
-                                {% else %}
-                                    <p><strong>Статус:</strong> Не подтверждено</p>
-                                {% endif %}
+                                <p>
+                                    <strong>
+                                        {% if tutor.verified %}
+                                            ✅ Пользователь прошел верификацию
+                                        {% else %}
+                                            ❌ Пользователь не прошел верификацию
+                                        {% endif %}
+                                    </strong>
+                                </p>
                             </div>
                             <div class="discount">
                                 <span>–25%</span> На первое занятие
