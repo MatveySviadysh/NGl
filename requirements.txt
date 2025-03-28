@@ -1,4 +1,10 @@
+asgiref
+captcha
 Django
-gunicorn
+django-ranged-response
+django-simple-captcha
 django-widget-tweaks
-Pillow
+gunicorn
+packaging
+pillow
+sqlparse

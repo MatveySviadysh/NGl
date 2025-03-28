@@ -79,12 +79,8 @@
 <script src="{% static 'user/js/ShowPassword.js' %}"></script>
 
 <script>
-
     function validateAndCapitalizeInput(input) {
-        // Удаляем все символы, кроме русских букв и пробелов
         input.value = input.value.replace(/[^а-яА-ЯёЁ\s]/g, '');
-    
-        // Преобразуем каждое слово в заглавную букву
         const words = input.value.split(' ');
         for (let i = 0; i < words.length; i++) {
             if (words[i]) {
@@ -95,29 +91,28 @@
     }
     
 function togglePasswordTutor() {
-    const passwordField = document.querySelector('#id_password'); // Get the password input
+    const passwordField = document.querySelector('#id_password');
     const toggleButton = document.getElementById('toggle-password-tutor');
     
     if (passwordField.type === 'password') {
-        passwordField.type = 'text'; // Show password
-        toggleButton.style.color = '#888'; // Change color to gray
+        passwordField.type = 'text';
+        toggleButton.style.color = '#888';
     } else {
-        passwordField.type = 'password'; // Hide password
-        toggleButton.style.color = ''; // Reset color
+        passwordField.type = 'password';
+        toggleButton.style.color = '';
     }
 }
 
-// Function to toggle confirmation password visibility for tutor registration
 function togglePasswordConfirmTutor() {
-    const passwordField = document.querySelector('#id_password_confirm'); // Get the confirm password input
+    const passwordField = document.querySelector('#id_password_confirm');
     const toggleButton = document.getElementById('toggle-password-confirm-tutor');
     
     if (passwordField.type === 'password') {
-        passwordField.type = 'text'; // Show password
-        toggleButton.style.color = '#888'; // Change color to gray
+        passwordField.type = 'text';
+        toggleButton.style.color = '#888';
     } else {
-        passwordField.type = 'password'; // Hide password
-        toggleButton.style.color = ''; // Reset color
+        passwordField.type = 'password';
+        toggleButton.style.color = '';
     }
 }
 </script>
@@ -129,16 +124,16 @@ function togglePasswordConfirmTutor() {
 
 .toggle-button {
     position: absolute;
-    right: 10px; /* Space from the right */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    background-color: transparent; /* Transparent background */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor on hover */
-    color: #aaa; /* Default color for the button */
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #aaa;
 }
 
 .toggle-button:hover {
-    color: #555; /* Darker color on hover */
+    color: #555;
 }
 </style>

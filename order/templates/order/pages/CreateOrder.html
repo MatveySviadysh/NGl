@@ -53,7 +53,6 @@
                             </li>
                             <li>
                                 <label>Специализация специалиста:</label><br>
-                                <!-- Call the validateAndCapitalizeInput function on input -->
                                 <input type="text"
                                        id="specialization"
                                        name="specialization"
@@ -65,13 +64,9 @@
                         <button type="button" onclick="clearForm()">Очистить</button>
                     </form>
 
-                    <!-- JavaScript for validation and completion percentage -->
                     <script>
                         function validateAndCapitalizeInput(input) {
-                            // Удаляем все символы, кроме русских букв и пробелов
                             input.value = input.value.replace(/[^а-яА-ЯёЁ\s]/g, '');
-    
-                            // Преобразуем каждое слово в заглавную букву
                             const words = input.value.split(' ');
                             for (let i = 0; i < words.length; i++) {
                                 if (words[i]) {
@@ -84,19 +79,14 @@
                         function validateSpecialization() {
                             const specializationInput = document.getElementById('specialization');
                             const specializationValue = specializationInput.value.trim();
-
-                            // Check if the first letter is uppercase
                             if (specializationValue.length === 0 || !/^[А-ЯЁ]/.test(specializationValue)) {
                                 alert('Специализация должна начинаться с заглавной буквы и быть на русском языке.');
-                                return false; // Prevent form submission
+                                return false;
                             }
-
-                            // Check if the input contains only Russian letters and spaces
                             if (!/^[А-ЯЁа-яё\s]+$/.test(specializationValue)) {
                                 alert('Специализация должна содержать только русские буквы.');
-                                return false; // Prevent form submission
+                                return false;
                             }
-
                             return true;
                         }
                         
@@ -108,36 +98,28 @@
                         }
 
                         function updateCompletionPercentage() {
-                            const totalFields = 9; // Total number of fields to track
+                            const totalFields = 9;
                             let filledFields = 0;
-
-                            // Check each field for completion
                             const age = document.querySelector('input[name=age]').value;
                             const price = document.querySelector('input[name=price]').value;
-                            
-                            // Count radio buttons
                             const targetAudience = document.querySelectorAll('input[name=target_audience]:checked').length;
                             const gender = document.querySelectorAll('input[name=gender]:checked').length;
                             const consultationCount = document.querySelectorAll('input[name=consultation_count]:checked').length;
                             const meetingFormat = document.querySelectorAll('input[name=meeting_format]:checked').length;
 
-                            // Increment filledFields based on user inputs
                             if (age) filledFields++;
                             if (price) filledFields++;
-                            
                             if (targetAudience > 0) filledFields++;
                             if (gender > 0) filledFields++;
                             if (consultationCount > 0) filledFields++;
                             if (meetingFormat > 0) filledFields++;
 
-                             // Check textarea and specialization input
                              const comments = document.querySelector('textarea[name=comments]').value;
                              const specialization = document.getElementById('specialization').value;
 
                              if (comments) filledFields++;
                              if (specialization) filledFields++;
 
-                             // Calculate percentage
                              const percentage = Math.round((filledFields / totalFields) * 100);
                              document.getElementById('completion-percentage').innerText = `заказ ${percentage}%`;
                         }

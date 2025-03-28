@@ -12,7 +12,7 @@
         <ul class="tutor-list">
             {% for tutor in tutors %}
                 <li class="tutor-item">
-                    <a href="{% url 'profile-tutor' tutor.full_name %}" class="tutor-card">  <!-- <a> оборачивает весь блок -->
+                    <a href="{% url 'profile-tutor' tutor.full_name %}" class="tutor-card">
                         {% if tutor.avatar %}
                             <img src="{{ tutor.avatar.url }}" alt="{{ tutor.full_name }}'s avatar" class="tutor-avatar" />
                         {% else %}
@@ -26,7 +26,7 @@
                             <p class="tutor-rating">Рейтинг: {{ tutor.rating }}</p>
                             <p class="tutor-price">Цена за консультацию: <strong>{{ tutor.price }} руб.</strong></p>
                         </div>
-                    </a> <!-- Закрываем <a> здесь -->
+                    </a>
                 </li>
             {% endfor %}
         </ul>
@@ -60,12 +60,12 @@
         padding: 15px;
         align-items: center;
         background-color: #f9f9f9;
-        text-decoration: none; /* Убираем подчеркивание ссылок */
-        color: inherit; /* Устанавливаем цвет текста по умолчанию */
+        text-decoration: none;
+        color: inherit;
     }
     
     .tutor-card:hover {
-        background-color: #e9ecef; /* Цвет фона при наведении для лучшей видимости */
+        background-color: #e9ecef;
     }
     
     .tutor-avatar, .avatar-image {
@@ -94,7 +94,7 @@
     }
     
     .tutor-price strong {
-        color: #d9534f; /* Цвет для обозначения цены */
+        color: #d9534f;
     }
 </style>
 

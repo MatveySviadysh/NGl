@@ -81,6 +81,7 @@ def tutor_list(request, specialization):
 
 
 def main_page(request):
+    coutn_reviews = Review.objects.all().count()
     count_orders = UserConsultation.objects.all().count()
     if request.user.is_authenticated and hasattr(request.user, 'tutor'):
         tutor = request.user.tutor
@@ -111,6 +112,7 @@ def main_page(request):
         'profile': profile, 
         'tutor':tutor,
         'count_orders':count_orders,
+        'coutn_reviews': coutn_reviews,
     })
 
 def register_tutor(request):
@@ -171,25 +173,15 @@ def edit_tutor_profile(request):
     return render(request, 'user/pages/EditTutorProfile.html', {'form': form})
 
 def profile_tutor(request, full_name):
-    # Найдем репетитора по полному имени
     tutor = Tutor.objects.filter(full_name=full_name).first()
-
     if tutor is None:
         print("Репетитор не найден для полного имени:", full_name)
         return render(request, 'user/pages/ProfileTutor.html', {'error': 'Репетитор не найден.'})
-
-    # Получаем профиль, если пользователь аутентифицирован
     profile = UserProfile.objects.get(user=request.user) if request.user.is_authenticated else None
-
-    # Проверяем подписку только для аутентифицированных пользователей
     is_subscribed = False
     chatroom = None
-
     if request.user.is_authenticated:
-        # Проверяем, подписан ли пользователь на репетитора
         is_subscribed = Subscription.objects.filter(user=request.user, tutor=tutor).exists()
-
-        # Проверяем, есть ли ассоциированный пользователь у репетитора
         if tutor.user is not None:
             chatroom, created = ChatRoom.objects.get_or_create(
                 requester=request.user,

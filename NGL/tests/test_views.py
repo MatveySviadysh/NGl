@@ -1028,8 +1028,3 @@ class TestSubscriptionViews:
         
         assert response.status_code == 302  # Ожидаем перенаправление
         assert response.url.startswith(reverse('login-user'))  # Проверяем, что перенаправляет на страницу входа
-
-
-
-
-
