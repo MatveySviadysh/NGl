@@ -5,7 +5,7 @@ NGL — платформа для поиска нужных вам специа�
 ## 🔧 Установка
 
 1. Клонируйте репозиторий:
-    ```bash
+    ```
     git clone https://github.com/yourusername/yourproject.git
     cd NGL
     ```
@@ -14,19 +14,29 @@ NGL — платформа для поиска нужных вам специа�
 ## 💻 Использование
 
 2. Запустите проект:
-    ```bash
+    ```
     python3 manage.py makemigrations
     python3 manage.py migrate
     python3 manage.py runserver
     ```
-    ```bash 
+    
+    ```
     sudo docker-compose build
     sudo docker-compose up
     sudo docker-compose exec web python manage.py migrate
     ```
+
     ```
     docker build -f Dockerfile.app -t ngl-app .
     docker run -d -p 8000:8000 ngl-app 
+    ```
+
+    ```
+    Supervisor
+
+    sudo supervisorctl reread
+    sudo supervisorctl update
+    sudo supervisorctl restart django
     ```
 ---
 
@@ -38,6 +48,3 @@ NGL — платформа для поиска нужных вам специа�
 - **Функции**: Основные функциональные возможности вашего проекта.
 
 ---
-
-✨ Спасибо за использование NGL! Если у вас есть вопросы, пишите! 📬
-

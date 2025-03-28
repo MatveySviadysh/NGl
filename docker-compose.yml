@@ -11,6 +11,19 @@ services:
     depends_on:
       - app
 
+  redis:
+    image: redis:latest
+    container_name: redis_cache
+    restart: always
+  
+  celery:
+    build: .
+    container_name: celery_worker
+    command: celery -A NGL worker --loglevel=info
+    depends_on:
+      - redis
+      - web
+    
   app:
     build: .
     restart: always
