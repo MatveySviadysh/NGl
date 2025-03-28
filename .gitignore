@@ -11,6 +11,7 @@ staticfiles/
 media/
 
 venv/
+.venv/
 .venv
 .env
 
@@ -22,3 +23,6 @@ local_settings.py
 avatars/Screenshot_from_*
 support_images/
 
+
+videos
+avatars

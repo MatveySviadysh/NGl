@@ -24,6 +24,10 @@ NGL — платформа для поиска нужных вам специа�
     sudo docker-compose up
     sudo docker-compose exec web python manage.py migrate
     ```
+    ```
+    docker build -f Dockerfile.app -t ngl-app .
+    docker run -d -p 8000:8000 ngl-app 
+    ```
 ---
 
 ### 📋 Содержание:

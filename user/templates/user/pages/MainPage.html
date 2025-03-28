@@ -60,19 +60,19 @@
                     Оставить заявку
                 </a>
             </div>
-            <img src="{% static 'user/images/bg_woman.jpg' %}" class="course-photo" alt="Изображение женщины" style="z-index: 1000;">
+            <img src="{% static 'user/images/woman_photo(3)-Photoroom.png' %}" class="course-photo" alt="Изображение женщины"  ">
         </div>
         
         
         <p class="profi">Наши профи</p>
         <div>
-            <div class="text-column">
+            <div class="text-column333">
                 {% for specialization in specializations %}
-                    <div class="column">
-                        <a class="textBox" href="{% url 'tutor_list' specialization %}">{{ specialization }}</a>
+                    <div class="column333">
+                        <a class="textBox333" href="{% url 'tutor_list' specialization %}">{{ specialization }}</a>
                     </div>
                 {% empty %}
-                    <div class="column">Нет доступных специализаций.</div>
+                    <div class="column333">Нет доступных специализаций.</div>
                 {% endfor %}
             </div>
         </div>
@@ -109,7 +109,7 @@
         <div class="chinese-course-section2">
             <div class="course-image2">
                 <img src="{% static 'user/images/review_woman2.jpg' %}" class="course-photo2" alt="Изображение женщины">
-                <h3 class="course-guarantee2">Количество отзывов: 34</h3>
+                <h3 class="course-guarantee2">Количество отзывов: {{ coutn_reviews }}</h3>
                 <div class="course-text2">Создайте отзыв о своих впечатлениях! Напишите все самое важное о нас. Надеюсь, что наше сотрудничество продолжится и в будущем, принося все больше знаний!</div>
                 <div class="course-button2">
                     <a href="#reviewSection" class="toggle-button">Создать отзыв</a>
@@ -189,6 +189,29 @@
 <script src="{% static 'user/js/Review.js' %}"></script>
 
 <style>
+    .text-column333 {
+        display: flex;           /* Включаем Flexbox */
+        flex-wrap: wrap;        /* Позволяет элементам переноситься на новую строку */
+        font-family: 'Inter', sans-serif; /* Шрифт */
+        color: black;           /* Цвет текста */
+        font-size: 20px;        /* Размер шрифта */
+        margin-right: -10px;    /* Убираем отступы, чтобы не было лишнего пробела */
+      }
+      
+      .column333 {
+        flex: 0 1 calc(20% - 10px); /* Устанавливаем ширину колонки, чтобы было 5 колонок */
+        padding: 0;               /* Убираем отступы внутри колонки */
+        box-sizing: border-box;   /* Учитываем отступы и границы в общую ширину */
+        text-align: left;         /* Выравнивание текста */
+        margin-left: 10px;       /* Отступ слева для колонки */
+        margin-bottom: 20px;     /* Отступ снизу для колонки */
+      }
+      
+      /* Убираем левый отступ у первой колонки */
+      .text-column333 .column333:first-child {
+        margin-left: 0;
+      }
+      
     .review-comment {
         max-width: 200px;
         margin: 10px 0;
