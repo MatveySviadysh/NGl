@@ -11,10 +11,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import  os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 SECRET_KEY = 'django-insecure-h2u!y=0tqz$in@nqr3!ghe07fg&ghgekyo()5v*8l5c&88ha@t'
 
@@ -103,7 +109,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-STATIC_URL = 'static/'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
